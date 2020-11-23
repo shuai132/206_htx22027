@@ -1,8 +1,8 @@
 /***************************************************************
-*ÎÄ¼şÃû³Æ£ºdrvAdc.c
-*ÎÄ¼şËµÃ÷£ºADÇı¶¯½Ó¿ÚÊµÏÖ
-*°æ±¾ºÅ£º1.00
-*¿ª·¢»·¾³£ºworkbench3.3
+*æ–‡ä»¶åç§°ï¼šdrvAdc.c
+*æ–‡ä»¶è¯´æ˜ï¼šADé©±åŠ¨æ¥å£å®ç°
+*ç‰ˆæœ¬å·ï¼š1.00
+*å¼€å‘ç¯å¢ƒï¼šworkbench3.3
 ****************************************************************/
 #include <stdio.h>
 #include <string.h>
@@ -19,17 +19,17 @@
 volatile UINT32 g_baudrate = DRV_AD_BRAD_20K;
 
 enum DRV_AD_FIFO_STA_EN{
-	DRV_AD_BIGDATA_STA = 0x80000000,	/*´óÊı¾İ²ÉÑùÍê³É±êÖ¾*/
-	DRV_AD_AVERAGE_STA = 0x40000000		/*ÇóÆ½¾ù²ÉÑùÍê³É±êÖ¾*/
+	DRV_AD_BIGDATA_STA = 0x80000000,	/*å¤§æ•°æ®é‡‡æ ·å®Œæˆæ ‡å¿—*/
+	DRV_AD_AVERAGE_STA = 0x40000000		/*æ±‚å¹³å‡é‡‡æ ·å®Œæˆæ ‡å¿—*/
 };
 
 FUNCPAD g_routine = NULL;
 UINT16 g_adSampVla[6000] = {0};
 
 /******************************************************
- * Func: ad´óÊı¾İ²É¼¯ÖĞ¶ÏÈë¿Úº¯Êı
- * param1£º¼ÆÊ±Æ÷±àºÅ
- * return£ºÖ´ĞĞ½á¹û
+ * Func: adå¤§æ•°æ®é‡‡é›†ä¸­æ–­å…¥å£å‡½æ•°
+ * param1ï¼šè®¡æ—¶å™¨ç¼–å·
+ * returnï¼šæ‰§è¡Œç»“æœ
  * ****************************************************/
 LOCAL void usrAdIsr(int index)
 {
@@ -45,7 +45,7 @@ LOCAL void usrAdIsr(int index)
     }
 }
 
-/*²ÉÑùÆµÂÊÅäÖÃ*/
+/*é‡‡æ ·é¢‘ç‡é…ç½®*/
 LOCAL INT32 drvAdBaudrateSet(UINT32 baud)
 {
     UINT32 baudrate, chnoCnt, ret, i;
@@ -57,14 +57,14 @@ LOCAL INT32 drvAdBaudrateSet(UINT32 baud)
         return DRV_ERRNO_ADC_PARARM_INVALID;       
     }
 
-    ret = (UINT16)pl_reg_read(PL_SEQ_REG1_ADDR);    /*¶ÁÍ¨µÀÊ¹ÄÜ×´Ì¬*/
+    ret = (UINT16)pl_reg_read(PL_SEQ_REG1_ADDR);    /*è¯»é€šé“ä½¿èƒ½çŠ¶æ€*/
     chnoCnt = 0;
     for(i=0;i<16;i++)
     {
         if(ret & (1 << i))
             chnoCnt++;
     }
-    ret = (UINT16)pl_reg_read(PL_SEQ_REG0_ADDR);    /*¶ÁÎÂ¶ÈµÈÍ¨µÀÄÜ×´Ì¬*/
+    ret = (UINT16)pl_reg_read(PL_SEQ_REG0_ADDR);    /*è¯»æ¸©åº¦ç­‰é€šé“èƒ½çŠ¶æ€*/
     for(i=0;i<16;i++)
     {
         if(ret & (1 << i))
@@ -87,7 +87,7 @@ LOCAL INT32 drvAdBaudrateSet(UINT32 baud)
 LOCAL INT32 drvAdChnoSet(UINT16 chno)
 {
     UINT16 tmpChno;
-    tmpChno = chno | 0x8000;        /*Ä¬ÈÏ´ò¿ªµÚ16¸öÍ¨µÀ*/
+    tmpChno = chno | 0x8000;        /*é»˜è®¤æ‰“å¼€ç¬¬16ä¸ªé€šé“*/
     pl_reg_write(PL_SEQ_REG1_ADDR, tmpChno);
     if(pl_reg_read(PL_SEQ_REG1_ADDR) != tmpChno)
     {
@@ -99,7 +99,7 @@ LOCAL INT32 drvAdChnoSet(UINT16 chno)
     return DRV_OPERATE_SUCCESS;
 }
 
-/*²ÉÑùÄ£Ê½ÅäÖÃ*/
+/*é‡‡æ ·æ¨¡å¼é…ç½®*/
 LOCAL INT32 drvAdModeSet(UINT32 mode)
 {
     INT32 ret;
@@ -108,12 +108,12 @@ LOCAL INT32 drvAdModeSet(UINT32 mode)
     ret = ret|0x00003000;
     pl_reg_write(PL_CFG_REG1_ADDR, ret);
     drv_delay_ms(1);
-    if(mode == 0)                /*ËùÑ¡Í¨µÀµ¥´Î²ÉÑù*/
+    if(mode == 0)                /*æ‰€é€‰é€šé“å•æ¬¡é‡‡æ ·*/
     {
         ret = ret&0xFFFF0FFF;
         ret = ret|0x00001000;
     }
-    else if(mode == 1)           /*ËùÑ¡Í¨µÀÑ­»·²ÉÑù*/ 
+    else if(mode == 1)           /*æ‰€é€‰é€šé“å¾ªç¯é‡‡æ ·*/ 
     {
         ret = ret&0xFFFF0FFF;
         ret = ret|0x00002000;
@@ -137,9 +137,9 @@ LOCAL INT32 drvAdModeSet(UINT32 mode)
 }
 
 /******************************************************
- * Func: AD³õÊ¼»¯º¯Êı
- * param1£ºÔ¤Áô²ÎÊı
- * return£ºÖ´ĞĞ½á¹û
+ * Func: ADåˆå§‹åŒ–å‡½æ•°
+ * param1ï¼šé¢„ç•™å‚æ•°
+ * returnï¼šæ‰§è¡Œç»“æœ
  * ****************************************************/
 INT32 drvAdInit(UINT32  reserve)
 {
@@ -148,9 +148,9 @@ INT32 drvAdInit(UINT32  reserve)
 }
 
 /******************************************************
- * Func: AD²ÎÊıÉèÖÃº¯Êı
- * param1£ºÅäÖÃ²ÎÊı½á¹¹ÌåÖ¸Õë
- * return£ºÖ´ĞĞ½á¹û
+ * Func: ADå‚æ•°è®¾ç½®å‡½æ•°
+ * param1ï¼šé…ç½®å‚æ•°ç»“æ„ä½“æŒ‡é’ˆ
+ * returnï¼šæ‰§è¡Œç»“æœ
  * ****************************************************/
 INT32 drvAdParamSet(DRV_AD_CFG_ST *pCfg)
 {
@@ -164,21 +164,21 @@ INT32 drvAdParamSet(DRV_AD_CFG_ST *pCfg)
         return DRV_ERRNO_ADC_PARARM_INVALID;
     }
 
-/*²ÉÑùÄ£Ê½ÅäÖÃ*/
+/*é‡‡æ ·æ¨¡å¼é…ç½®*/
     ret = drvAdModeSet(pCfg->mode);
     if(ret != OK)
     {
         return ret;
     }
 
-/*²ÉÑùÍ¨µÀÅäÖÃ*/
+/*é‡‡æ ·é€šé“é…ç½®*/
     ret = drvAdChnoSet(pCfg->chnobits);
     if(ret != OK)
     {
         return ret;
     }
 
-/*²ÉÑùÆµÂÊÅäÖÃ*/
+/*é‡‡æ ·é¢‘ç‡é…ç½®*/
     ret = drvAdBaudrateSet(pCfg->baudrate);
     if(ret != OK)
     {
@@ -189,11 +189,11 @@ INT32 drvAdParamSet(DRV_AD_CFG_ST *pCfg)
 }
 
 /******************************************************
- * Func: ADÇı¶¯ÖĞ¶Ï»Øµ÷º¯Êı×¢²áº¯Êı
- * param1£º¼ÆÊ±Æ÷±àºÅ
- * param2£ºÓÃ»§»Øµ÷º¯Êı
- * param3£º»Øµ÷²ÎÊı
- * return£ºÖ´ĞĞ½á¹û
+ * Func: ADé©±åŠ¨ä¸­æ–­å›è°ƒå‡½æ•°æ³¨å†Œå‡½æ•°
+ * param1ï¼šè®¡æ—¶å™¨ç¼–å·
+ * param2ï¼šç”¨æˆ·å›è°ƒå‡½æ•°
+ * param3ï¼šå›è°ƒå‚æ•°
+ * returnï¼šæ‰§è¡Œç»“æœ
  * ****************************************************/
 INT32 drvAdIntConnect(FUNCPAD routine)
 {
@@ -225,10 +225,10 @@ INT32 drvAdIntConnect(FUNCPAD routine)
 }
 
 /******************************************************
- * Func: AD²ÉÑùÖµ¶Áº¯Êı
- * param1£º²ÉÑùÍ¨µÀ
- * param2£º¶Á²ÉÑùÖµ»º³åÖ¸Õë
- * return£ºÖ´ĞĞ³É¹¦·µ»Ø0£¬´íÎó·µ»Ø´íÎó´úÂë
+ * Func: ADé‡‡æ ·å€¼è¯»å‡½æ•°
+ * param1ï¼šé‡‡æ ·é€šé“
+ * param2ï¼šè¯»é‡‡æ ·å€¼ç¼“å†²æŒ‡é’ˆ
+ * returnï¼šæ‰§è¡ŒæˆåŠŸè¿”å›0ï¼Œé”™è¯¯è¿”å›é”™è¯¯ä»£ç 
  * ****************************************************/
 INT32 drvAdRead(UINT16 chno, UINT16 *pBuff)
 {
@@ -251,9 +251,9 @@ INT32 drvAdRead(UINT16 chno, UINT16 *pBuff)
 }
 
 /******************************************************
- * Func: AD´óÊı¾İ²ÉÑù²ÎÊıÉèÖÃ
- * param1£º´óÊı¾İ²ÉÑù²ÎÊı½á¹¹Ìå
- * return£º³É¹¦·µ»Ø0£¬Ê§°Ü·µ»Ø´íÎóÂë
+ * Func: ADå¤§æ•°æ®é‡‡æ ·å‚æ•°è®¾ç½®
+ * param1ï¼šå¤§æ•°æ®é‡‡æ ·å‚æ•°ç»“æ„ä½“
+ * returnï¼šæˆåŠŸè¿”å›0ï¼Œå¤±è´¥è¿”å›é”™è¯¯ç 
  * ****************************************************/
 INT32 drvAdBigDataSet(DRV_AD_BIGDATA_ST *pCfg)
 {
@@ -267,13 +267,13 @@ INT32 drvAdBigDataSet(DRV_AD_BIGDATA_ST *pCfg)
         return DRV_ERRNO_ADC_PARARM_INVALID;
     }
 
-    chno = pl_reg_read(PL_SEQ_REG1_ADDR);   /*Í¨µÀÑ¡Ôñ*/
+    chno = pl_reg_read(PL_SEQ_REG1_ADDR);   /*é€šé“é€‰æ‹©*/
     config.baudrate = g_baudrate;
     config.chnobits = pCfg->m_chno1 | pCfg->m_chno2 | pCfg->m_chno3 | chno;
-    config.mode = 1;                        /*Ñ­»·²ÉÑù*/
+    config.mode = 1;                        /*å¾ªç¯é‡‡æ ·*/
     drvAdParamSet(&config);
 
-    pl_reg_write(PL_FIFO_STA_CLEAR_ADDR, 0x03);     /*¸´Î»´óÊı¾İ²ÉÑùFIFO*/
+    pl_reg_write(PL_FIFO_STA_CLEAR_ADDR, 0x03);     /*å¤ä½å¤§æ•°æ®é‡‡æ ·FIFO*/
 
     ret = 0;
     for(i=0;i<11;i++)
@@ -330,11 +330,11 @@ INT32 drvAdBigDataSet(DRV_AD_BIGDATA_ST *pCfg)
 }
 
 /******************************************************
- * Func: AD´óÊı¾İ²ÉÑùÖµ¶Áº¯Êı
- * param1£º¶ÁÊı¾İ»º³åÇøÖ¸Õë
- * param2£º¶ÁÊı¾İ³¤¶È
- * param3£º¶ÁÊı¾İ³¬Ê±Ê±¼ä
- * return£º³É¹¦·µ»Ø¶ÁÊı¾İ³¤¶È£¬Ê§°Ü·µ»Ø´íÎóÂë
+ * Func: ADå¤§æ•°æ®é‡‡æ ·å€¼è¯»å‡½æ•°
+ * param1ï¼šè¯»æ•°æ®ç¼“å†²åŒºæŒ‡é’ˆ
+ * param2ï¼šè¯»æ•°æ®é•¿åº¦
+ * param3ï¼šè¯»æ•°æ®è¶…æ—¶æ—¶é—´
+ * returnï¼šæˆåŠŸè¿”å›è¯»æ•°æ®é•¿åº¦ï¼Œå¤±è´¥è¿”å›é”™è¯¯ç 
  * ****************************************************/
 INT32 drvAdBigDataRead(UINT16 *pData, INT32 timeout)
 {
@@ -350,11 +350,11 @@ INT32 drvAdBigDataRead(UINT16 *pData, INT32 timeout)
     drv_delay_ms(1000);
     tmpLen = 0;
     ret = pl_reg_read(PL_AD_FIFO_STATE_ADDR);
-    if(ret & DRV_AD_BIGDATA_STA)    /*´óÊı¾İ²É¼¯Íê³É*/
+    if(ret & DRV_AD_BIGDATA_STA)    /*å¤§æ•°æ®é‡‡é›†å®Œæˆ*/
     {   
         tmpLen = ret & 0xffff;
     }
-    else if(timeout == -1)          /*×èÈûµÈ´ı´óÊı¾İ²É¼¯Íê³É*/
+    else if(timeout == -1)          /*é˜»å¡ç­‰å¾…å¤§æ•°æ®é‡‡é›†å®Œæˆ*/
     { 
         while(1)
         {
@@ -367,7 +367,7 @@ INT32 drvAdBigDataRead(UINT16 *pData, INT32 timeout)
             }
         }
     }
-    else if(timeout)               /*×èÈûtimeoutµÈ´ı´óÊı¾İ²É¼¯Íê³É*/
+    else if(timeout)               /*é˜»å¡timeoutç­‰å¾…å¤§æ•°æ®é‡‡é›†å®Œæˆ*/
     {
         while(timeout--)
         {
@@ -389,17 +389,17 @@ INT32 drvAdBigDataRead(UINT16 *pData, INT32 timeout)
         pData[i] = pl_reg_read(PL_AD_FIFO_REG_ADDR);
     }
 
-    pl_reg_write(PL_FIFO_STA_CLEAR_ADDR, (1 << 1)); /*Çå³ı´óÊı¾İ×´Ì¬*/
+    pl_reg_write(PL_FIFO_STA_CLEAR_ADDR, (1 << 1)); /*æ¸…é™¤å¤§æ•°æ®çŠ¶æ€*/
     return tmpLen;
 }
 
 /******************************************************
- * Func: AD¶ÁÇóÆ½¾ùÖµº¯Êı
- * param1£ºÍ¨µÀÑ¡Ôñ
- * param2£ºÇóÆ½¾ùÖµ²ÉÑù´ÎÊı
- * param3£º¶ÁÇóÆ½¾ù½á¹û»º´æ
- * param3£º³¬Ê±Ê±¼ä£¬µ¥Î»ms
- * return£º³É¹¦·µ»Ø0£¬Ê§°Ü·µ»Ø´íÎóÂë
+ * Func: ADè¯»æ±‚å¹³å‡å€¼å‡½æ•°
+ * param1ï¼šé€šé“é€‰æ‹©
+ * param2ï¼šæ±‚å¹³å‡å€¼é‡‡æ ·æ¬¡æ•°
+ * param3ï¼šè¯»æ±‚å¹³å‡ç»“æœç¼“å­˜
+ * param3ï¼šè¶…æ—¶æ—¶é—´ï¼Œå•ä½ms
+ * returnï¼šæˆåŠŸè¿”å›0ï¼Œå¤±è´¥è¿”å›é”™è¯¯ç 
  * ****************************************************/
 INT32 drvAdAverageRead(DRV_AD_CHNOSEL_EN chno, DRV_AD_AVG_EN times, \
                         UINT16 *pData, INT32 timeout)
@@ -421,7 +421,7 @@ INT32 drvAdAverageRead(DRV_AD_CHNOSEL_EN chno, DRV_AD_AVG_EN times, \
         return DRV_ERRNO_ADC_PARARM_INVALID;
     }
 
-    tmpChno = pl_reg_read(PL_SEQ_REG1_ADDR); /*Í¨µÀÑ¡Ôñ*/
+    tmpChno = pl_reg_read(PL_SEQ_REG1_ADDR); /*é€šé“é€‰æ‹©*/
     if((tmpChno & chno) == 0)
     {
         ret = drvAdChnoSet(chno | tmpChno);
@@ -430,16 +430,16 @@ INT32 drvAdAverageRead(DRV_AD_CHNOSEL_EN chno, DRV_AD_AVG_EN times, \
             return ret;
         }      
     }
-    ret = drvAdModeSet(1);                  /*ÅäÖÃÎªÑ­»·²ÉÑùÄ£Ê½*/
+    ret = drvAdModeSet(1);                  /*é…ç½®ä¸ºå¾ªç¯é‡‡æ ·æ¨¡å¼*/
     if(ret != OK)
     {
         return ret;
     }
 
-    pl_reg_write(PL_AVG_CHNO_ADDR, chno);               /*Ê¹ÄÜÇóÆ½¾ùÍ¨µÀ*/
-    pl_reg_write(PL_CFG_REG0_ADDR, times);              /*ÅäÖÃÇóÆ½¾ù²É¼¯´ÎÊı*/
+    pl_reg_write(PL_AVG_CHNO_ADDR, chno);               /*ä½¿èƒ½æ±‚å¹³å‡é€šé“*/
+    pl_reg_write(PL_CFG_REG0_ADDR, times);              /*é…ç½®æ±‚å¹³å‡é‡‡é›†æ¬¡æ•°*/
     
-    pl_reg_write(PL_AVG_CFG_ADDR, chno | 0x80000000);   /*ÅäÖÃÇóÆ½¾ùÍ¨µÀ*/
+    pl_reg_write(PL_AVG_CFG_ADDR, chno | 0x80000000);   /*é…ç½®æ±‚å¹³å‡é€šé“*/
 
     if(timeout < 0)
     {
@@ -474,9 +474,9 @@ INT32 drvAdAverageRead(DRV_AD_CHNOSEL_EN chno, DRV_AD_AVG_EN times, \
             }
         }
         *pData = pl_reg_read(PL_AVERAGE_DATA_ADDR + i * 4);
-        pl_reg_write(PL_AVG_CHNO_ADDR, 0);              /*¹Ø±ÕadÇóÆ½¾ùÍ¨µÀ*/
-        pl_reg_write(PL_FIFO_STA_CLEAR_ADDR, 0x04);     /*ÇåÇóÆ½¾ù×´Ì¬*/
-        pl_reg_write(PL_CFG_REG0_ADDR, 0x8000);         /*¹Ø±ÕÇóÆ½¾ù*/
+        pl_reg_write(PL_AVG_CHNO_ADDR, 0);              /*å…³é—­adæ±‚å¹³å‡é€šé“*/
+        pl_reg_write(PL_FIFO_STA_CLEAR_ADDR, 0x04);     /*æ¸…æ±‚å¹³å‡çŠ¶æ€*/
+        pl_reg_write(PL_CFG_REG0_ADDR, 0x8000);         /*å…³é—­æ±‚å¹³å‡*/
         return 0;
     }
     return DRV_ERRNO_ADC_READ_FAILED;
@@ -485,7 +485,7 @@ INT32 drvAdAverageRead(DRV_AD_CHNOSEL_EN chno, DRV_AD_AVG_EN times, \
 INT32 drvAdClose(DRV_AD_CHNOSEL_EN chno)
 {
     INT32 tmpChno;
-    tmpChno = pl_reg_read(PL_SEQ_REG1_ADDR); /*Í¨µÀÑ¡Ôñ*/
+    tmpChno = pl_reg_read(PL_SEQ_REG1_ADDR); /*é€šé“é€‰æ‹©*/
     tmpChno &= (~chno);
     pl_reg_write(PL_SEQ_REG1_ADDR, tmpChno);
     if(tmpChno != pl_reg_read(PL_SEQ_REG1_ADDR))

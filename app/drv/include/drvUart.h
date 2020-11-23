@@ -9,8 +9,8 @@
 #define _DRVUART_H_
 #include "drvDef.h"
 
-#define  SFIFO_LEN_MAX   2048 	/*×î´ó·¢ËÍFIFO³¤¶È*/
-#define  RFIFO_LEN_MAX   2048 	/*×î´ó½ÓÊÕFIFO³¤¶È*/
+#define  SFIFO_LEN_MAX   2048 	/*æœ€å¤§å‘é€FIFOé•¿åº¦*/
+#define  RFIFO_LEN_MAX   2048 	/*æœ€å¤§æŽ¥æ”¶FIFOé•¿åº¦*/
 
 typedef enum {
 	DRV_BRAUD_9600 = 9600,
@@ -47,12 +47,12 @@ typedef struct st_Drv_Rs_Cfg{
 }DRV_RS_CFG_ST;
 
 enum DRV_RS_RECV_STATE_EN{
-	DRV_RX_OK = 0,				/*Êý¾Ýok*/
-	DRV_RX_FIFO_FULL = 0x01,	/*½ÓÊÕFIFOÒç³ö*/
-	DRV_RX_PARITY_ERRO = 0x02,	/*Ö¡Êý¾ÝÆæÅ¼Ð£Ñé´íÎó*/
+	DRV_RX_OK = 0,				/*æ•°æ®ok*/
+	DRV_RX_FIFO_FULL = 0x01,	/*æŽ¥æ”¶FIFOæº¢å‡º*/
+	DRV_RX_PARITY_ERRO = 0x02,	/*å¸§æ•°æ®å¥‡å¶æ ¡éªŒé”™è¯¯*/
 };
 
-typedef void(*FUNCPUART)(UINT32, UINT32, UINT8*, UINT32); //1.´®¿Ú±àºÅ£¬ 2.Ö¡×´Ì¬£¬3.Êý¾ÝÖ¸Õë£¬4.Êý¾Ý³¤¶È
+typedef void(*FUNCPUART)(UINT32, UINT32, UINT8*, UINT32); //1.ä¸²å£ç¼–å·ï¼Œ 2.å¸§çŠ¶æ€ï¼Œ3.æ•°æ®æŒ‡é’ˆï¼Œ4.æ•°æ®é•¿åº¦
 
 INT32 drvRsComInit(UINT32 reserve);
 INT32 drvRsOpen(UINT32 comNum, UINT16 mode);

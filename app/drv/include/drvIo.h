@@ -17,10 +17,10 @@
 #endif
 
 typedef enum {
-	ISR_MODE_NONE = 0,		/*��ʹ���ж�*/
-	ISR_MODE_UP = 1,   		/*�����ش���*/
-	ISR_MODE_FALLING = 2,   /*�½��ش���*/
-	ISR_MODE_TRIGGER = 3   	/*�����ػ��½��ش���*/
+	ISR_MODE_NONE = 0,		/*不使用中断*/
+	ISR_MODE_UP = 1,   		/*上升沿触发*/
+	ISR_MODE_FALLING = 2,   /*下降沿触发*/
+	ISR_MODE_TRIGGER = 3   	/*上升沿或下降沿触发*/
 }DRV_IO_ISR_TYPE_EN;
 
 typedef enum {
@@ -69,13 +69,13 @@ typedef enum{
 }DRV_IO_PIN_EN;
 
 typedef struct st_Drv_Io_Cfg{
-	DRV_IO_GROUP_EN group;		/*IO ���*/
-	UINT32 pin;					/*IO pin��*/
-	UINT32 mode;				/*IO�������ģʽ*/
-	UINT32 isr;					/*IO�жϷ�ʽѡ��*/
+	DRV_IO_GROUP_EN group;		/*IO 组号*/
+	UINT32 pin;					/*IO pin脚*/
+	UINT32 mode;				/*IO输入输出模式*/
+	UINT32 isr;					/*IO中断方式选择*/
 } DRV_IO_CFG_ST;
 
-typedef void(*FUNCPIO)(DRV_IO_GROUP_EN, DRV_IO_PIN_EN, UINT32); //1.��ţ�2.PIN��3.״ֵ̬
+typedef void(*FUNCPIO)(DRV_IO_GROUP_EN, DRV_IO_PIN_EN, UINT32); //1.组号，2.PIN，3.状态值
 
 INT32 drvIoInit(UINT32 reserve);
 INT32 drvIoOpen(void);

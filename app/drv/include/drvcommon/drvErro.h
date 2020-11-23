@@ -1,155 +1,155 @@
-#define  DRV_OPERATE_SUCCESS        		0x00000000     /*²Ù×÷³É¹¦*/
+#define  DRV_OPERATE_SUCCESS        		0x00000000     /*æ“ä½œæˆåŠŸ*/
 
-/*I2C´íÎó´úÂë*/
-#define  DRV_ERRNO_IIC_NOT_EXIST          	0xFFFFF000     /*i2cÉè±¸²»´æÔÚ*/
-#define  DRV_ERRNO_IIC_PARARM_INVALID     	0xFFFFF001     /*ÊäÈë²ÎÊý²»ºÏ·¨*/
-#define  DRV_ERRNO_IIC_INIT_FAILED        	0xFFFFF002     /*Éè±¸³õÊ¼»¯Ê§°Ü*/
-#define  DRV_ERRNO_IIC_OPEN_FAILED        	0xFFFFF003     /*Éè±¸´ò¿ªÊ§°Ü*/
-#define  DRV_ERRNO_IIC_CLOSE_FAILED       	0xFFFFF004     /*Éè±¸¹Ø±ÕÊ§°Ü*/
-#define  DRV_ERRNO_IIC_PARARM_SET_FAILED  	0xFFFFF005     /*²ÎÊýÉèÖÃÊ§°Ü*/
-#define  DRV_ERRNO_IIC_PARARM_GET_FAILED  	0xFFFFF006     /*²ÎÊý»ñÈ¡Ê§°Ü*/
-#define  DRV_ERRNO_IIC_WRITE_FAILED       	0xFFFFF007     /*i2cÐ´Êý¾ÝÊ§°Ü*/
-#define  DRV_ERRNO_IIC_READ_FAILED        	0xFFFFF008     /*i2c¶ÁÊý¾ÝÊ§°Ü*/
-#define  DRV_ERRNO_IIC_READ_BUF_NULL      	0xFFFFF009     /*i2c¶Á»º³åÇøÎª¿Õ*/
-#define  DRV_ERRNO_IIC_READ_BUF_LESS      	0xFFFFF00A     /*i2c¶Á»º³åÇøÊý¾Ý²»¹»*/
-#define  DRV_ERRNO_IIC_READ_TIMEOUT       	0xFFFFF00B     /*i2c¶ÁÊý¾Ý³¬Ê±*/
-#define  DRV_ERRNO_IIC_BUS_DISCONNECT     	0xFFFFF00C     /*i2c×ÜÏß²»Í¨*/
-/*×ÜÏßÃ¦*/
+/*I2Cé”™è¯¯ä»£ç */
+#define  DRV_ERRNO_IIC_NOT_EXIST          	0xFFFFF000     /*i2cè®¾å¤‡ä¸å­˜åœ¨*/
+#define  DRV_ERRNO_IIC_PARARM_INVALID     	0xFFFFF001     /*è¾“å…¥å‚æ•°ä¸åˆæ³•*/
+#define  DRV_ERRNO_IIC_INIT_FAILED        	0xFFFFF002     /*è®¾å¤‡åˆå§‹åŒ–å¤±è´¥*/
+#define  DRV_ERRNO_IIC_OPEN_FAILED        	0xFFFFF003     /*è®¾å¤‡æ‰“å¼€å¤±è´¥*/
+#define  DRV_ERRNO_IIC_CLOSE_FAILED       	0xFFFFF004     /*è®¾å¤‡å…³é—­å¤±è´¥*/
+#define  DRV_ERRNO_IIC_PARARM_SET_FAILED  	0xFFFFF005     /*å‚æ•°è®¾ç½®å¤±è´¥*/
+#define  DRV_ERRNO_IIC_PARARM_GET_FAILED  	0xFFFFF006     /*å‚æ•°èŽ·å–å¤±è´¥*/
+#define  DRV_ERRNO_IIC_WRITE_FAILED       	0xFFFFF007     /*i2cå†™æ•°æ®å¤±è´¥*/
+#define  DRV_ERRNO_IIC_READ_FAILED        	0xFFFFF008     /*i2cè¯»æ•°æ®å¤±è´¥*/
+#define  DRV_ERRNO_IIC_READ_BUF_NULL      	0xFFFFF009     /*i2cè¯»ç¼“å†²åŒºä¸ºç©º*/
+#define  DRV_ERRNO_IIC_READ_BUF_LESS      	0xFFFFF00A     /*i2cè¯»ç¼“å†²åŒºæ•°æ®ä¸å¤Ÿ*/
+#define  DRV_ERRNO_IIC_READ_TIMEOUT       	0xFFFFF00B     /*i2cè¯»æ•°æ®è¶…æ—¶*/
+#define  DRV_ERRNO_IIC_BUS_DISCONNECT     	0xFFFFF00C     /*i2cæ€»çº¿ä¸é€š*/
+/*æ€»çº¿å¿™*/
 
-/*ÒÔÌ«Íø´íÎó´úÂë*/
-#define  DRV_ERRNO_NET_DEV_NOT_EXIST      	0xFFFFF100     /*Íø¿¨Éè±¸²»´æÔÚ*/
-#define  DRV_ERRNO_NET_INIT_FAILED        	0xFFFFF101     /*ÒÔÌ«Íø³õÊ¼»¯Ê§°Ü*/
-#define  DRV_ERRNO_NET_PARARM_INVALID     	0xFFFFF102     /*ÊäÈë²ÎÊý²»ºÏ·¨*/
-#define  DRV_ERRNO_NET_SET_ADDR_FAILED    	0xFFFFF103     /*IPµØÖ·ÉèÖÃÊ§°Ü*/
-#define  DRV_ERRNO_NET_GET_ADDR_FAILED    	0xFFFFF104     /*IPµØÖ·»ñÈ¡Ê§°Ü*/
-#define  DRV_ERRNO_ETH0_NO_LINK           	0xFFFFF105     /*Íø¿¨0²»Í¨*/
-#define  DRV_ERRNO_ETH1_NO_LINK           	0xFFFFF106     /*Íø¿¨1²»Í¨*/
-#define  DRV_ERRNO_ETH0_DOWN              	0xFFFFF107     /*Íø¿¨0Ã»ÓÐ´ò¿ª*/
-#define  DRV_ERRNO_ETH1_DOWN              	0xFFFFF108     /*Íø¿¨1Ã»ÓÐ´ò¿ª*/
+/*ä»¥å¤ªç½‘é”™è¯¯ä»£ç */
+#define  DRV_ERRNO_NET_DEV_NOT_EXIST      	0xFFFFF100     /*ç½‘å¡è®¾å¤‡ä¸å­˜åœ¨*/
+#define  DRV_ERRNO_NET_INIT_FAILED        	0xFFFFF101     /*ä»¥å¤ªç½‘åˆå§‹åŒ–å¤±è´¥*/
+#define  DRV_ERRNO_NET_PARARM_INVALID     	0xFFFFF102     /*è¾“å…¥å‚æ•°ä¸åˆæ³•*/
+#define  DRV_ERRNO_NET_SET_ADDR_FAILED    	0xFFFFF103     /*IPåœ°å€è®¾ç½®å¤±è´¥*/
+#define  DRV_ERRNO_NET_GET_ADDR_FAILED    	0xFFFFF104     /*IPåœ°å€èŽ·å–å¤±è´¥*/
+#define  DRV_ERRNO_ETH0_NO_LINK           	0xFFFFF105     /*ç½‘å¡0ä¸é€š*/
+#define  DRV_ERRNO_ETH1_NO_LINK           	0xFFFFF106     /*ç½‘å¡1ä¸é€š*/
+#define  DRV_ERRNO_ETH0_DOWN              	0xFFFFF107     /*ç½‘å¡0æ²¡æœ‰æ‰“å¼€*/
+#define  DRV_ERRNO_ETH1_DOWN              	0xFFFFF108     /*ç½‘å¡1æ²¡æœ‰æ‰“å¼€*/
 
-/*422´íÎó´úÂë*/
-#define  DRV_ERRNO_UART_NOT_EXIST          	0xFFFFF200     /*uartÉè±¸²»´æÔÚ*/
-#define  DRV_ERRNO_UART_PARARM_INVALID     	0xFFFFF201     /*ÊäÈë²ÎÊý²»ºÏ·¨*/
-#define  DRV_ERRNO_UART_OPEN_FAILED        	0xFFFFF202     /*Éè±¸´ò¿ªÊ§°Ü*/
-#define  DRV_ERRNO_UART_CLOSE_FAILED       	0xFFFFF203     /*Éè±¸¹Ø±ÕÊ§°Ü*/
-#define  DRV_ERRNO_UART_PARARM_SET_FAILED  	0xFFFFF204     /*²ÎÊýÉèÖÃÊ§°Ü*/
-#define  DRV_ERRNO_UART_PARARM_GET_FAILED  	0xFFFFF205     /*²ÎÊý»ñÈ¡Ê§°Ü*/
-#define  DRV_ERRNO_UART_TXFIFO_NOT_EMPTY   	0xFFFFF206     /*uart·¢ËÍFIFO²»Îª¿Õ*/
-#define  DRV_ERRNO_UART_SEND_FAILED        	0xFFFFF207     /*uart·¢ËÍÊý¾ÝÊ§°Ü*/
-#define  DRV_ERRNO_UART_READ_FAILED        	0xFFFFF208     /*uart¶ÁÊý¾ÝÊ§°Ü*/
-#define  DRV_ERRNO_UART_READ_BUF_NULL      	0xFFFFF209     /*uart¶Á»º³åÇøÎª¿Õ*/
-#define  DRV_ERRNO_UART_READ_BUF_LESS      	0xFFFFF20A     /*uart¶Á»º³åÇøÊý¾Ý²»¹»*/
-#define  DRV_ERRNO_UART_READ_TIMEOUT       	0xFFFFF20B     /*uart¶ÁÊý¾Ý³¬Ê±*/
-#define  DRV_ERRNO_UART_BUS_DISCONNECT     	0xFFFFF20C     /*uart×ÜÏß²»Í¨*/
-#define  DRV_ERRNO_UART_CHECK_FAILED       	0xFFFFF20D     /*uartÇý¶¯Ä£¿é×Ô¼ìÊ§°Ü*/
+/*422é”™è¯¯ä»£ç */
+#define  DRV_ERRNO_UART_NOT_EXIST          	0xFFFFF200     /*uartè®¾å¤‡ä¸å­˜åœ¨*/
+#define  DRV_ERRNO_UART_PARARM_INVALID     	0xFFFFF201     /*è¾“å…¥å‚æ•°ä¸åˆæ³•*/
+#define  DRV_ERRNO_UART_OPEN_FAILED        	0xFFFFF202     /*è®¾å¤‡æ‰“å¼€å¤±è´¥*/
+#define  DRV_ERRNO_UART_CLOSE_FAILED       	0xFFFFF203     /*è®¾å¤‡å…³é—­å¤±è´¥*/
+#define  DRV_ERRNO_UART_PARARM_SET_FAILED  	0xFFFFF204     /*å‚æ•°è®¾ç½®å¤±è´¥*/
+#define  DRV_ERRNO_UART_PARARM_GET_FAILED  	0xFFFFF205     /*å‚æ•°èŽ·å–å¤±è´¥*/
+#define  DRV_ERRNO_UART_TXFIFO_NOT_EMPTY   	0xFFFFF206     /*uartå‘é€FIFOä¸ä¸ºç©º*/
+#define  DRV_ERRNO_UART_SEND_FAILED        	0xFFFFF207     /*uartå‘é€æ•°æ®å¤±è´¥*/
+#define  DRV_ERRNO_UART_READ_FAILED        	0xFFFFF208     /*uartè¯»æ•°æ®å¤±è´¥*/
+#define  DRV_ERRNO_UART_READ_BUF_NULL      	0xFFFFF209     /*uartè¯»ç¼“å†²åŒºä¸ºç©º*/
+#define  DRV_ERRNO_UART_READ_BUF_LESS      	0xFFFFF20A     /*uartè¯»ç¼“å†²åŒºæ•°æ®ä¸å¤Ÿ*/
+#define  DRV_ERRNO_UART_READ_TIMEOUT       	0xFFFFF20B     /*uartè¯»æ•°æ®è¶…æ—¶*/
+#define  DRV_ERRNO_UART_BUS_DISCONNECT     	0xFFFFF20C     /*uartæ€»çº¿ä¸é€š*/
+#define  DRV_ERRNO_UART_CHECK_FAILED       	0xFFFFF20D     /*uarté©±åŠ¨æ¨¡å—è‡ªæ£€å¤±è´¥*/
 
-/*BMC´íÎó´úÂë*/
-#define  DRV_ERRNO_BMC_INFO_GET_FAILED    	0xFFFFF300     /*BMCÐÅÏ¢»ñÈ¡Ê§°Ü*/
-#define  DRV_ERRNO_BMC_PARARM_INVALID     	0xFFFFF301     /*BMCÊäÈë²ÎÊý²»ºÏ·¨*/
-#define  DRV_ERRNO_BMC_INFO_SET_FAILED    	0xFFFFF302     /*BMCÐÅÏ¢ÉèÖÃÊ§°Ü*/
-#define  DRV_ERRNO_BMC_INIT_FAILED        	0xFFFFF303     /*BMC³õÊ¼»¯Ê§°Ü*/
-#define  DRV_ERRNO_BMC_USER_NOT_EXIST     	0xFFFFF304     /*ÓÃ»§²»´æÔÚ*/
-#define  DRV_ERRNO_BMC_USER_NOT_ADMIN     	0xFFFFF305     /*ÓÃ»§Ã»ÓÐ¹ÜÀíÔ±È¨ÏÞ*/
-#define  DRV_ERRNO_BMC_USER_CREATE_FAILED 	0xFFFFF306     /*BMC³õÊ¼»¯Ê§°Ü*/
-#define  DRV_ERRNO_BMC_USER_ADD_FAILED    	0xFFFFF307     /*BMCÌí¼ÓÊ§°Ü*/
-#define  DRV_ERRNO_BMC_CFG_READ_FAILED    	0xFFFFF308     /*BMC¶ÁÅäÖÃÎÄ¼þÊ§°Ü*/
-#define  DRV_ERRNO_BMC_USER_UPD_FAILED    	0xFFFFF309     /*BMCÓÃ»§ÐÅÏ¢¸üÐÂÊ§°Ü*/
-#define  DRV_ERRNO_BMC_USER_DEL_FAILED    	0xFFFFF30a     /*BMCÓÃ»§ÐÅÏ¢É¾³ýÊ§°Ü*/
+/*BMCé”™è¯¯ä»£ç */
+#define  DRV_ERRNO_BMC_INFO_GET_FAILED    	0xFFFFF300     /*BMCä¿¡æ¯èŽ·å–å¤±è´¥*/
+#define  DRV_ERRNO_BMC_PARARM_INVALID     	0xFFFFF301     /*BMCè¾“å…¥å‚æ•°ä¸åˆæ³•*/
+#define  DRV_ERRNO_BMC_INFO_SET_FAILED    	0xFFFFF302     /*BMCä¿¡æ¯è®¾ç½®å¤±è´¥*/
+#define  DRV_ERRNO_BMC_INIT_FAILED        	0xFFFFF303     /*BMCåˆå§‹åŒ–å¤±è´¥*/
+#define  DRV_ERRNO_BMC_USER_NOT_EXIST     	0xFFFFF304     /*ç”¨æˆ·ä¸å­˜åœ¨*/
+#define  DRV_ERRNO_BMC_USER_NOT_ADMIN     	0xFFFFF305     /*ç”¨æˆ·æ²¡æœ‰ç®¡ç†å‘˜æƒé™*/
+#define  DRV_ERRNO_BMC_USER_CREATE_FAILED 	0xFFFFF306     /*BMCåˆå§‹åŒ–å¤±è´¥*/
+#define  DRV_ERRNO_BMC_USER_ADD_FAILED    	0xFFFFF307     /*BMCæ·»åŠ å¤±è´¥*/
+#define  DRV_ERRNO_BMC_CFG_READ_FAILED    	0xFFFFF308     /*BMCè¯»é…ç½®æ–‡ä»¶å¤±è´¥*/
+#define  DRV_ERRNO_BMC_USER_UPD_FAILED    	0xFFFFF309     /*BMCç”¨æˆ·ä¿¡æ¯æ›´æ–°å¤±è´¥*/
+#define  DRV_ERRNO_BMC_USER_DEL_FAILED    	0xFFFFF30a     /*BMCç”¨æˆ·ä¿¡æ¯åˆ é™¤å¤±è´¥*/
 
-/*ADC´íÎó´úÂë*/
-#define  DRV_ERRNO_ADC_NOT_EXIST          	0xFFFFF400     /*ADCÉè±¸²»´æÔÚ*/
-#define  DRV_ERRNO_ADC_PARARM_INVALID     	0xFFFFF401     /*ÊäÈë²ÎÊý²»ºÏ·¨*/
-#define  DRV_ERRNO_ADC_OPEN_FAILED        	0xFFFFF402     /*Éè±¸´ò¿ªÊ§°Ü*/
-#define  DRV_ERRNO_ADC_PARARM_SET_FAILED  	0xFFFFF403     /*²ÎÊýÉèÖÃÊ§°Ü*/
-#define  DRV_ERRNO_ADC_PARARM_GET_FAILED  	0xFFFFF404     /*²ÎÊý»ñÈ¡Ê§°Ü*/
-#define  DRV_ERRNO_ADC_READ_FAILED        	0xFFFFF405     /*ADC²ÉÑùÖµ¶ÁÈ¡Ê§°Ü*/
-#define  DRV_ERRNO_ADC_CLOSE_FAILED       	0xFFFFF406     /*ADC²ÉÑùÍ¨µÀ¹Ø±ÕÊ§°Ü*/
-#define  DRV_ERRNO_ADC_MODE_SET_FAILED    	0xFFFFF407     /*ADC²ÉÑù²ÉÑùÄ£Ê½ÅäÖÃÊ§°Ü*/
-#define  DRV_ERRNO_ADC_CHNO_SET_FAILED    	0xFFFFF408     /*ADC²ÉÑù²ÉÑùÍ¨µÀÅäÖÃÊ§°Ü*/
-#define  DRV_ERRNO_ADC_BAUD_SET_FAILED    	0xFFFFF409     /*ADC²ÉÑù²ÉÑùÆµÂÊÅäÖÃÊ§°Ü*/
-#define  DRV_ERRNO_ADC_CHECK_FAILED       	0xFFFFF40A     /*ADCÄ£¿é×Ô¼ìÊ§°Ü*/
-#define  DRV_ERRNO_ADC_ISRCB_FAILED       	0xFFFFF40B     /*ADCÖÐ¶ÏÈë¿Úº¯Êý×¢²áÊ§°Ü*/
+/*ADCé”™è¯¯ä»£ç */
+#define  DRV_ERRNO_ADC_NOT_EXIST          	0xFFFFF400     /*ADCè®¾å¤‡ä¸å­˜åœ¨*/
+#define  DRV_ERRNO_ADC_PARARM_INVALID     	0xFFFFF401     /*è¾“å…¥å‚æ•°ä¸åˆæ³•*/
+#define  DRV_ERRNO_ADC_OPEN_FAILED        	0xFFFFF402     /*è®¾å¤‡æ‰“å¼€å¤±è´¥*/
+#define  DRV_ERRNO_ADC_PARARM_SET_FAILED  	0xFFFFF403     /*å‚æ•°è®¾ç½®å¤±è´¥*/
+#define  DRV_ERRNO_ADC_PARARM_GET_FAILED  	0xFFFFF404     /*å‚æ•°èŽ·å–å¤±è´¥*/
+#define  DRV_ERRNO_ADC_READ_FAILED        	0xFFFFF405     /*ADCé‡‡æ ·å€¼è¯»å–å¤±è´¥*/
+#define  DRV_ERRNO_ADC_CLOSE_FAILED       	0xFFFFF406     /*ADCé‡‡æ ·é€šé“å…³é—­å¤±è´¥*/
+#define  DRV_ERRNO_ADC_MODE_SET_FAILED    	0xFFFFF407     /*ADCé‡‡æ ·é‡‡æ ·æ¨¡å¼é…ç½®å¤±è´¥*/
+#define  DRV_ERRNO_ADC_CHNO_SET_FAILED    	0xFFFFF408     /*ADCé‡‡æ ·é‡‡æ ·é€šé“é…ç½®å¤±è´¥*/
+#define  DRV_ERRNO_ADC_BAUD_SET_FAILED    	0xFFFFF409     /*ADCé‡‡æ ·é‡‡æ ·é¢‘çŽ‡é…ç½®å¤±è´¥*/
+#define  DRV_ERRNO_ADC_CHECK_FAILED       	0xFFFFF40A     /*ADCæ¨¡å—è‡ªæ£€å¤±è´¥*/
+#define  DRV_ERRNO_ADC_ISRCB_FAILED       	0xFFFFF40B     /*ADCä¸­æ–­å…¥å£å‡½æ•°æ³¨å†Œå¤±è´¥*/
 
-/*¶¨Ê±Æ÷´íÎó´úÂë*/
-#define  DRV_ERRNO_CLK_NOT_EXIST          	0xFFFFF500     /*¶¨Ê±Æ÷Éè±¸²»´æÔÚ*/
-#define  DRV_ERRNO_CLK_INIT_FAILED        	0xFFFFF501     /*¶¨Ê±Æ÷³õÊ¼»¯Ê§°Ü*/
-#define  DRV_ERRNO_CLK_PARARM_INVALID     	0xFFFFF502     /*ÊäÈë²ÎÊý²»ºÏ·¨*/
-#define  DRV_ERRNO_CLK_OPEN_FAILED        	0xFFFFF503     /*Éè±¸´ò¿ªÊ§°Ü*/
-#define  DRV_ERRNO_CLK_CLOSE_FAILED       	0xFFFFF504     /*Éè±¸¹Ø±ÕÊ§°Ü*/
-#define  DRV_ERRNO_CLK_PARARM_SET_FAILED  	0xFFFFF505     /*²ÎÊýÉèÖÃÊ§°Ü*/
-#define  DRV_ERRNO_CLK_PARARM_GET_FAILED  	0xFFFFF506     /*²ÎÊý»ñÈ¡Ê§°Ü*/
-#define  DRV_ERRNO_CLK_READ_FAILED        	0xFFFFF507     /*¶¨Ê±Æ÷×´Ì¬¶ÁÈ¡Ê§°Ü*/
-#define  DRV_ERRNO_CLK_CHECK_FAILED       	0xFFFFF508     /*¶¨Ê±Æ÷Ä£¿é×Ô¼ìÊ§°Ü*/
+/*å®šæ—¶å™¨é”™è¯¯ä»£ç */
+#define  DRV_ERRNO_CLK_NOT_EXIST          	0xFFFFF500     /*å®šæ—¶å™¨è®¾å¤‡ä¸å­˜åœ¨*/
+#define  DRV_ERRNO_CLK_INIT_FAILED        	0xFFFFF501     /*å®šæ—¶å™¨åˆå§‹åŒ–å¤±è´¥*/
+#define  DRV_ERRNO_CLK_PARARM_INVALID     	0xFFFFF502     /*è¾“å…¥å‚æ•°ä¸åˆæ³•*/
+#define  DRV_ERRNO_CLK_OPEN_FAILED        	0xFFFFF503     /*è®¾å¤‡æ‰“å¼€å¤±è´¥*/
+#define  DRV_ERRNO_CLK_CLOSE_FAILED       	0xFFFFF504     /*è®¾å¤‡å…³é—­å¤±è´¥*/
+#define  DRV_ERRNO_CLK_PARARM_SET_FAILED  	0xFFFFF505     /*å‚æ•°è®¾ç½®å¤±è´¥*/
+#define  DRV_ERRNO_CLK_PARARM_GET_FAILED  	0xFFFFF506     /*å‚æ•°èŽ·å–å¤±è´¥*/
+#define  DRV_ERRNO_CLK_READ_FAILED        	0xFFFFF507     /*å®šæ—¶å™¨çŠ¶æ€è¯»å–å¤±è´¥*/
+#define  DRV_ERRNO_CLK_CHECK_FAILED       	0xFFFFF508     /*å®šæ—¶å™¨æ¨¡å—è‡ªæ£€å¤±è´¥*/
 
-/*OTA´íÎó´úÂë*/
-#define  DRV_ERRNO_OTA_NOT_EXIST          	0xFFFFF600     /*OTA·þÎñ²»´æÔÚ*/
-#define  DRV_ERRNO_OTA_PARARM_INVALID     	0xFFFFF601     /*ÊäÈë²ÎÊý²»ºÏ·¨*/
-#define  DRV_ERRNO_OTA_INIT_FAILED        	0xFFFFF602     /*OTA·þÎñ³õÊ¼»¯Ê§°Ü*/
-#define  DRV_ERRNO_OTA_OPEN_FAILED        	0xFFFFF603     /*OTA·þÎñ´ò¿ªÊ§°Ü*/
-#define  DRV_ERRNO_OTA_CLOSE_FAILED       	0xFFFFF604     /*OTA·þÎñ¹Ø±ÕÊ§°Ü*/
-#define  DRV_ERRNO_OTA_INSTALL_FAILED     	0xFFFFF605     /*OTAÉý¼¶°ü°²×°Ê§°Ü*/
-#define  DRV_ERRNO_OTA_VERIFY_FAILED      	0xFFFFF606     /*OTAÉý¼¶°üÐ£ÑéÊ§°Ü*/
+/*OTAé”™è¯¯ä»£ç */
+#define  DRV_ERRNO_OTA_NOT_EXIST          	0xFFFFF600     /*OTAæœåŠ¡ä¸å­˜åœ¨*/
+#define  DRV_ERRNO_OTA_PARARM_INVALID     	0xFFFFF601     /*è¾“å…¥å‚æ•°ä¸åˆæ³•*/
+#define  DRV_ERRNO_OTA_INIT_FAILED        	0xFFFFF602     /*OTAæœåŠ¡åˆå§‹åŒ–å¤±è´¥*/
+#define  DRV_ERRNO_OTA_OPEN_FAILED        	0xFFFFF603     /*OTAæœåŠ¡æ‰“å¼€å¤±è´¥*/
+#define  DRV_ERRNO_OTA_CLOSE_FAILED       	0xFFFFF604     /*OTAæœåŠ¡å…³é—­å¤±è´¥*/
+#define  DRV_ERRNO_OTA_INSTALL_FAILED     	0xFFFFF605     /*OTAå‡çº§åŒ…å®‰è£…å¤±è´¥*/
+#define  DRV_ERRNO_OTA_VERIFY_FAILED      	0xFFFFF606     /*OTAå‡çº§åŒ…æ ¡éªŒå¤±è´¥*/
 
-/*IO´íÎó´úÂë*/
-#define  DRV_ERRNO_IO_NOT_EXIST          	0xFFFFF700     /*IO²»´æÔÚ*/
-#define  DRV_ERRNO_IO_INIT_FAILED        	0xFFFFF701     /*IO³õÊ¼»¯Ê§°Ü*/
-#define  DRV_ERRNO_IO_PARARM_INVALID     	0xFFFFF702     /*ÊäÈë²ÎÊý²»ºÏ·¨*/
-#define  DRV_ERRNO_IO_OPEN_FAILED        	0xFFFFF703     /*IO´ò¿ªÊ§°Ü*/
-#define  DRV_ERRNO_IO_CLOSE_FAILED       	0xFFFFF704     /*IO¹Ø±ÕÊ§°Ü*/
-#define  DRV_ERRNO_IO_PARARM_SET_FAILED  	0xFFFFF705     /*²ÎÊýÉèÖÃÊ§°Ü*/
-#define  DRV_ERRNO_IO_PARARM_GET_FAILED  	0xFFFFF706     /*²ÎÊý»ñÈ¡Ê§°Ü*/
-#define  DRV_ERRNO_IO_WRITE_FAILED       	0xFFFFF707     /*IOÐ´Êý¾ÝÊ§°Ü*/
-#define  DRV_ERRNO_IO_READ_FAILED        	0xFFFFF708     /*IO¶ÁÊý¾ÝÊ§°Ü*/
-#define  DRV_ERRNO_IO_CHECK_FAILED       	0xFFFFF709     /*IOÄ£¿é×Ô¼ìÊ§°Ü*/
+/*IOé”™è¯¯ä»£ç */
+#define  DRV_ERRNO_IO_NOT_EXIST          	0xFFFFF700     /*IOä¸å­˜åœ¨*/
+#define  DRV_ERRNO_IO_INIT_FAILED        	0xFFFFF701     /*IOåˆå§‹åŒ–å¤±è´¥*/
+#define  DRV_ERRNO_IO_PARARM_INVALID     	0xFFFFF702     /*è¾“å…¥å‚æ•°ä¸åˆæ³•*/
+#define  DRV_ERRNO_IO_OPEN_FAILED        	0xFFFFF703     /*IOæ‰“å¼€å¤±è´¥*/
+#define  DRV_ERRNO_IO_CLOSE_FAILED       	0xFFFFF704     /*IOå…³é—­å¤±è´¥*/
+#define  DRV_ERRNO_IO_PARARM_SET_FAILED  	0xFFFFF705     /*å‚æ•°è®¾ç½®å¤±è´¥*/
+#define  DRV_ERRNO_IO_PARARM_GET_FAILED  	0xFFFFF706     /*å‚æ•°èŽ·å–å¤±è´¥*/
+#define  DRV_ERRNO_IO_WRITE_FAILED       	0xFFFFF707     /*IOå†™æ•°æ®å¤±è´¥*/
+#define  DRV_ERRNO_IO_READ_FAILED        	0xFFFFF708     /*IOè¯»æ•°æ®å¤±è´¥*/
+#define  DRV_ERRNO_IO_CHECK_FAILED       	0xFFFFF709     /*IOæ¨¡å—è‡ªæ£€å¤±è´¥*/
 
-/*×Ô¼ì´íÎó´úÂë*/
-#define  DRV_ERRNO_COMPUT_INIT_FAILED           0xFFFFF800      /*ºËÐÄ°å³õÊ¼»¯Ê§°Ü*/
-#define  DRV_ERRNO_COMPUT_DDR_ERRO              0xFFFFF801     	/*DDR¶ÁÐ´´íÎó*/
-#define  DRV_ERRNO_COMPUT_FLASH_ERRO            0xFFFFF802     	/*FLASH¶ÁÐ´´íÎó*/
-#define  DRV_ERRNO_COMPUT_TEMP_GET_FAILED       0xFFFFF803     	/*ÎÂ¶È»ñÈ¡Ê§°Ü*/
-#define  DRV_ERRNO_COMPUT_TEMP_OVER_RANGE       0xFFFFF804     	/*ÎÂ¶È³¬³ö·¶Î§*/
-#define  DRV_ERRNO_COMPUT_VCCINT_GET_FAILED     0xFFFFF805     	/*µçÑ¹vccint»ñÈ¡Ê§°Ü*/
-#define  DRV_ERRNO_COMPUT_VCCINT_OUT_RANGE      0xFFFFF806     	/*µçÑ¹vccint³¬³ö·¶Î§*/
-#define  DRV_ERRNO_COMPUT_VCPPAUX_GET_FAILED    0xFFFFF807     	/*µçÑ¹vcppaux»ñÈ¡Ê§°Ü*/
-#define  DRV_ERRNO_COMPUT_VCPPAUX_OUT_RANGE     0xFFFFF808     	/*µçÑ¹vcppaux³¬³ö·¶Î§*/
-#define  DRV_ERRNO_COMPUT_VBRAM_GET_FAILED      0xFFFFF809     	/*µçÑ¹vbram»ñÈ¡Ê§°Ü*/
-#define  DRV_ERRNO_COMPUT_VBRAM_OUT_RANGE       0xFFFFF80A     	/*µçÑ¹vbram³¬³ö·¶Î§*/
-#define  DRV_ERRNO_COMPUT_VCCAUX_GET_FAILED     0xFFFFF80B     	/*µçÑ¹vccaux»ñÈ¡Ê§°Ü*/
-#define  DRV_ERRNO_COMPUT_VCCAUX_OUT_RANGE      0xFFFFF80C     	/*µçÑ¹vccaux³¬³ö·¶Î§*/
-#define  DRV_ERRNO_COMPUT_VCCPINT_GET_FAILED    0xFFFFF80D     	/*µçÑ¹vccpint»ñÈ¡Ê§°Ü*/
-#define  DRV_ERRNO_COMPUT_VCCPINT_OUT_RANGE     0xFFFFF80E     	/*µçÑ¹vccpint³¬³ö·¶Î§*/
-#define  DRV_ERRNO_COMPUT_ETH0_PHY_GET_FAILED   0xFFFFF80F     	/*Íø¿¨0¶ÁÐ´PHYÊ§°Ü*/
-#define  DRV_ERRNO_COMPUT_ETH0_NO_LINK          0xFFFFF810     	/*Íø¿¨0Ã»ÓÐÁ¬½Ó*/
-#define  DRV_ERRNO_COMPUT_ETH0_OPEN_FAILED      0xFFFFF811     	/*Íø¿¨0´ò¿ªÊ§°Ü*/
-#define  DRV_ERRNO_COMPUT_ETH1_PHY_GET_FAILED   0xFFFFF812     	/*Íø¿¨1¶ÁÐ´PHYÊ§°Ü*/
-#define  DRV_ERRNO_COMPUT_ETH1_NO_LINK          0xFFFFF813     	/*Íø¿¨1Ã»ÓÐÁ¬½Ó*/
-#define  DRV_ERRNO_COMPUT_ETH1_OPEN_FAILED      0xFFFFF814     	/*Íø¿¨1´ò¿ªÊ§°Ü*/
+/*è‡ªæ£€é”™è¯¯ä»£ç */
+#define  DRV_ERRNO_COMPUT_INIT_FAILED           0xFFFFF800      /*æ ¸å¿ƒæ¿åˆå§‹åŒ–å¤±è´¥*/
+#define  DRV_ERRNO_COMPUT_DDR_ERRO              0xFFFFF801     	/*DDRè¯»å†™é”™è¯¯*/
+#define  DRV_ERRNO_COMPUT_FLASH_ERRO            0xFFFFF802     	/*FLASHè¯»å†™é”™è¯¯*/
+#define  DRV_ERRNO_COMPUT_TEMP_GET_FAILED       0xFFFFF803     	/*æ¸©åº¦èŽ·å–å¤±è´¥*/
+#define  DRV_ERRNO_COMPUT_TEMP_OVER_RANGE       0xFFFFF804     	/*æ¸©åº¦è¶…å‡ºèŒƒå›´*/
+#define  DRV_ERRNO_COMPUT_VCCINT_GET_FAILED     0xFFFFF805     	/*ç”µåŽ‹vccintèŽ·å–å¤±è´¥*/
+#define  DRV_ERRNO_COMPUT_VCCINT_OUT_RANGE      0xFFFFF806     	/*ç”µåŽ‹vccintè¶…å‡ºèŒƒå›´*/
+#define  DRV_ERRNO_COMPUT_VCPPAUX_GET_FAILED    0xFFFFF807     	/*ç”µåŽ‹vcppauxèŽ·å–å¤±è´¥*/
+#define  DRV_ERRNO_COMPUT_VCPPAUX_OUT_RANGE     0xFFFFF808     	/*ç”µåŽ‹vcppauxè¶…å‡ºèŒƒå›´*/
+#define  DRV_ERRNO_COMPUT_VBRAM_GET_FAILED      0xFFFFF809     	/*ç”µåŽ‹vbramèŽ·å–å¤±è´¥*/
+#define  DRV_ERRNO_COMPUT_VBRAM_OUT_RANGE       0xFFFFF80A     	/*ç”µåŽ‹vbramè¶…å‡ºèŒƒå›´*/
+#define  DRV_ERRNO_COMPUT_VCCAUX_GET_FAILED     0xFFFFF80B     	/*ç”µåŽ‹vccauxèŽ·å–å¤±è´¥*/
+#define  DRV_ERRNO_COMPUT_VCCAUX_OUT_RANGE      0xFFFFF80C     	/*ç”µåŽ‹vccauxè¶…å‡ºèŒƒå›´*/
+#define  DRV_ERRNO_COMPUT_VCCPINT_GET_FAILED    0xFFFFF80D     	/*ç”µåŽ‹vccpintèŽ·å–å¤±è´¥*/
+#define  DRV_ERRNO_COMPUT_VCCPINT_OUT_RANGE     0xFFFFF80E     	/*ç”µåŽ‹vccpintè¶…å‡ºèŒƒå›´*/
+#define  DRV_ERRNO_COMPUT_ETH0_PHY_GET_FAILED   0xFFFFF80F     	/*ç½‘å¡0è¯»å†™PHYå¤±è´¥*/
+#define  DRV_ERRNO_COMPUT_ETH0_NO_LINK          0xFFFFF810     	/*ç½‘å¡0æ²¡æœ‰è¿žæŽ¥*/
+#define  DRV_ERRNO_COMPUT_ETH0_OPEN_FAILED      0xFFFFF811     	/*ç½‘å¡0æ‰“å¼€å¤±è´¥*/
+#define  DRV_ERRNO_COMPUT_ETH1_PHY_GET_FAILED   0xFFFFF812     	/*ç½‘å¡1è¯»å†™PHYå¤±è´¥*/
+#define  DRV_ERRNO_COMPUT_ETH1_NO_LINK          0xFFFFF813     	/*ç½‘å¡1æ²¡æœ‰è¿žæŽ¥*/
+#define  DRV_ERRNO_COMPUT_ETH1_OPEN_FAILED      0xFFFFF814     	/*ç½‘å¡1æ‰“å¼€å¤±è´¥*/
 
-/*¹âÍø¿Ú´íÎó´úÂë*/
-#define  DRV_ERRNO_GNET_NOT_EXIST          	0xFFFFF900     /*¹âÍø¿ÚÉè±¸²»´æÔÚ*/
-#define  DRV_ERRNO_GNET_PARARM_INVALID     	0xFFFFF901     /*ÊäÈë²ÎÊý²»ºÏ·¨*/
-#define  DRV_ERRNO_GNET_OPEN_FAILED        	0xFFFFF902     /*Éè±¸´ò¿ªÊ§°Ü*/
-#define  DRV_ERRNO_GNET_CLOSE_FAILED       	0xFFFFF903     /*Éè±¸¹Ø±ÕÊ§°Ü*/
-#define  DRV_ERRNO_GNET_PARARM_SET_FAILED  	0xFFFFF904     /*²ÎÊýÉèÖÃÊ§°Ü*/
-#define  DRV_ERRNO_GNET_PARARM_GET_FAILED  	0xFFFFF905     /*²ÎÊý»ñÈ¡Ê§°Ü*/
-#define  DRV_ERRNO_GNET_TXFIFO_NOT_EMPTY   	0xFFFFF906     /*GNET·¢ËÍFIFO²»Îª¿Õ*/
-#define  DRV_ERRNO_GNET_SEND_FAILED        	0xFFFFF907     /*GNET·¢ËÍÊý¾ÝÊ§°Ü*/
-#define  DRV_ERRNO_GNET_READ_FAILED        	0xFFFFF908     /*GNET¶ÁÊý¾ÝÊ§°Ü*/
-#define  DRV_ERRNO_GNET_READ_BUF_NULL      	0xFFFFF909     /*GNET¶Á»º³åÇøÎª¿Õ*/
-#define  DRV_ERRNO_GNET_READ_BUF_LESS      	0xFFFFF90A     /*GNET¶Á»º³åÇøÊý¾Ý²»¹»*/
-#define  DRV_ERRNO_GNET_READ_TIMEOUT       	0xFFFFF90B     /*GNET¶ÁÊý¾Ý³¬Ê±*/
-#define  DRV_ERRNO_GNET_BUS_DISCONNECT     	0xFFFFF90C     /*GNET×ÜÏß²»Í¨*/
-#define  DRV_ERRNO_GNET_INIT_FAILED	       	0xFFFFF90D     /*GNET×ÜÏß³õÊ¼»¯Ê§°Ü*/
+/*å…‰ç½‘å£é”™è¯¯ä»£ç */
+#define  DRV_ERRNO_GNET_NOT_EXIST          	0xFFFFF900     /*å…‰ç½‘å£è®¾å¤‡ä¸å­˜åœ¨*/
+#define  DRV_ERRNO_GNET_PARARM_INVALID     	0xFFFFF901     /*è¾“å…¥å‚æ•°ä¸åˆæ³•*/
+#define  DRV_ERRNO_GNET_OPEN_FAILED        	0xFFFFF902     /*è®¾å¤‡æ‰“å¼€å¤±è´¥*/
+#define  DRV_ERRNO_GNET_CLOSE_FAILED       	0xFFFFF903     /*è®¾å¤‡å…³é—­å¤±è´¥*/
+#define  DRV_ERRNO_GNET_PARARM_SET_FAILED  	0xFFFFF904     /*å‚æ•°è®¾ç½®å¤±è´¥*/
+#define  DRV_ERRNO_GNET_PARARM_GET_FAILED  	0xFFFFF905     /*å‚æ•°èŽ·å–å¤±è´¥*/
+#define  DRV_ERRNO_GNET_TXFIFO_NOT_EMPTY   	0xFFFFF906     /*GNETå‘é€FIFOä¸ä¸ºç©º*/
+#define  DRV_ERRNO_GNET_SEND_FAILED        	0xFFFFF907     /*GNETå‘é€æ•°æ®å¤±è´¥*/
+#define  DRV_ERRNO_GNET_READ_FAILED        	0xFFFFF908     /*GNETè¯»æ•°æ®å¤±è´¥*/
+#define  DRV_ERRNO_GNET_READ_BUF_NULL      	0xFFFFF909     /*GNETè¯»ç¼“å†²åŒºä¸ºç©º*/
+#define  DRV_ERRNO_GNET_READ_BUF_LESS      	0xFFFFF90A     /*GNETè¯»ç¼“å†²åŒºæ•°æ®ä¸å¤Ÿ*/
+#define  DRV_ERRNO_GNET_READ_TIMEOUT       	0xFFFFF90B     /*GNETè¯»æ•°æ®è¶…æ—¶*/
+#define  DRV_ERRNO_GNET_BUS_DISCONNECT     	0xFFFFF90C     /*GNETæ€»çº¿ä¸é€š*/
+#define  DRV_ERRNO_GNET_INIT_FAILED	       	0xFFFFF90D     /*GNETæ€»çº¿åˆå§‹åŒ–å¤±è´¥*/
 
-/*CAN´íÎó´úÂë*/
-#define  DRV_ERRNO_CAN_NOT_EXIST          	0xFFFFFA00     /*uartÉè±¸²»´æÔÚ*/
-#define  DRV_ERRNO_CAN_PARARM_INVALID     	0xFFFFFA01     /*ÊäÈë²ÎÊý²»ºÏ·¨*/
-#define  DRV_ERRNO_CAN_OPEN_FAILED        	0xFFFFFA02     /*Éè±¸´ò¿ªÊ§°Ü*/
-#define  DRV_ERRNO_CAN_CLOSE_FAILED       	0xFFFFFA03     /*Éè±¸¹Ø±ÕÊ§°Ü*/
-#define  DRV_ERRNO_CAN_PARARM_SET_FAILED  	0xFFFFFA04     /*²ÎÊýÉèÖÃÊ§°Ü*/
-#define  DRV_ERRNO_CAN_TXFIFO_FULL        	0xFFFFFA05     /*·¢ËÍFIFOÒç³ö*/
+/*CANé”™è¯¯ä»£ç */
+#define  DRV_ERRNO_CAN_NOT_EXIST          	0xFFFFFA00     /*uartè®¾å¤‡ä¸å­˜åœ¨*/
+#define  DRV_ERRNO_CAN_PARARM_INVALID     	0xFFFFFA01     /*è¾“å…¥å‚æ•°ä¸åˆæ³•*/
+#define  DRV_ERRNO_CAN_OPEN_FAILED        	0xFFFFFA02     /*è®¾å¤‡æ‰“å¼€å¤±è´¥*/
+#define  DRV_ERRNO_CAN_CLOSE_FAILED       	0xFFFFFA03     /*è®¾å¤‡å…³é—­å¤±è´¥*/
+#define  DRV_ERRNO_CAN_PARARM_SET_FAILED  	0xFFFFFA04     /*å‚æ•°è®¾ç½®å¤±è´¥*/
+#define  DRV_ERRNO_CAN_TXFIFO_FULL        	0xFFFFFA05     /*å‘é€FIFOæº¢å‡º*/
 
-/*EMIFF´íÎó´úÂë*/
-#define  DRV_ERRNO_EMIFF_ADDR_SET_FAILED  	0xFFFFFB01     /*emiffÐ¾Æ¬Õ¾µØÖ·ÉèÖÃÊ§°Ü*/
-#define  DRV_ERRNO_EMIFF_PARAM_INVALIDE   	0xFFFFFB02     /*ÊäÈë²ÎÊý²»ºÏ·¨*/
-#define  DRV_ERRNO_EMIFF_REG_WRITE_FAILED 	0xFFFFFB03     /*Ð´¼Ä´æÆ÷Ê§°Ü*/
+/*EMIFFé”™è¯¯ä»£ç */
+#define  DRV_ERRNO_EMIFF_ADDR_SET_FAILED  	0xFFFFFB01     /*emiffèŠ¯ç‰‡ç«™åœ°å€è®¾ç½®å¤±è´¥*/
+#define  DRV_ERRNO_EMIFF_PARAM_INVALIDE   	0xFFFFFB02     /*è¾“å…¥å‚æ•°ä¸åˆæ³•*/
+#define  DRV_ERRNO_EMIFF_REG_WRITE_FAILED 	0xFFFFFB03     /*å†™å¯„å­˜å™¨å¤±è´¥*/

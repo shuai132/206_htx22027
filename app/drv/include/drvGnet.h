@@ -8,7 +8,7 @@
 #define _DRVGNET_H_
 #include "drvDef.h"
 
-//#define  PORT   /*ÇĞ»»Êı¾İ³¤¶È´óĞ¡¶Ë*/
+//#define  PORT   /*åˆ‡æ¢æ•°æ®é•¿åº¦å¤§å°ç«¯*/
 
 #define D_GNET_DATALEN_MAX    (1500)
 
@@ -22,7 +22,7 @@ typedef union{
 	UINT8 ubuf[D_GNET_DATALEN_MAX+14];
 }ST_DATA_BUFF;
 
-typedef void(*FUNCPGNET)(UINT32, UINT32, ST_DATA_BUFF*, UINT32); //1.Íø¿Ú±àºÅ£¬ 2.Ö¡×´Ì¬£¬3.Êı¾İÖ¸Õë£¬4.Êı¾İ³¤¶È
+typedef void(*FUNCPGNET)(UINT32, UINT32, ST_DATA_BUFF*, UINT32); //1.ç½‘å£ç¼–å·ï¼Œ 2.å¸§çŠ¶æ€ï¼Œ3.æ•°æ®æŒ‡é’ˆï¼Œ4.æ•°æ®é•¿åº¦
 
 INT32 drvGnetInit(void);
 INT32 drvGnetIntrConnect(FUNCPGNET routine);

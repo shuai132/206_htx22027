@@ -1,21 +1,21 @@
 /***************************************************************
-*ÎÄ¼şÃû³Æ£ºdrvCfg.h
-*ÎÄ¼şËµÃ÷£ºÅäÖÃÍ·ÎÄ¼ş
-*°æ±¾ºÅ£º1.00
-*¿ª·¢»·¾³£ºworkbench3.3
+*æ–‡ä»¶åç§°ï¼šdrvCfg.h
+*æ–‡ä»¶è¯´æ˜ï¼šé…ç½®å¤´æ–‡ä»¶
+*ç‰ˆæœ¬å·ï¼š1.00
+*å¼€å‘ç¯å¢ƒï¼šworkbench3.3
 ****************************************************************/
 #ifndef _DRVCFG_H_
 #define _DRVCFG_H_
 
 #include "drvDef.h"
 
-#if 1			/*µ÷ÊÔÈÕÖ¾ĞÅÏ¢ºê¶¨Òå*/
+#if 1			/*è°ƒè¯•æ—¥å¿—ä¿¡æ¯å®å®šä¹‰*/
 #define D_DEBUG_LOG					
 #endif 
 
-#define  DRV_BMC_ADMINISTRATOR_ID   0xFF8729ED      /*¹ÜÀíÔ±ÓÃ»§ID*/
+#define  DRV_BMC_ADMINISTRATOR_ID   0xFF8729ED      /*ç®¡ç†å‘˜ç”¨æˆ·ID*/
 
-/*Éè±¸»ùµØÖ·¶¨Òå*/
+/*è®¾å¤‡åŸºåœ°å€å®šä¹‰*/
 #define PL_GNETIP_BASE_ADDR         (0x70100000)  	//128K->0x20000
 #define PL_GNET_BASE_ADDR     		(0x70000000)	//4K->0x1000
 #define PL_UART_BASE_ADDR  			(0x70020000)
@@ -27,11 +27,11 @@
 #define PL_EMIFF_BASE_ADDR     		(0x7002C000)
 
 #ifndef D_OS_ALONE
-/*PLÖĞ¶ÏºÅÓ³Éä±í*/
+/*PLä¸­æ–­å·æ˜ å°„è¡¨*/
 volatile INT32 isrTab[16]={61,62,63,64,65,66,67,68,84,85,86,87,88,89,90,91};
 #endif
 
-/*Ã¶¾ÙPLÉè±¸ÖĞ¶ÏÓ³ÉäĞòºÅ0~15*/
+/*æšä¸¾PLè®¾å¤‡ä¸­æ–­æ˜ å°„åºå·0~15*/
 enum En_DevIsrNum {
 	E_PL_ISR_GNET0 = 0,
 	E_PL_ISR_GNET1,
@@ -50,7 +50,7 @@ enum En_DevIsrNum {
 
 };
 
-/*Ã¶¾ÙÉè±¸¸öÊı*/
+/*æšä¸¾è®¾å¤‡ä¸ªæ•°*/
 enum En_Dev_Num{
 	E_PL_GNET_NUM = 2,
 	E_PL_UART_NUM = 2,
@@ -62,20 +62,20 @@ enum En_Dev_Num{
 };
 
 /**
- * »ù±¾ÍâÉèĞÅÏ¢.
+ * åŸºæœ¬å¤–è®¾ä¿¡æ¯.
  */
 typedef struct {
-	UINT32 m_IsrNum;    /*ÖĞ¶ÏºÅ*/
-	UINT32 m_BaseAddr;  /*ÍâÉè»ùµØÖ·*/
-	UINT32 m_Offset;	/*ÍâÉèÆ«ÒÆµØÖ·*/
-	UINT32 m_DevNum;  	/*ÍâÉèÊıÁ¿*/
+	UINT32 m_IsrNum;    /*ä¸­æ–­å·*/
+	UINT32 m_BaseAddr;  /*å¤–è®¾åŸºåœ°å€*/
+	UINT32 m_Offset;	/*å¤–è®¾åç§»åœ°å€*/
+	UINT32 m_DevNum;  	/*å¤–è®¾æ•°é‡*/
 } ST_DEV_CONFIG;
 
 enum En_Dev_Offset{
 	E_PL_CAN_OFFSET = 0x1000,
 };
 
-/*BMC´¥·¢±¨¾¯ÉÏÏÂÏŞ¶¨Òå*/
+/*BMCè§¦å‘æŠ¥è­¦ä¸Šä¸‹é™å®šä¹‰*/
 #define D_CPU_USR_MAX   	80
 #define D_TEMPTURE_MIN   	20
 #define D_TEMPTURE_MAX   	80

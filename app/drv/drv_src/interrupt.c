@@ -40,9 +40,9 @@ XScuGic IntrCtrller; 	     		 /* Instance of the Interrupt Controller */
 static XScuGic_Config *GicConfig;    /* The configuration parameters of the controller */
 
 /******************************************************
- * Func: ÖĞ¶Ï¿ØÖÆ³õÊ¼»¯
- * param1£ºÎŞ
- * return£º³õÊ¼»¯½á¹û
+ * Func: ä¸­æ–­æ§åˆ¶åˆå§‹åŒ–
+ * param1ï¼šæ— 
+ * returnï¼šåˆå§‹åŒ–ç»“æœ
  * ****************************************************/
 int drvIntrCtrlInit(void)
 {
@@ -89,11 +89,11 @@ int drvIntrCtrlInit(void)
 }
 
 /******************************************************
- * Func: ÖĞ¶ÏÈë¿Úº¯Êı×¢²áº¯Êı
- * param1£ºPLÖĞ¶ÏºÅ
- * param1£ºPLÖĞ¶ÏÈë¿Úº¯Êı
- * param1£ºPL²ÎÊıÖ¸Õë
- * return£ºÖ´ĞĞ½á¹û
+ * Func: ä¸­æ–­å…¥å£å‡½æ•°æ³¨å†Œå‡½æ•°
+ * param1ï¼šPLä¸­æ–­å·
+ * param1ï¼šPLä¸­æ–­å…¥å£å‡½æ•°
+ * param1ï¼šPLå‚æ•°æŒ‡é’ˆ
+ * returnï¼šæ‰§è¡Œç»“æœ
  * ****************************************************/
 int intConnect(UINT32 Intr_Id, void *Handler, void *param)
 {
@@ -118,11 +118,11 @@ int intConnect(UINT32 Intr_Id, void *Handler, void *param)
 }
 
 /******************************************************
- * Func: ÖĞ¶ÏÈë¿Úº¯ÊıÏú»Ùº¯Êı
- * param1£ºPLÖĞ¶ÏºÅ
- * param1£ºPLÖĞ¶ÏÈë¿Úº¯Êı
- * param1£ºPL²ÎÊıÖ¸Õë
- * return£ºÖ´ĞĞ½á¹û
+ * Func: ä¸­æ–­å…¥å£å‡½æ•°é”€æ¯å‡½æ•°
+ * param1ï¼šPLä¸­æ–­å·
+ * param1ï¼šPLä¸­æ–­å…¥å£å‡½æ•°
+ * param1ï¼šPLå‚æ•°æŒ‡é’ˆ
+ * returnï¼šæ‰§è¡Œç»“æœ
  * ****************************************************/
 int intDisconnect(UINT32 Intr_Id, void *Handler, void *param)
 {
@@ -131,9 +131,9 @@ int intDisconnect(UINT32 Intr_Id, void *Handler, void *param)
 }
 
 /******************************************************
- * Func: ÖĞ¶ÏÊ¹ÄÜ¿ØÖÆº¯Êı
- * param1£ºPLÖĞ¶ÏºÅ
- * return£ºÖ´ĞĞ½á¹û
+ * Func: ä¸­æ–­ä½¿èƒ½æ§åˆ¶å‡½æ•°
+ * param1ï¼šPLä¸­æ–­å·
+ * returnï¼šæ‰§è¡Œç»“æœ
  * ****************************************************/
 int intEnable(UINT32 intrId)
 {
@@ -142,9 +142,9 @@ int intEnable(UINT32 intrId)
 }
 
 /******************************************************
- * Func: ÖĞ¶Ï¹Ø±Õ¿ØÖÆº¯Êı
- * param1£ºPLÖĞ¶ÏºÅ
- * return£ºÖ´ĞĞ½á¹û
+ * Func: ä¸­æ–­å…³é—­æ§åˆ¶å‡½æ•°
+ * param1ï¼šPLä¸­æ–­å·
+ * returnï¼šæ‰§è¡Œç»“æœ
  * ****************************************************/
 int intDisable(UINT32 intrId)
 {

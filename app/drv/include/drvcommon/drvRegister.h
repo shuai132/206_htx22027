@@ -1,8 +1,8 @@
 /***************************************************************
-*�ļ����ƣ�drvGjbRegister.h
-*�ļ�˵����1553B IP�˼Ĵ�����ַ����
-*�汾�ţ�1.00
-*����������linux
+*文件名称：drvGjbRegister.h
+*文件说明：1553B IP核寄存器地址定义
+*版本号：1.00
+*开发环境：linux
 ****************************************************************/
 #ifndef DRVREGISTER_H
 #define DRVREGISTER_H
@@ -15,8 +15,8 @@
 #define PL_UART_INT_RDATA_ADDR      (PL_UART_BASE_ADDR + 0x0C)
 #define PL_UART_TX_WRDA_ADDR        (PL_UART_BASE_ADDR + 0x10)
 #define PL_UART_MODE_ADDR           (PL_UART_BASE_ADDR + 0x14)
-#define PL_UART_SEND_ENABLE_ADDR 	(PL_UART_BASE_ADDR + 0x18)  /*����ʹ�ܣ���ЧֵΪ1*/
-#define PL_UART_FIFO_RST_ADDR     	(PL_UART_BASE_ADDR + 0x1C)	/*FIFO��λ����ЧֵΪ1��bit0Ϊ���ո�λ��bit1Ϊ���͸�λ*/
+#define PL_UART_SEND_ENABLE_ADDR 	(PL_UART_BASE_ADDR + 0x18)  /*发送使能，有效值为1*/
+#define PL_UART_FIFO_RST_ADDR     	(PL_UART_BASE_ADDR + 0x1C)	/*FIFO复位，有效值为1，bit0为接收复位，bit1为发送复位*/
 
 /*************************** TIMER *******************************/
 #define PL_TIMER_CONFIG_ADDR        (PL_TIMER_BASE_ADDR + 0x00)
@@ -28,44 +28,44 @@
 // 1: low_to_high, 
 // 2: high_to_low, 
 // 3: low_to_high or high_to_low
-#define PL_IO_TRIGGER_MODE0_ADDR        (PL_IO_BASE_ADDR + 0x00)	//IO�жϴ�����ʽ�Ĵ���(group0:pin0~pin15)
-#define PL_IO_TRIGGER_MODE1_ADDR        (PL_IO_BASE_ADDR + 0x04)	//IO�жϴ�����ʽ�Ĵ���(group0:pin16~pin31)
-#define PL_IO_TRIGGER_MODE2_ADDR  		(PL_IO_BASE_ADDR + 0x08)	//IO�жϴ�����ʽ�Ĵ���(group1:pin0~pin15)
-#define PL_IO_TRIGGER_MODE3_ADDR        (PL_IO_BASE_ADDR + 0x0C)	//IO�жϴ�����ʽ�Ĵ���(group1:pin16~pin31)
-#define PL_IO_TRIGGER_MODE4_ADDR        (PL_IO_BASE_ADDR + 0x10)	//IO�жϴ�����ʽ�Ĵ���(group2:pin0~pin15)
-#define PL_IO_TRIGGER_MODE5_ADDR  		(PL_IO_BASE_ADDR + 0x14)	//IO�жϴ�����ʽ�Ĵ���(group2:pin16~pin31)
+#define PL_IO_TRIGGER_MODE0_ADDR        (PL_IO_BASE_ADDR + 0x00)	//IO中断触发方式寄存器(group0:pin0~pin15)
+#define PL_IO_TRIGGER_MODE1_ADDR        (PL_IO_BASE_ADDR + 0x04)	//IO中断触发方式寄存器(group0:pin16~pin31)
+#define PL_IO_TRIGGER_MODE2_ADDR  		(PL_IO_BASE_ADDR + 0x08)	//IO中断触发方式寄存器(group1:pin0~pin15)
+#define PL_IO_TRIGGER_MODE3_ADDR        (PL_IO_BASE_ADDR + 0x0C)	//IO中断触发方式寄存器(group1:pin16~pin31)
+#define PL_IO_TRIGGER_MODE4_ADDR        (PL_IO_BASE_ADDR + 0x10)	//IO中断触发方式寄存器(group2:pin0~pin15)
+#define PL_IO_TRIGGER_MODE5_ADDR  		(PL_IO_BASE_ADDR + 0x14)	//IO中断触发方式寄存器(group2:pin16~pin31)
 
-#define PL_IO_CONTROL_0_ADDR            (PL_IO_BASE_ADDR + 0x18)	//��0�������������� 0-�����1-����
-#define PL_IO_CONTROL_1_ADDR            (PL_IO_BASE_ADDR + 0x1C)	//��1�������������� 0-�����1-����
-#define PL_IO_CONTROL_2_ADDR            (PL_IO_BASE_ADDR + 0x20)	//��2�������������� 0-�����1-����
+#define PL_IO_CONTROL_0_ADDR            (PL_IO_BASE_ADDR + 0x18)	//组0输入输出方向控制 0-输出，1-输入
+#define PL_IO_CONTROL_1_ADDR            (PL_IO_BASE_ADDR + 0x1C)	//组1输入输出方向控制 0-输出，1-输入
+#define PL_IO_CONTROL_2_ADDR            (PL_IO_BASE_ADDR + 0x20)	//组2输入输出方向控制 0-输出，1-输入
 
-#define PL_IO_REG_INOUT_OUT0_ADDR       (PL_IO_BASE_ADDR + 0x24)	//��0���״̬�Ĵ���
-#define PL_IO_REG_INOUT_OUT1_ADDR  		(PL_IO_BASE_ADDR + 0x28)	//��1���״̬�Ĵ���
-#define PL_IO_REG_INOUT_OUT2_ADDR  		(PL_IO_BASE_ADDR + 0x2C)	//��2���״̬�Ĵ���
+#define PL_IO_REG_INOUT_OUT0_ADDR       (PL_IO_BASE_ADDR + 0x24)	//组0输出状态寄存器
+#define PL_IO_REG_INOUT_OUT1_ADDR  		(PL_IO_BASE_ADDR + 0x28)	//组1输出状态寄存器
+#define PL_IO_REG_INOUT_OUT2_ADDR  		(PL_IO_BASE_ADDR + 0x2C)	//组2输出状态寄存器
 
-#define PL_IO_OUT_REG0_ADDR             (PL_IO_BASE_ADDR + 0x30)	//��3���״̬�Ĵ���
-#define PL_IO_OUT_REG1_ADDR             (PL_IO_BASE_ADDR + 0x34)	//��4���״̬�Ĵ���
-#define PL_IO_OUT_REG2_ADDR           	(PL_IO_BASE_ADDR + 0x38)	//��5���״̬�Ĵ���
-#define PL_IO_OUT_REG3_ADDR           	(PL_IO_BASE_ADDR + 0x3C)	//��6���״̬�Ĵ���
-#define PL_IO_OUT_REG4_ADDR           	(PL_IO_BASE_ADDR + 0x40)	//��7���״̬�Ĵ���
-#define PL_IO_OUT_REG5_ADDR           	(PL_IO_BASE_ADDR + 0x44)	//��8���״̬�Ĵ���
-#define PL_IO_OUT_REG6_ADDR           	(PL_IO_BASE_ADDR + 0x48)	//��9���״̬�Ĵ���
+#define PL_IO_OUT_REG0_ADDR             (PL_IO_BASE_ADDR + 0x30)	//组3输出状态寄存器
+#define PL_IO_OUT_REG1_ADDR             (PL_IO_BASE_ADDR + 0x34)	//组4输出状态寄存器
+#define PL_IO_OUT_REG2_ADDR           	(PL_IO_BASE_ADDR + 0x38)	//组5输出状态寄存器
+#define PL_IO_OUT_REG3_ADDR           	(PL_IO_BASE_ADDR + 0x3C)	//组6输出状态寄存器
+#define PL_IO_OUT_REG4_ADDR           	(PL_IO_BASE_ADDR + 0x40)	//组7输出状态寄存器
+#define PL_IO_OUT_REG5_ADDR           	(PL_IO_BASE_ADDR + 0x44)	//组8输出状态寄存器
+#define PL_IO_OUT_REG6_ADDR           	(PL_IO_BASE_ADDR + 0x48)	//组9输出状态寄存器
 
-#define PL_IO_REG_IN0_ADDR              (PL_IO_BASE_ADDR + 0x4C)	//��0����ʵʱ״̬�Ĵ���
-#define PL_IO_REG_IN1_ADDR              (PL_IO_BASE_ADDR + 0x50)	//��1����ʵʱ״̬�Ĵ���
-#define PL_IO_REG_IN2_ADDR              (PL_IO_BASE_ADDR + 0x54)	//��2����ʵʱ״̬�Ĵ���
+#define PL_IO_REG_IN0_ADDR              (PL_IO_BASE_ADDR + 0x4C)	//组0输入实时状态寄存器
+#define PL_IO_REG_IN1_ADDR              (PL_IO_BASE_ADDR + 0x50)	//组1输入实时状态寄存器
+#define PL_IO_REG_IN2_ADDR              (PL_IO_BASE_ADDR + 0x54)	//组2输入实时状态寄存器
 
-#define PL_IO_STATE_IO_ADDR             (PL_IO_BASE_ADDR + 0x58)	//�ж�״̬�Ĵ�����������(GROUP)
-#define PL_IO_REG_IN0_INTR_ADDR         (PL_IO_BASE_ADDR + 0x5C)	//��0�����ж�״̬�Ĵ���(PIN)
-#define PL_IO_REG_IN1_INTR_ADDR         (PL_IO_BASE_ADDR + 0x60)	//��1�����ж�״̬�Ĵ���(PIN)
-#define PL_IO_REG_IN2_INTR_ADDR         (PL_IO_BASE_ADDR + 0x64)	//��2�����ж�״̬�Ĵ���(PIN)
+#define PL_IO_STATE_IO_ADDR             (PL_IO_BASE_ADDR + 0x58)	//中断状态寄存器，区分组(GROUP)
+#define PL_IO_REG_IN0_INTR_ADDR         (PL_IO_BASE_ADDR + 0x5C)	//组0输入中断状态寄存器(PIN)
+#define PL_IO_REG_IN1_INTR_ADDR         (PL_IO_BASE_ADDR + 0x60)	//组1输入中断状态寄存器(PIN)
+#define PL_IO_REG_IN2_INTR_ADDR         (PL_IO_BASE_ADDR + 0x64)	//组2输入中断状态寄存器(PIN)
 
-#define PL_IO_REG_IN0_STATE_ADDR        (PL_IO_BASE_ADDR + 0x68)	//��0�����ж�ֵ�Ĵ���(VALUE)
-#define PL_IO_REG_IN1_STATE_ADDR        (PL_IO_BASE_ADDR + 0x6C)	//��1�����ж�ֵ�Ĵ���(VALUE)
-#define PL_IO_REG_IN2_STATE_ADDR      	(PL_IO_BASE_ADDR + 0x70)	//��2�����ж�ֵ�Ĵ���(VALUE)
+#define PL_IO_REG_IN0_STATE_ADDR        (PL_IO_BASE_ADDR + 0x68)	//组0输入中断值寄存器(VALUE)
+#define PL_IO_REG_IN1_STATE_ADDR        (PL_IO_BASE_ADDR + 0x6C)	//组1输入中断值寄存器(VALUE)
+#define PL_IO_REG_IN2_STATE_ADDR      	(PL_IO_BASE_ADDR + 0x70)	//组2输入中断值寄存器(VALUE)
             
 #define PL_IO_ISR_CLEAR                 (PL_IO_BASE_ADDR + 0x80)	//tell PL that deal done with interrupt, then PL will give interrupt
-#define PL_IO_FIFO_RST_ADDR       		(PL_IO_BASE_ADDR + 0x84)	//FIFO��λ�Ĵ���
+#define PL_IO_FIFO_RST_ADDR       		(PL_IO_BASE_ADDR + 0x84)	//FIFO复位寄存器
 
 
 /*************************** ADC *******************************/
@@ -105,11 +105,11 @@
 #define PL_COMPARE_REG_ADDR         (PL_XADC_CTRL_BASE_ADDR + 0x80)	
 #define PL_COMPARE_START_REG_ADDR   (PL_XADC_CTRL_BASE_ADDR + 0x84)	
 
-#define PL_AD_TIMER_GAP_ADDR		(PL_XADC_CTRL_BASE_ADDR + 0x90)	    /*�������ʱ��Ĵ�������λ1ms*/
-#define PL_AD_CNT_ADDR   			(PL_XADC_CTRL_BASE_ADDR + 0x94)	    /*���������Ĵ���*/
-#define PL_AD_FIFO_STATE_ADDR   	(PL_XADC_CTRL_BASE_ADDR + 0xA30)    /*FIFO״̬�Ĵ���*/
-#define PL_AD_FIFO_REG_ADDR   		(PL_XADC_CTRL_BASE_ADDR + 0xA2C)    /*FIFO�Ĵ���*/
-#define PL_AD_CHANNEL_ADDR  		(PL_XADC_CTRL_BASE_ADDR + 0x98)	    /*����ͨ���Ĵ���*/
+#define PL_AD_TIMER_GAP_ADDR		(PL_XADC_CTRL_BASE_ADDR + 0x90)	    /*采样间隔时间寄存器，单位1ms*/
+#define PL_AD_CNT_ADDR   			(PL_XADC_CTRL_BASE_ADDR + 0x94)	    /*采样次数寄存器*/
+#define PL_AD_FIFO_STATE_ADDR   	(PL_XADC_CTRL_BASE_ADDR + 0xA30)    /*FIFO状态寄存器*/
+#define PL_AD_FIFO_REG_ADDR   		(PL_XADC_CTRL_BASE_ADDR + 0xA2C)    /*FIFO寄存器*/
+#define PL_AD_CHANNEL_ADDR  		(PL_XADC_CTRL_BASE_ADDR + 0x98)	    /*采样通道寄存器*/
 
 
 #define PL_CFG_REG0_ADDR            (PL_XADC_BASE_ADDR + 0x300)
@@ -142,16 +142,16 @@
 #define PL_VAUXP_REG14_ADDR         (PL_XADC_BASE_ADDR + 0x278)
 #define PL_VAUXP_REG15_ADDR         (PL_XADC_BASE_ADDR + 0x27C)
 
-#define PL_BIGDATA_CFG1_ADDR        (PL_XADC_CTRL_BASE_ADDR + 0x0)       /*�����ݲɼ�����1*/
-#define PL_BIGDATA_CFG2_ADDR        (PL_XADC_CTRL_BASE_ADDR + 0x4)       /*�����ݲɼ�����2*/
-#define PL_BIGDATA_CFG3_ADDR        (PL_XADC_CTRL_BASE_ADDR + 0x8)       /*�����ݲɼ�����3*/
-#define PL_AVG_CFG_ADDR             (PL_XADC_CTRL_BASE_ADDR + 0xC)       /*��ƽ�����üĴ���*/
-#define PL_FIFO_STA_CLEAR_ADDR      (PL_XADC_CTRL_BASE_ADDR + 0x10)      /*FIFO״̬����Ĵ���*/
+#define PL_BIGDATA_CFG1_ADDR        (PL_XADC_CTRL_BASE_ADDR + 0x0)       /*大数据采集配置1*/
+#define PL_BIGDATA_CFG2_ADDR        (PL_XADC_CTRL_BASE_ADDR + 0x4)       /*大数据采集配置2*/
+#define PL_BIGDATA_CFG3_ADDR        (PL_XADC_CTRL_BASE_ADDR + 0x8)       /*大数据采集配置3*/
+#define PL_AVG_CFG_ADDR             (PL_XADC_CTRL_BASE_ADDR + 0xC)       /*求平均配置寄存器*/
+#define PL_FIFO_STA_CLEAR_ADDR      (PL_XADC_CTRL_BASE_ADDR + 0x10)      /*FIFO状态清除寄存器*/
 
-#define PL_AVERAGE_DATA_ADDR        (PL_XADC_CTRL_BASE_ADDR + 0xA00)     /*��ƽ������*/
+#define PL_AVERAGE_DATA_ADDR        (PL_XADC_CTRL_BASE_ADDR + 0xA00)     /*求平均数据*/
 
 /*************************** GNET *******************************/
-#define PL_GNET_STATUS_ADDR   		(PL_GNET_BASE_ADDR + 0x4)    	//д�������״̬
+#define PL_GNET_STATUS_ADDR   		(PL_GNET_BASE_ADDR + 0x4)    	//写数据完成状态
 #define PL_GNET_CFG1_ADDR     		(PL_GNET_BASE_ADDR + 0x8)    	//0x20
 #define PL_GNET_CFG2_ADDR    		(PL_GNET_BASE_ADDR + 0x10)    	//0x80
 
@@ -159,7 +159,7 @@
 #define PL_GNET_FIFO_STATE_ADDR 	(PL_GNET_BASE_ADDR + 0x1C)
 #define PL_GNET_RFIFO_LEN_ADDR  	(PL_GNET_BASE_ADDR + 0x18)
 #define PL_GNET_RFIFO_DATA_ADDR		(PL_GNET_BASE_ADDR + 0x14)
-#define PL_GNET_FIFO_RST_ADDR		(PL_GNET_BASE_ADDR + 0x20)  	//bit31:�ж�ʹ��, bit0:RX FIFO��λ,bit1:TX FIFO��λ
+#define PL_GNET_FIFO_RST_ADDR		(PL_GNET_BASE_ADDR + 0x20)  	//bit31:中断使能, bit0:RX FIFO复位,bit1:TX FIFO复位
 
 #define PL_GNET_IP_CFG1				(PL_GNETIP_BASE_ADDR + 0x500)   //0x53
 #define PL_GNET_IP_CFG2				(PL_GNETIP_BASE_ADDR + 0x508)   //0x140
@@ -203,12 +203,12 @@
 
 
 /*************************** EMIFF ******************************/
-#define		PL_EMIFF_RST			(PL_EMIFF_BASE_ADDR + 0x00)		// ��λ���жϼĴ�����bit0����оƬ�жϣ�bit1����pl FIFO��
-#define		PL_EMIFF_WCFG			(PL_EMIFF_BASE_ADDR + 0x04)		// д���üĴ�����bit0~bit11��д����reg�ĵ�ַ��bit16~bit23��д����reg��ֵ��
-#define		PL_EMIFF_RCFG			(PL_EMIFF_BASE_ADDR + 0x08)		// �����üĴ�����bit0~bit11��������reg�ĵ�ַ��bit16~bit23��������reg��ֵ��
-#define		PL_EMIFF_WDATA			(PL_EMIFF_BASE_ADDR + 0x0C)		// д���ݼĴ�����bit0~bit11��д����reg�ĵ�ַ��bit16~bit23��д����reg��ֵ��
-#define		PL_EMIFF_RDATA			(PL_EMIFF_BASE_ADDR + 0x10)		// �����ݼĴ�����bit0~bit11��������reg�ĵ�ַ��bit16~bit23��������reg��ֵ��
-#define		PL_EMIFF_ISR_RDATA		(PL_EMIFF_BASE_ADDR + 0x14)		// ���ж����ݼĴ�����bit0~bit7����Ч����λ��
-#define		PL_EMIFF_ISR_STATE	    (PL_EMIFF_BASE_ADDR + 0x20)		// �ж�״̬�Ĵ�����bit0~bit10�����ݳ��ȣ�bit11��FIFO�ձ�־λ��bit31������ready��־��
+#define		PL_EMIFF_RST			(PL_EMIFF_BASE_ADDR + 0x00)		// 复位清中断寄存器（bit0：清芯片中断，bit1：清pl FIFO）
+#define		PL_EMIFF_WCFG			(PL_EMIFF_BASE_ADDR + 0x04)		// 写配置寄存器（bit0~bit11：写配置reg的地址，bit16~bit23：写配置reg的值）
+#define		PL_EMIFF_RCFG			(PL_EMIFF_BASE_ADDR + 0x08)		// 读配置寄存器（bit0~bit11：读配置reg的地址，bit16~bit23：读配置reg的值）
+#define		PL_EMIFF_WDATA			(PL_EMIFF_BASE_ADDR + 0x0C)		// 写数据寄存器（bit0~bit11：写数据reg的地址，bit16~bit23：写数据reg的值）
+#define		PL_EMIFF_RDATA			(PL_EMIFF_BASE_ADDR + 0x10)		// 读数据寄存器（bit0~bit11：读数据reg的地址，bit16~bit23：读数据reg的值）
+#define		PL_EMIFF_ISR_RDATA		(PL_EMIFF_BASE_ADDR + 0x14)		// 读中断数据寄存器（bit0~bit7：有效数据位）
+#define		PL_EMIFF_ISR_STATE	    (PL_EMIFF_BASE_ADDR + 0x20)		// 中断状态寄存器（bit0~bit10：数据长度，bit11：FIFO空标志位，bit31：数据ready标志）
 
 #endif  // TX11905_REGISTER_DEF_H

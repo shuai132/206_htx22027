@@ -116,14 +116,14 @@ int stringtohex(unsigned char *str, unsigned char *hex, int len)
 	return len/2;
 }
 
-/*zynq plÄÚ´æĞ´*/
+/*zynq plå†…å­˜å†™*/
 void pl_reg_write(unsigned int addr, unsigned int value)
 {
     *(volatile unsigned int *)(addr) = value;
 //	printf("--->addr:0x%x, data:0x%x\n", addr, value);
 }
 
-/*zynq plÄÚ´æ¶Á*/
+/*zynq plå†…å­˜è¯»*/
 unsigned int pl_reg_read(unsigned int addr)
 {
 	unsigned int readval=0;
@@ -134,13 +134,13 @@ unsigned int pl_reg_read(unsigned int addr)
 
 
 /******************************************************
- * Func: Î¢ÃëÑÓÊ±º¯Êı
- * param1£ºÑÓÊ±Ê±¼ä£¬µ¥Î»us
- * return£ºÎŞ
+ * Func: å¾®ç§’å»¶æ—¶å‡½æ•°
+ * param1ï¼šå»¶æ—¶æ—¶é—´ï¼Œå•ä½us
+ * returnï¼šæ— 
  * ****************************************************/
 void drv_delay_us(unsigned int waitTime)
 {
-#ifdef D_OS_ALONE       /*sdkÂãÅÜ*/
+#ifdef D_OS_ALONE       /*sdkè£¸è·‘*/
 	usleep(waitTime);
 #else                   /*vx6.9*/
 	struct timespec tm;
@@ -154,13 +154,13 @@ void drv_delay_us(unsigned int waitTime)
 }
 
 /******************************************************
- * Func: ºÁÃëÑÓÊ±º¯Êı
- * param1£ºÑÓÊ±Ê±¼ä£¬µ¥Î»s
- * return£ºÎŞ
+ * Func: æ¯«ç§’å»¶æ—¶å‡½æ•°
+ * param1ï¼šå»¶æ—¶æ—¶é—´ï¼Œå•ä½s
+ * returnï¼šæ— 
  * ****************************************************/
 void drv_delay_ms(unsigned int waitTime)
 {
-#ifdef D_OS_ALONE       /*sdkÂãÅÜ*/
+#ifdef D_OS_ALONE       /*sdkè£¸è·‘*/
 	usleep(waitTime*1000);
 #else                   /*vx6.9*/
 	struct timespec tm;
@@ -173,13 +173,13 @@ void drv_delay_ms(unsigned int waitTime)
 }
 
 /******************************************************
- * Func: ºÁÃëÑÓÊ±º¯Êı
- * param1£ºÑÓÊ±Ê±¼ä£¬µ¥Î»s£¬ÓĞĞ§ÊäÈë·¶Î§0~999999
- * return£ºÎŞ
+ * Func: æ¯«ç§’å»¶æ—¶å‡½æ•°
+ * param1ï¼šå»¶æ—¶æ—¶é—´ï¼Œå•ä½sï¼Œæœ‰æ•ˆè¾“å…¥èŒƒå›´0~999999
+ * returnï¼šæ— 
  * ****************************************************/
 void drv_delay_s(unsigned int waitTime)
 {
-#ifdef D_OS_ALONE       /*sdkÂãÅÜ*/
+#ifdef D_OS_ALONE       /*sdkè£¸è·‘*/
 	sleep(waitTime);
 #else                   /*vx6.9*/
 	struct timespec tm;
@@ -193,7 +193,7 @@ void drv_delay_s(unsigned int waitTime)
 
 void drvCommon_Init(void)
 {
-#ifdef D_OS_ALONE       /*sdkÂãÅÜ*/
+#ifdef D_OS_ALONE       /*sdkè£¸è·‘*/
 /*add code*/
 #else                   /*vx6.9*/
 	sysClkRateSet(1000);

@@ -11,7 +11,7 @@
 #include "drvDef.h"
 
 
-typedef void(*FUNCPTIMER)(void*);   /*param£º¶¨Ê±Æ÷±àºÅ*/
+typedef void(*FUNCPTIMER)(void*);   /*paramï¼šå®šæ—¶å™¨ç¼–å·*/
 
 /************************** Function Prototypes ******************************/
 INT32 drvClkInit(void *pvReserve);

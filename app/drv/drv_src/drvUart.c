@@ -58,9 +58,9 @@ typedef struct
 ST_UART_STATE uartCfg = {0};  
 
 /******************************************************
- * Func: UART½ÓÊÕÖĞ¶Ï·şÎñÈë¿Úº¯Êı
- * param1£º´®¿ÚºÅ
- * return£ºÎŞ
+ * Func: UARTæ¥æ”¶ä¸­æ–­æœåŠ¡å…¥å£å‡½æ•°
+ * param1ï¼šä¸²å£å·
+ * returnï¼šæ— 
  * ****************************************************/
 LOCAL void usrUartIsr(int index)
 {
@@ -69,15 +69,15 @@ LOCAL void usrUartIsr(int index)
     
     ret = pl_reg_read(PL_UART_STATUS_ADDR + 0x1000 * index);
 //    logMsg("Uart_%d recv status: 0x%x\n", index, ret, 2, 3, 4, 5, 6);
-    if(!(ret & (1<<30)))                    /*½ÓÊÕ³¤¶ÈFIFO²»Îª¿Õ*/
+    if(!(ret & (1<<30)))                    /*æ¥æ”¶é•¿åº¦FIFOä¸ä¸ºç©º*/
     {
-        if(ret & 0x80000000)                /*FIFOÒç³ö*/
+        if(ret & 0x80000000)                /*FIFOæº¢å‡º*/
         { 			
             state |= DRV_RX_FIFO_FULL;
         } 
         
         rByte_num = pl_reg_read(PL_UART_INT_RDATA_ADDR + 0x1000 * index);
-        if(rByte_num & 0x80000000)			/*ÆæÅ¼Ğ£ÑéÃ»ÓĞÍ¨¹ı*/
+        if(rByte_num & 0x80000000)			/*å¥‡å¶æ ¡éªŒæ²¡æœ‰é€šè¿‡*/
         {
             state |= DRV_RX_PARITY_ERRO;
             rByte_num &= 0x7fffffff;
@@ -95,9 +95,9 @@ LOCAL void usrUartIsr(int index)
 }
 
 /******************************************************
- * Func: UART FIFO¸´Î»º¯Êı
- * param1£ºÔ¤Áô²ÎÊı
- * return£ºÖ´ĞĞ½á¹û
+ * Func: UART FIFOå¤ä½å‡½æ•°
+ * param1ï¼šé¢„ç•™å‚æ•°
+ * returnï¼šæ‰§è¡Œç»“æœ
  * ****************************************************/
 INT32 drvUartFifoRst(UINT32 comNum, UINT32 cmd)
 {
@@ -108,9 +108,9 @@ INT32 drvUartFifoRst(UINT32 comNum, UINT32 cmd)
 }
 
 /******************************************************
- * Func: RS422³õÊ¼»¯º¯Êı
- * param1£ºÔ¤Áô²ÎÊı
- * return£ºÖ´ĞĞ½á¹û
+ * Func: RS422åˆå§‹åŒ–å‡½æ•°
+ * param1ï¼šé¢„ç•™å‚æ•°
+ * returnï¼šæ‰§è¡Œç»“æœ
  * ****************************************************/
 INT32 drvRsComInit(UINT32 reserve)
 {
@@ -118,9 +118,9 @@ INT32 drvRsComInit(UINT32 reserve)
 }
 
 /******************************************************
- * Func: RS422ÓÃ»§ÖĞ¶Ï´¦Àí×¢²áº¯Êı
- * param1£ºÓÃ»§ÖĞ¶Ï·şÎñº¯ÊıÖ¸Õë
- * return£ºÖ´ĞĞ½á¹û
+ * Func: RS422ç”¨æˆ·ä¸­æ–­å¤„ç†æ³¨å†Œå‡½æ•°
+ * param1ï¼šç”¨æˆ·ä¸­æ–­æœåŠ¡å‡½æ•°æŒ‡é’ˆ
+ * returnï¼šæ‰§è¡Œç»“æœ
  * ****************************************************/
 INT32 drvRsIntrConnect(FUNCPUART routine)
 {
@@ -133,9 +133,9 @@ INT32 drvRsIntrConnect(FUNCPUART routine)
 }
 
 /******************************************************
- * Func: RS422´ò¿ªº¯Êı
- * param1£ºRS422Éè±¸±àºÅ
- * return£ºÖ´ĞĞ½á¹û
+ * Func: RS422æ‰“å¼€å‡½æ•°
+ * param1ï¼šRS422è®¾å¤‡ç¼–å·
+ * returnï¼šæ‰§è¡Œç»“æœ
  * ****************************************************/
 INT32 drvRsOpen(UINT32 comNum,UINT16 mode)
 {
@@ -179,9 +179,9 @@ INT32 drvRsOpen(UINT32 comNum,UINT16 mode)
 }
 
 /******************************************************
- * Func: RS422¹Ø±Õº¯Êı
- * param1£ºRS422Éè±¸±àºÅ
- * return£ºÖ´ĞĞ½á¹û
+ * Func: RS422å…³é—­å‡½æ•°
+ * param1ï¼šRS422è®¾å¤‡ç¼–å·
+ * returnï¼šæ‰§è¡Œç»“æœ
  * ****************************************************/
 INT32 drvRsClose(UINT32 comNum)
 {
@@ -209,10 +209,10 @@ INT32 drvRsClose(UINT32 comNum)
 }
 
 /******************************************************
- * Func: RS422¹¤×÷²ÎÊıÉèÖÃº¯Êı
- * param1£ºRS422Éè±¸±àºÅ
- * param2£ºRS422²ÎÊı½á¹¹ÌåÖ¸Õë
- * return£ºÖ´ĞĞ½á¹û
+ * Func: RS422å·¥ä½œå‚æ•°è®¾ç½®å‡½æ•°
+ * param1ï¼šRS422è®¾å¤‡ç¼–å·
+ * param2ï¼šRS422å‚æ•°ç»“æ„ä½“æŒ‡é’ˆ
+ * returnï¼šæ‰§è¡Œç»“æœ
  * ****************************************************/
 INT32 drvRsParamSet(UINT32 comNum, DRV_RS_CFG_ST cfg)
 {
@@ -301,7 +301,7 @@ INT32 drvRsParamSet(UINT32 comNum, DRV_RS_CFG_ST cfg)
             break;
     }
 
-    if(cfg.isr_enable)				/*Ê¹ÄÜuartÖĞ¶Ï*/
+    if(cfg.isr_enable)				/*ä½¿èƒ½uartä¸­æ–­*/
     	cfg_r.u32int_enable = 1; 
     
     UINT32 regValue = *((UINT32 *)&cfg_r);
@@ -318,10 +318,10 @@ INT32 drvRsParamSet(UINT32 comNum, DRV_RS_CFG_ST cfg)
 }
 
 /******************************************************
- * Func: RS422¹¤×÷²ÎÊı»ñÈ¡º¯Êı
- * param1£ºRS422Éè±¸±àºÅ
- * param2£ºRS422²ÎÊı½á¹¹ÌåÖ¸Õë
- * return£ºÖ´ĞĞ½á¹û
+ * Func: RS422å·¥ä½œå‚æ•°è·å–å‡½æ•°
+ * param1ï¼šRS422è®¾å¤‡ç¼–å·
+ * param2ï¼šRS422å‚æ•°ç»“æ„ä½“æŒ‡é’ˆ
+ * returnï¼šæ‰§è¡Œç»“æœ
  * ****************************************************/
 INT32 drvRsParamGet(UINT32 comNum, DRV_RS_CFG_ST *pCfg)
 {
@@ -387,11 +387,11 @@ INT32 drvRsParamGet(UINT32 comNum, DRV_RS_CFG_ST *pCfg)
 }
 
 /******************************************************
- * Func: RS422·¢ËÍº¯Êı
- * param1£ºRS422Éè±¸±àºÅ
- * param2£ºÒª·¢ËÍµÄÊı¾İÖ¸Õë
- * param3£ºÒª·¢ËÍµÄÊı¾İ³¤¶È
- * return£º·¢ËÍ×Ö½Ú³¤¶È
+ * Func: RS422å‘é€å‡½æ•°
+ * param1ï¼šRS422è®¾å¤‡ç¼–å·
+ * param2ï¼šè¦å‘é€çš„æ•°æ®æŒ‡é’ˆ
+ * param3ï¼šè¦å‘é€çš„æ•°æ®é•¿åº¦
+ * returnï¼šå‘é€å­—èŠ‚é•¿åº¦
  * ****************************************************/
 INT32 drvRsSend(UINT32 comNum, UINT8 *pBuff, UINT32 len)
 {
@@ -450,18 +450,18 @@ INT32 drvRsSend(UINT32 comNum, UINT8 *pBuff, UINT32 len)
 #endif
         }
     }
-    /*Ğ´±¾´Î·¢ËÍÊı¾İ³¤¶È£¬²¢Æô¶¯·¢ËÍ*/
+    /*å†™æœ¬æ¬¡å‘é€æ•°æ®é•¿åº¦ï¼Œå¹¶å¯åŠ¨å‘é€*/
     pl_reg_write(comNum*0x1000 + PL_UART_SEND_ENABLE_ADDR, send_cnt);
     return send_cnt;
 }
 
 /******************************************************
- * Func: RS422Êı¾İ½ÓÊÕº¯Êı
- * param1£ºRS422Éè±¸±àºÅ
- * param2£ºÒª½ÓÊÕµÄÊı¾İ»º³åÇøÊı¾İÖ¸Õë
- * param3£ºÒª½ÓÊÕµÄÊı¾İ³¤¶È
- * param4£ºÊı¾İ½ÓÊÕ³¬Ê±×èÈûÊ±¼ä
- * return£ºÊı¾İ½ÓÊÕ×Ö½Ú³¤¶È
+ * Func: RS422æ•°æ®æ¥æ”¶å‡½æ•°
+ * param1ï¼šRS422è®¾å¤‡ç¼–å·
+ * param2ï¼šè¦æ¥æ”¶çš„æ•°æ®ç¼“å†²åŒºæ•°æ®æŒ‡é’ˆ
+ * param3ï¼šè¦æ¥æ”¶çš„æ•°æ®é•¿åº¦
+ * param4ï¼šæ•°æ®æ¥æ”¶è¶…æ—¶é˜»å¡æ—¶é—´
+ * returnï¼šæ•°æ®æ¥æ”¶å­—èŠ‚é•¿åº¦
  * ****************************************************/
 INT32 drvRsRecv(UINT32 comNum, UINT8 *pBuff, UINT32 len, INT32 waitTime)
 {
@@ -496,7 +496,7 @@ INT32 drvRsRecv(UINT32 comNum, UINT8 *pBuff, UINT32 len, INT32 waitTime)
         status_read = pl_reg_read(comNum*0x1000 + PL_UART_STATUS_ADDR);
         status_st = *((STRU_UART_CTRL_REG_STATUS *)&status_read);
 
-		//×èÈû´¦Àí
+		//é˜»å¡å¤„ç†
 		if(status_st.u32rx_wr_data_count < len)
         {
 			if(waitTime == -1)
@@ -544,7 +544,7 @@ INT32 drvRsRecv(UINT32 comNum, UINT8 *pBuff, UINT32 len, INT32 waitTime)
 		}
 		
         for(i=0;i<lentmp;i++)
-        {   //¶ÁÊı¾İ
+        {   //è¯»æ•°æ®
         	pBuff[i] = (UINT8)pl_reg_read(comNum*0x1000 + PL_UART_RX_RDATA_ADDR);
         }
     }
@@ -553,10 +553,10 @@ INT32 drvRsRecv(UINT32 comNum, UINT8 *pBuff, UINT32 len, INT32 waitTime)
 }
 
 /******************************************************
- * Func: RS422Ä£¿é×Ô¼ìº¯Êı
- * param1£ºRS422Éè±¸±àºÅ
- * param2£º×Ô¼ìÄ£Ê½
- * return£º×Ô¼ì½á¹û
+ * Func: RS422æ¨¡å—è‡ªæ£€å‡½æ•°
+ * param1ï¼šRS422è®¾å¤‡ç¼–å·
+ * param2ï¼šè‡ªæ£€æ¨¡å¼
+ * returnï¼šè‡ªæ£€ç»“æœ
  * ****************************************************/
 INT32 drvRsCheck(UINT32 comNum)
 {

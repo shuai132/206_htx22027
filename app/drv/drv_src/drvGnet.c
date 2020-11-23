@@ -23,9 +23,9 @@ ST_DATA_BUFF *gNetrBuf[E_PL_GNET_NUM];
 ST_GNET_STATE m_gnet_sta;
 
 /******************************************************
- * Func: ¹âÍø¿ÚÇı¶¯ÖĞ¶ÏÈë¿Úº¯Êı
- * param1£º¹âÍø¿Ú±àºÅ
- * return£ºÎŞ
+ * Func: å…‰ç½‘å£é©±åŠ¨ä¸­æ–­å…¥å£å‡½æ•°
+ * param1ï¼šå…‰ç½‘å£ç¼–å·
+ * returnï¼šæ— 
  * ****************************************************/
 LOCAL void usrGnetIsr(int index)
 {	
@@ -76,9 +76,9 @@ LOCAL void usrGnetIsr(int index)
 
 
 /******************************************************
- * Func: ¹âÍø¿Ú³õÊ¼»¯º¯Êı
- * param1£ºÎŞ
- * return£º³õÊ¼»¯½á¹û
+ * Func: å…‰ç½‘å£åˆå§‹åŒ–å‡½æ•°
+ * param1ï¼šæ— 
+ * returnï¼šåˆå§‹åŒ–ç»“æœ
  * ****************************************************/
 INT32 drvGnetInit(void)
 {
@@ -103,9 +103,9 @@ INT32 drvGnetInit(void)
 }
 
 /******************************************************
- * Func: ¹âÍø¿ÚÓÃ»§ÖĞ¶Ï´¦Àí×¢²áº¯Êı
- * param1£ºÓÃ»§ÖĞ¶Ï·şÎñº¯ÊıÖ¸Õë
- * return£ºÖ´ĞĞ½á¹û
+ * Func: å…‰ç½‘å£ç”¨æˆ·ä¸­æ–­å¤„ç†æ³¨å†Œå‡½æ•°
+ * param1ï¼šç”¨æˆ·ä¸­æ–­æœåŠ¡å‡½æ•°æŒ‡é’ˆ
+ * returnï¼šæ‰§è¡Œç»“æœ
  * ****************************************************/
 INT32 drvGnetIntrConnect(FUNCPGNET routine)
 {
@@ -118,10 +118,10 @@ INT32 drvGnetIntrConnect(FUNCPGNET routine)
 }
 
 /******************************************************
- * Func: ¹âÍø¿Ú´ò¿ªº¯Êı
- * param1£º¹ãÍø¿Ú±àºÅ£¬È¡Öµ·¶Î§0~1
- * param2£ºÔ´macµØÖ·
- * return£º³õÊ¼»¯½á¹û
+ * Func: å…‰ç½‘å£æ‰“å¼€å‡½æ•°
+ * param1ï¼šå¹¿ç½‘å£ç¼–å·ï¼Œå–å€¼èŒƒå›´0~1
+ * param2ï¼šæºmacåœ°å€
+ * returnï¼šåˆå§‹åŒ–ç»“æœ
  * ****************************************************/
 INT32 drvGnetOpen(UINT32 num, UINT8 *src_mac)
 {	
@@ -162,7 +162,7 @@ INT32 drvGnetOpen(UINT32 num, UINT8 *src_mac)
 	memcpy(m_gnet_sta.srcMac[num], src_mac, 12);
 	m_gnet_sta.isOpen[num] = TRUE;
 	
-	pl_reg_write(num*0x10000+PL_GNET_FIFO_RST_ADDR, (0x00|0x80000000)); //FIFO ¸´Î»+ÖĞ¶ÏÊ¹ÄÜ
+	pl_reg_write(num*0x10000+PL_GNET_FIFO_RST_ADDR, (0x00|0x80000000)); //FIFO å¤ä½+ä¸­æ–­ä½¿èƒ½
 	
 	isr_num = isrTab[E_PL_ISR_GNET0 + num];
 #ifdef D_OS_ALONE
@@ -185,9 +185,9 @@ INT32 drvGnetOpen(UINT32 num, UINT8 *src_mac)
 }
 
 /******************************************************
- * Func: ¹âÍø¿Ú¹Ø±Õº¯Êı
- * param1£º¹âÍø¿ÚÉè±¸±àºÅ
- * return£ºÖ´ĞĞ½á¹û
+ * Func: å…‰ç½‘å£å…³é—­å‡½æ•°
+ * param1ï¼šå…‰ç½‘å£è®¾å¤‡ç¼–å·
+ * returnï¼šæ‰§è¡Œç»“æœ
  * ****************************************************/
 INT32 drvGnetClose(UINT32 num)
 {
@@ -198,7 +198,7 @@ INT32 drvGnetClose(UINT32 num)
         return DRV_ERRNO_GNET_NOT_EXIST;
     }
 
-    pl_reg_write(num*0x10000+PL_GNET_FIFO_RST_ADDR, 0x00); //FIFO ¸´Î»
+    pl_reg_write(num*0x10000+PL_GNET_FIFO_RST_ADDR, 0x00); //FIFO å¤ä½
 
     m_gnet_sta.isOpen[num] = FALSE;
     m_gnet_sta.routline = NULL;
@@ -219,11 +219,11 @@ INT32 drvGnetClose(UINT32 num)
 }
 
 /******************************************************
- * Func: ¹âÍø¿Ú¶ÁÊı¾İº¯Êı
- * param1£º¹ãÍø¿Ú±àºÅ£¬È¡Öµ·¶Î§0~1
- * param2£ºÈ¡Êı¾İ»º³åÇø
- * param3£º¶ÁÊı¾İ³¬Ê±Ê±¼ä,¾«¶È1us
- * return£º¶ÁÊı¾İ³¤¶È»ò´íÎóÂë
+ * Func: å…‰ç½‘å£è¯»æ•°æ®å‡½æ•°
+ * param1ï¼šå¹¿ç½‘å£ç¼–å·ï¼Œå–å€¼èŒƒå›´0~1
+ * param2ï¼šå–æ•°æ®ç¼“å†²åŒº
+ * param3ï¼šè¯»æ•°æ®è¶…æ—¶æ—¶é—´,ç²¾åº¦1us
+ * returnï¼šè¯»æ•°æ®é•¿åº¦æˆ–é”™è¯¯ç 
  * ****************************************************/
 INT32 drvGnetRead(UINT32 num, ST_DATA_BUFF *pBuff, INT32 waitTime)
 {
@@ -242,7 +242,7 @@ INT32 drvGnetRead(UINT32 num, ST_DATA_BUFF *pBuff, INT32 waitTime)
     }
 
     ret = pl_reg_read(PL_GNET_FIFO_STATE_ADDR + 0x10000 * num); 
-	if(waitTime == -1){			//ÅĞ¶ÏFIFOÊÇ·ñÎª¿Õ
+	if(waitTime == -1){			//åˆ¤æ–­FIFOæ˜¯å¦ä¸ºç©º
 		while((ret & 0x02)){
 			drv_delay_us(10);
 			ret = pl_reg_read(PL_GNET_FIFO_STATE_ADDR + 0x10000 * num); 
@@ -300,11 +300,11 @@ INT32 drvGnetRead(UINT32 num, ST_DATA_BUFF *pBuff, INT32 waitTime)
 }
 
 /******************************************************
- * Func: ¹âÍø¿Ú·¢ËÍÊı¾İº¯Êı
- * param1£º¹ãÍø¿Ú±àºÅ£¬È¡Öµ·¶Î§0~1
- * param2£º´ı·¢ËÍÊı¾İ»º³åÇø
- * param3£º´ı·¢ËÍÊı¾İ³¤¶È
- * return£º·¢ËÍÊı¾İ³¤¶È»ò´íÎóÂë
+ * Func: å…‰ç½‘å£å‘é€æ•°æ®å‡½æ•°
+ * param1ï¼šå¹¿ç½‘å£ç¼–å·ï¼Œå–å€¼èŒƒå›´0~1
+ * param2ï¼šå¾…å‘é€æ•°æ®ç¼“å†²åŒº
+ * param3ï¼šå¾…å‘é€æ•°æ®é•¿åº¦
+ * returnï¼šå‘é€æ•°æ®é•¿åº¦æˆ–é”™è¯¯ç 
  * ****************************************************/
 INT32 drvGnetWrite(UINT32 num, UINT8 *dst_mac, UINT8 *pBuff, UINT32 len)
 {
@@ -335,10 +335,10 @@ INT32 drvGnetWrite(UINT32 num, UINT8 *dst_mac, UINT8 *pBuff, UINT32 len)
 	stringtohex(&m_gnet_sta.srcMac[num][0], gNetsBuf[num]->st_data.src_mac, 12);
 	stringtohex(dst_mac, gNetsBuf[num]->st_data.dst_mac, 12);
 
-#ifndef PORT			//Êı¾İ³¤¶È´ó¶Ë
+#ifndef PORT			//æ•°æ®é•¿åº¦å¤§ç«¯
 	gNetsBuf[num]->st_data.data_len[1] = ((len >> 8) & 0xff);
 	gNetsBuf[num]->st_data.data_len[0] = ((len >> 0) & 0xff);
-#else					//Êı¾İ³¤¶ÈĞ¡¶Ë
+#else					//æ•°æ®é•¿åº¦å°ç«¯
 	gNetsBuf[num]->st_data.data_len[0] = ((len >> 8) & 0xff);
 	gNetsBuf[num]->st_data.data_len[1] = ((len >> 0) & 0xff);
 #endif
@@ -367,10 +367,10 @@ INT32 drvGnetWrite(UINT32 num, UINT8 *dst_mac, UINT8 *pBuff, UINT32 len)
 }
 
 /******************************************************
- * Func: ¹âÍø¿ÚÄ£¿é×Ô¼ìº¯Êı
- * param1£º¹âÍø¿ÚÉè±¸±àºÅ
- * param2£º×Ô¼ìÄ£Ê½
- * return£º×Ô¼ì½á¹û
+ * Func: å…‰ç½‘å£æ¨¡å—è‡ªæ£€å‡½æ•°
+ * param1ï¼šå…‰ç½‘å£è®¾å¤‡ç¼–å·
+ * param2ï¼šè‡ªæ£€æ¨¡å¼
+ * returnï¼šè‡ªæ£€ç»“æœ
  * ****************************************************/
 INT32 drvGnetCheck(UINT16 comNum_in, INT32 testMod)
 {

@@ -11,9 +11,9 @@ UINT32  g_iicBps[2];
 XIicPs	Iic[E_PS_IIC_NUM];			/* Instance of the IIC Device */
 
 /******************************************************
- * Func: IICÉè±¸³õÊ¼»¯º¯Êı
- * param1: Ô¤Áô²ÎÊı
- * return£º³É¹¦·µ»Ø0£¬Ê§°Ü·µ»Ø´íÎó´úÂë
+ * Func: IICè®¾å¤‡åˆå§‹åŒ–å‡½æ•°
+ * param1: é¢„ç•™å‚æ•°
+ * returnï¼šæˆåŠŸè¿”å›0ï¼Œå¤±è´¥è¿”å›é”™è¯¯ä»£ç 
  * ****************************************************/
 INT32 drvIicInit(UINT32 reserve)
 {
@@ -55,9 +55,9 @@ INT32 drvIicInit(UINT32 reserve)
 }
 
 /******************************************************
- * Func: IICÉè±¸´ò¿ªº¯Êı
- * param1: IICÉè±¸ºÅ£¨0¡ª1£©
- * return£º³É¹¦·µ»Ø0£¬Ê§°Ü·µ»Ø´íÎó´úÂë
+ * Func: IICè®¾å¤‡æ‰“å¼€å‡½æ•°
+ * param1: IICè®¾å¤‡å·ï¼ˆ0â€”1ï¼‰
+ * returnï¼šæˆåŠŸè¿”å›0ï¼Œå¤±è´¥è¿”å›é”™è¯¯ä»£ç 
  * ****************************************************/
 INT32 drvIicOpen(INT32 devIndex)
 {
@@ -104,9 +104,9 @@ INT32 drvIicOpen(INT32 devIndex)
 }
 
 /******************************************************
- * Func: IICÉè±¸¹Ø±Õº¯Êı
- * param1: IICÉè±¸ºÅ£¨0¡ª1£©
- * return£º³É¹¦·µ»Ø0£¬Ê§°Ü·µ»Ø´íÎó´úÂë
+ * Func: IICè®¾å¤‡å…³é—­å‡½æ•°
+ * param1: IICè®¾å¤‡å·ï¼ˆ0â€”1ï¼‰
+ * returnï¼šæˆåŠŸè¿”å›0ï¼Œå¤±è´¥è¿”å›é”™è¯¯ä»£ç 
  * ****************************************************/
 INT32 drvIicClose(INT32 devIndex)
 {
@@ -123,10 +123,10 @@ INT32 drvIicClose(INT32 devIndex)
 }
 
 /******************************************************
- * Func: IICÉè±¸²ÎÊıÉèÖÃº¯Êı
- * param1: IICÉè±¸ºÅ£¨0¡ª1£©
- * param2: clk¶ÁĞ´Ê±ÖÓÆµÂÊ
- * return£º³É¹¦·µ»Ø0£¬Ê§°Ü·µ»Ø´íÎó´úÂë
+ * Func: IICè®¾å¤‡å‚æ•°è®¾ç½®å‡½æ•°
+ * param1: IICè®¾å¤‡å·ï¼ˆ0â€”1ï¼‰
+ * param2: clkè¯»å†™æ—¶é’Ÿé¢‘ç‡
+ * returnï¼šæˆåŠŸè¿”å›0ï¼Œå¤±è´¥è¿”å›é”™è¯¯ä»£ç 
  * ****************************************************/
 INT32 drvIicParamSet(INT32 devIndex, UINT32 bps)
 {
@@ -163,10 +163,10 @@ INT32 drvIicParamSet(INT32 devIndex, UINT32 bps)
 }
 
 /******************************************************
- * Func: IICÉè±¸²ÎÊıÉèÖÃº¯Êı
- * param1: IICÉè±¸ºÅ£¨0¡ª1£©
- * param2: clk¶ÁĞ´Ê±ÖÓÆµÂÊÖ¸Õë
- * return£º³É¹¦·µ»Ø0£¬Ê§°Ü·µ»Ø´íÎó´úÂë
+ * Func: IICè®¾å¤‡å‚æ•°è®¾ç½®å‡½æ•°
+ * param1: IICè®¾å¤‡å·ï¼ˆ0â€”1ï¼‰
+ * param2: clkè¯»å†™æ—¶é’Ÿé¢‘ç‡æŒ‡é’ˆ
+ * returnï¼šæˆåŠŸè¿”å›0ï¼Œå¤±è´¥è¿”å›é”™è¯¯ä»£ç 
  * ****************************************************/
 INT32 drvIicParamGet(INT32 devIndex, UINT32 *bps)
 {
@@ -190,18 +190,18 @@ INT32 drvIicParamGet(INT32 devIndex, UINT32 *bps)
 }
 
 /******************************************************
- * Func: IIC×ÜÏß·¢ËÍÊı¾İº¯Êı
- * param1: IICÉè±¸ºÅ£¨0¡ª1£©
- * param2: Éè±¸µØÖ·
- * param3: ´ı·¢ËÍµÄÊı¾İÖ¸Õë
- * param4: ´ı·¢ËÍµÄÊı¾İ³¤¶È
- * return£º³É¹¦·µ»Ø·¢ËÍµÄÊı¾İ³¤¶È£¬Ê§°Ü·µ»Ø´íÎó´úÂë
+ * Func: IICæ€»çº¿å‘é€æ•°æ®å‡½æ•°
+ * param1: IICè®¾å¤‡å·ï¼ˆ0â€”1ï¼‰
+ * param2: è®¾å¤‡åœ°å€
+ * param3: å¾…å‘é€çš„æ•°æ®æŒ‡é’ˆ
+ * param4: å¾…å‘é€çš„æ•°æ®é•¿åº¦
+ * returnï¼šæˆåŠŸè¿”å›å‘é€çš„æ•°æ®é•¿åº¦ï¼Œå¤±è´¥è¿”å›é”™è¯¯ä»£ç 
  * ****************************************************/
 INT32 drvIicWrite(INT32 devIndex, UINT32 dev_addr, UINT8 *pBuff, UINT16 len)
 {
 	INT32 Status;
 
-	while (XIicPs_BusIsBusy(&Iic[devIndex]));		//×ÜÏßÃ¦ÅĞ¶Ï
+	while (XIicPs_BusIsBusy(&Iic[devIndex]));		//æ€»çº¿å¿™åˆ¤æ–­
 	Status = XIicPs_MasterSendPolled(&Iic[devIndex], pBuff, len, dev_addr);
 	if (Status != OK) 
 	{
@@ -211,19 +211,19 @@ INT32 drvIicWrite(INT32 devIndex, UINT32 dev_addr, UINT8 *pBuff, UINT16 len)
 }
 
 /******************************************************
- * Func: IIC×ÜÏß¶ÁÊı¾İº¯Êı
- * param1: IICÉè±¸ºÅ£¨0¡ª1£©
- * param2: Éè±¸µØÖ·
- * param3: ´ı½ÓÊÕµÄÊı¾İÖ¸Õë
- * param4: ´ı½ÓÊÕµÄÊı¾İ³¤¶È
- * param5: ×ÜÏß½ÓÊÕÊı¾İ³¬Ê±Ê±¼ä
- * return£º³É¹¦·µ»Ø½ÓÊÕµÄÊı¾İ³¤¶È£¬Ê§°Ü·µ»Ø´íÎó´úÂë
+ * Func: IICæ€»çº¿è¯»æ•°æ®å‡½æ•°
+ * param1: IICè®¾å¤‡å·ï¼ˆ0â€”1ï¼‰
+ * param2: è®¾å¤‡åœ°å€
+ * param3: å¾…æ¥æ”¶çš„æ•°æ®æŒ‡é’ˆ
+ * param4: å¾…æ¥æ”¶çš„æ•°æ®é•¿åº¦
+ * param5: æ€»çº¿æ¥æ”¶æ•°æ®è¶…æ—¶æ—¶é—´
+ * returnï¼šæˆåŠŸè¿”å›æ¥æ”¶çš„æ•°æ®é•¿åº¦ï¼Œå¤±è´¥è¿”å›é”™è¯¯ä»£ç 
  * ****************************************************/
 INT32 drvIicRead(INT32 devIndex, UINT32 dev_addr, UINT8 *pBuff,  UINT16 len, INT32 waitTime)
 {
 	INT32 Status;
 
-	while (XIicPs_BusIsBusy(&Iic[devIndex]));		//×ÜÏßÃ¦ÅĞ¶Ï
+	while (XIicPs_BusIsBusy(&Iic[devIndex]));		//æ€»çº¿å¿™åˆ¤æ–­
 	Status = XIicPs_MasterRecvPolled(&Iic[devIndex], pBuff, len, dev_addr);
 	if (Status != OK) {
 		return DRV_ERRNO_IIC_READ_FAILED;
@@ -232,9 +232,9 @@ INT32 drvIicRead(INT32 devIndex, UINT32 dev_addr, UINT8 *pBuff,  UINT16 len, INT
 }
 
 /******************************************************
- * Func: IICÉè±¸×Ô¼ìº¯Êı
- * param1: ÎŞ
- * return£º³É¹¦·µ»Ø0£¬Ê§°Ü·µ»Ø´íÎó´úÂë
+ * Func: IICè®¾å¤‡è‡ªæ£€å‡½æ•°
+ * param1: æ— 
+ * returnï¼šæˆåŠŸè¿”å›0ï¼Œå¤±è´¥è¿”å›é”™è¯¯ä»£ç 
  * ****************************************************/
 INT32 drvIicCheck(void)
 {

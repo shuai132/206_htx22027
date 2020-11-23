@@ -16,9 +16,9 @@ typedef struct
 ST_IO_STATE  IoConfig = {0};
 
 /******************************************************
- * Func: IOÇı¶¯ÖĞ¶ÏÈë¿Úº¯Êı
- * param1: Ô¤Áô²ÎÊı
- * return£ºÎŞ
+ * Func: IOé©±åŠ¨ä¸­æ–­å…¥å£å‡½æ•°
+ * param1: é¢„ç•™å‚æ•°
+ * returnï¼šæ— 
  * ****************************************************/
 LOCAL void usrIoIsr(int index)
 {
@@ -57,9 +57,9 @@ LOCAL void usrIoIsr(int index)
 }
 
 /******************************************************
- * Func: IOÄ£¿é³õÊ¼»¯º¯Êı
- * param1: Ô¤Áô²ÎÊı
- * return£º½Ó¿ÚÖ´ĞĞ½á¹û
+ * Func: IOæ¨¡å—åˆå§‹åŒ–å‡½æ•°
+ * param1: é¢„ç•™å‚æ•°
+ * returnï¼šæ¥å£æ‰§è¡Œç»“æœ
  * ****************************************************/
 INT32 drvIoInit(UINT32 reserve)
 {
@@ -77,7 +77,7 @@ INT32 drvIoInit(UINT32 reserve)
     if(intEnable(isr_num) != OK)
 		printf("drvIoInit->IO enable error\n");
     
-    /*Ä¬ÈÏÉèÖÃINOUT¿ÚÎªÊäÈë¿Ú*/
+    /*é»˜è®¤è®¾ç½®INOUTå£ä¸ºè¾“å…¥å£*/
 	if(drvIoModeSet(DRV_IO_INOUT_GROUP_0, (UINT32)DRV_IO_PIN_ALL) < 0)
 		return DRV_ERRNO_IO_INIT_FAILED;
 	if(drvIoModeSet(DRV_IO_INOUT_GROUP_1, (UINT32)DRV_IO_PIN_ALL) < 0)
@@ -105,17 +105,17 @@ INT32 drvIoInit(UINT32 reserve)
 	drv_delay_ms(5);
 	pl_reg_write(PL_IO_TRIGGER_MODE5_ADDR, ISR_MODE_NONE);
 
-	pl_reg_write(PL_IO_OUT_REG0_ADDR, 0xfffffff8); 	/*Ê¹ÄÜÊä³ö×é0 En¹Ü½Å*/
-	pl_reg_write(PL_IO_OUT_REG1_ADDR, 0xfffffff8); 	/*Ê¹ÄÜÊä³ö×é1 En¹Ü½Å*/
-	pl_reg_write(PL_IO_OUT_REG2_ADDR, 0xfffffffe); 	/*Ê¹ÄÜÊä³ö×é2 En¹Ü½Å*/
+	pl_reg_write(PL_IO_OUT_REG0_ADDR, 0xfffffff8); 	/*ä½¿èƒ½è¾“å‡ºç»„0 Enç®¡è„š*/
+	pl_reg_write(PL_IO_OUT_REG1_ADDR, 0xfffffff8); 	/*ä½¿èƒ½è¾“å‡ºç»„1 Enç®¡è„š*/
+	pl_reg_write(PL_IO_OUT_REG2_ADDR, 0xfffffffe); 	/*ä½¿èƒ½è¾“å‡ºç»„2 Enç®¡è„š*/
 
     return DRV_OPERATE_SUCCESS;
 }
 
 /******************************************************
- * Func: ÓÃ»§»Øµ÷º¯Êı×¢²á½Ó¿Ú
- * param1: ÓÃ»§»Øµ÷º¯ÊıÖ¸Õë
- * return£º½Ó¿ÚÖ´ĞĞ½á¹û
+ * Func: ç”¨æˆ·å›è°ƒå‡½æ•°æ³¨å†Œæ¥å£
+ * param1: ç”¨æˆ·å›è°ƒå‡½æ•°æŒ‡é’ˆ
+ * returnï¼šæ¥å£æ‰§è¡Œç»“æœ
  * ****************************************************/
 INT32 drvIoIntrConnect(FUNCPIO routine)
 {
@@ -128,21 +128,21 @@ INT32 drvIoIntrConnect(FUNCPIO routine)
 }
 
 /******************************************************
- * Func: IOÄ£¿é´ò¿ª½Ó¿Ú
- * return£º½Ó¿ÚÖ´ĞĞ½á¹û
+ * Func: IOæ¨¡å—æ‰“å¼€æ¥å£
+ * returnï¼šæ¥å£æ‰§è¡Œç»“æœ
  * ****************************************************/
 INT32 drvIoOpen(void)
 {
-	pl_reg_write(PL_IO_ISR_CLEAR, 1);		//Çåµ±Ç°ÖĞ¶Ï
-	pl_reg_write(PL_IO_FIFO_RST_ADDR, 1);  	//fifo¸´Î»
+	pl_reg_write(PL_IO_ISR_CLEAR, 1);		//æ¸…å½“å‰ä¸­æ–­
+	pl_reg_write(PL_IO_FIFO_RST_ADDR, 1);  	//fifoå¤ä½
     return DRV_OPERATE_SUCCESS;
 }
 
 /******************************************************
- * Func: IOÊäÈëÊä³ö¿ØÖÆ½Ó¿Ú
- * param1£ºIO×éºÅ£¬È¡Öµ·¶Î§7~9
- * param2£ºIOÊäÈëÊä³ö±êÖ¾Î»£¬0-Êä³ö£¬1-ÊäÈë
- * return£º½Ó¿ÚÖ´ĞĞ½á¹û
+ * Func: IOè¾“å…¥è¾“å‡ºæ§åˆ¶æ¥å£
+ * param1ï¼šIOç»„å·ï¼Œå–å€¼èŒƒå›´7~9
+ * param2ï¼šIOè¾“å…¥è¾“å‡ºæ ‡å¿—ä½ï¼Œ0-è¾“å‡ºï¼Œ1-è¾“å…¥
+ * returnï¼šæ¥å£æ‰§è¡Œç»“æœ
  * ****************************************************/
 INT32 drvIoModeSet(UINT32 chnoNum, UINT32 type)
 {
@@ -163,18 +163,18 @@ INT32 drvIoModeSet(UINT32 chnoNum, UINT32 type)
     
     IoConfig.ioMode[chnoNum] = type;
     drv_delay_ms(5);
-	pl_reg_write(PL_IO_TRIGGER_MODE0_ADDR + 8 * chnoNum, 0);		/*ÇåÊäÈëÖĞ¶Ï·½Ê½*/
-	pl_reg_write(PL_IO_TRIGGER_MODE0_ADDR + 8 * chnoNum + 4, 0);	/*ÇåÊäÈëÖĞ¶Ï·½Ê½*/
+	pl_reg_write(PL_IO_TRIGGER_MODE0_ADDR + 8 * chnoNum, 0);		/*æ¸…è¾“å…¥ä¸­æ–­æ–¹å¼*/
+	pl_reg_write(PL_IO_TRIGGER_MODE0_ADDR + 8 * chnoNum + 4, 0);	/*æ¸…è¾“å…¥ä¸­æ–­æ–¹å¼*/
     
     pl_reg_write(PL_IO_ISR_CLEAR, 1);
     return DRV_OPERATE_SUCCESS;
 }
 
 /******************************************************
- * Func: IOÊäÈëÊä³ö¿ØÖÆ½Ó¿Ú
- * param1£ºIO×éºÅ£¬È¡Öµ·¶Î§7~9
- * param2£ºIOÊäÈëÊä³ö±êÖ¾Î»£¬0-Êä³ö£¬1-ÊäÈë
- * return£º½Ó¿ÚÖ´ĞĞ½á¹û
+ * Func: IOè¾“å…¥è¾“å‡ºæ§åˆ¶æ¥å£
+ * param1ï¼šIOç»„å·ï¼Œå–å€¼èŒƒå›´7~9
+ * param2ï¼šIOè¾“å…¥è¾“å‡ºæ ‡å¿—ä½ï¼Œ0-è¾“å‡ºï¼Œ1-è¾“å…¥
+ * returnï¼šæ¥å£æ‰§è¡Œç»“æœ
  * ****************************************************/
 INT32 drvIoParamSet(UINT32 chnoNum, DRV_IO_CFG_ST *cfg)
 {
@@ -199,7 +199,7 @@ INT32 drvIoParamSet(UINT32 chnoNum, DRV_IO_CFG_ST *cfg)
     isr2 = pl_reg_read(PL_IO_TRIGGER_MODE1_ADDR + 8 * chnoNum);
     
     
-	if(cfg->mode){			/*ÊäÈë*/
+	if(cfg->mode){			/*è¾“å…¥*/
 		if(cfg->group > DRV_IO_INOUT_GROUP_2){
 #ifdef D_DEBUG_LOG
 			printf("drvIoParamSet->input group must be at range: 0~2\n");
@@ -207,11 +207,11 @@ INT32 drvIoParamSet(UINT32 chnoNum, DRV_IO_CFG_ST *cfg)
 			return DRV_ERRNO_IO_PARARM_SET_FAILED;
 		}
 		for(i=0;i<32;i++){
-			if(cfg->pin & (1 << i)){		/*ÉèÖÃÊäÈëÊä³ö·½Ïò*/
+			if(cfg->pin & (1 << i)){		/*è®¾ç½®è¾“å…¥è¾“å‡ºæ–¹å‘*/
 				ioctl |= (1 << i);
 			}
 			
-			if(i<16){						/*ÉèÖÃÊäÈëÖĞ¶Ï¿ØÖÆ*/
+			if(i<16){						/*è®¾ç½®è¾“å…¥ä¸­æ–­æ§åˆ¶*/
 				isr1 &= ~(3 << i * 2);
 				isr1 |= (cfg->isr << i * 2);
 			}
@@ -229,13 +229,13 @@ INT32 drvIoParamSet(UINT32 chnoNum, DRV_IO_CFG_ST *cfg)
 		printf("drvIoParamSet->input pin: 0x%08x, mode: 0x%08x\n", cfg->pin, ioctl);
 #endif
 	}
-	else{					/*Êä³ö*/
+	else{					/*è¾“å‡º*/
 		for(i=0;i<32;i++){
 			if(cfg->pin & (1 << i)){
 				ioctl &= (~(1 << i));
 			}
 			
-			if(i<16){						/*ÇåÖĞ¶Ï¿ØÖÆ*/
+			if(i<16){						/*æ¸…ä¸­æ–­æ§åˆ¶*/
 				isr1 &= ~(3 << i * 2);
 			}
 			else{
@@ -269,11 +269,11 @@ INT32 drvIoParamSet(UINT32 chnoNum, DRV_IO_CFG_ST *cfg)
 }
 
 /******************************************************
- * Func: IOÊä³ö¿ØÖÆ½Ó¿Ú
- * param1£ºÊä³öIO×éºÅ
- * param2£ºÊä³öIO PIN
- * param3£ºÊä³ö¿ØÖÆÖµ£¬0-µÍµçÆ½£¬1-¸ßµçÆ½
- * return£ºÊä³ö¿ØÖÆ×´Ì¬
+ * Func: IOè¾“å‡ºæ§åˆ¶æ¥å£
+ * param1ï¼šè¾“å‡ºIOç»„å·
+ * param2ï¼šè¾“å‡ºIO PIN
+ * param3ï¼šè¾“å‡ºæ§åˆ¶å€¼ï¼Œ0-ä½ç”µå¹³ï¼Œ1-é«˜ç”µå¹³
+ * returnï¼šè¾“å‡ºæ§åˆ¶çŠ¶æ€
  * ****************************************************/
 INT32 drvIoWrite(UINT32 chnoNum, UINT32 pin, UINT32 outData)
 {
@@ -304,7 +304,7 @@ INT32 drvIoWrite(UINT32 chnoNum, UINT32 pin, UINT32 outData)
 	{
     	ioValue |= pin;
     } 
-	// ioValue ^= 0xffffffff;				/*È¡·´£º¿ØÖÆÊä³öÓĞĞ§Ê±ÎªµÍµçÆ½*/
+	// ioValue ^= 0xffffffff;				/*å–åï¼šæ§åˆ¶è¾“å‡ºæœ‰æ•ˆæ—¶ä¸ºä½ç”µå¹³*/
 
 	// printf("----->group:%d, pin:%x, value:%x\n", chnoNum, pin, ioValue);
     pl_reg_write(PL_IO_REG_INOUT_OUT0_ADDR + chnoNum * 4, ioValue);
@@ -317,10 +317,10 @@ INT32 drvIoWrite(UINT32 chnoNum, UINT32 pin, UINT32 outData)
 }
 
 /******************************************************
- * Func: IOÊäÈë×´Ì¬²éÑ¯½Ó¿Ú
- * param1£ºÊäÈëIO×éºÅ£¬È¡Öµ·¶Î§7~9
- * param2£ºÊäÈë×´Ì¬ÖµÖ¸Õë£¬0-µÍµçÆ½£¬1-¸ßµçÆ½
- * return£ºÊäÈë¿ØÖÆ×´Ì¬
+ * Func: IOè¾“å…¥çŠ¶æ€æŸ¥è¯¢æ¥å£
+ * param1ï¼šè¾“å…¥IOç»„å·ï¼Œå–å€¼èŒƒå›´7~9
+ * param2ï¼šè¾“å…¥çŠ¶æ€å€¼æŒ‡é’ˆï¼Œ0-ä½ç”µå¹³ï¼Œ1-é«˜ç”µå¹³
+ * returnï¼šè¾“å…¥æ§åˆ¶çŠ¶æ€
  * ***************************************************/
 INT32 drvIoRead(UINT32 chnoNum, UINT32 pin, UINT32 *inData, INT32  waitTime)
 {
@@ -355,7 +355,7 @@ INT32 drvIoRead(UINT32 chnoNum, UINT32 pin, UINT32 *inData, INT32  waitTime)
     else
     	ioctl = 0;
     
-    if(ioctl){   	/*¶ÁÊäÈëIO×´Ì¬*/
+    if(ioctl){   	/*è¯»è¾“å…¥IOçŠ¶æ€*/
 		read_value = pl_reg_read(PL_IO_REG_IN0_ADDR + chnoNum * 4);
 		input_bk = read_value & pin;
 		
@@ -374,7 +374,7 @@ INT32 drvIoRead(UINT32 chnoNum, UINT32 pin, UINT32 *inData, INT32  waitTime)
 			}while(waitTime--);
 		}
     }
-    else{			/*¶ÁÊä³öIO×´Ì¬*/
+    else{			/*è¯»è¾“å‡ºIOçŠ¶æ€*/
 		read_value = pl_reg_read(PL_IO_REG_INOUT_OUT0_ADDR + chnoNum * 4);
 		read_value ^= 0xffffffff;
     }
@@ -384,9 +384,9 @@ INT32 drvIoRead(UINT32 chnoNum, UINT32 pin, UINT32 *inData, INT32  waitTime)
 }
 
 /******************************************************
- * Func: IO½Ó¿Ú×Ô¼ì½Ó¿Ú
- * param1£ºÔ¤Áô²ÎÊı
- * return£ºº¯ÊıÖ´ĞĞ½á¹û
+ * Func: IOæ¥å£è‡ªæ£€æ¥å£
+ * param1ï¼šé¢„ç•™å‚æ•°
+ * returnï¼šå‡½æ•°æ‰§è¡Œç»“æœ
  * ***************************************************/
 INT32 drvIoCheck(UINT32 reserve)
 {

@@ -9,7 +9,7 @@
 
 #include "drvDef.h"
 
-/*AD²ÉÑùÆµÂÊµäĞÍÖµ£¬È¡Öµ·¶Î§10k~50k*/
+/*ADé‡‡æ ·é¢‘ç‡å…¸å‹å€¼ï¼Œå–å€¼èŒƒå›´10k~50k*/
 enum DRV_AD_SPEED_EN 
 {
 	DRV_AD_BRAD_10K = 10000,
@@ -19,7 +19,7 @@ enum DRV_AD_SPEED_EN
 	DRV_AD_BRAD_50K = 50000
 };
 
-/*AD²ÉÑùÍ¨µÀÑ¡Ôñ*/
+/*ADé‡‡æ ·é€šé“é€‰æ‹©*/
 typedef enum  
 {
 	DRV_AD_CHNO_0 	= 0x0001,
@@ -36,7 +36,7 @@ typedef enum
 	DRV_AD_CHNO_All	= 0x07ff
 }DRV_AD_CHNOSEL_EN;
 
-/*ADÇóÆ½¾ù²ÉÑùµãÊı*/
+/*ADæ±‚å¹³å‡é‡‡æ ·ç‚¹æ•°*/
 typedef enum  
 {
 	DRV_AD_AVG_16 	= 0x1000,
@@ -46,26 +46,26 @@ typedef enum
 
 typedef struct st_Drv_Ad_Cfg
 {
-	INT32 bits;					/*²ÉÑù·Ö±æÂÊ*/
-	INT32 chnobits;				/*Í¨µÀÊ¹ÄÜÅäÖÃ£¬bit0~bit15*/
-	INT32 baudrate;				/*²ÉÑùÆµÂÊ*/
-	INT32 mode;					/*²ÉÑùÄ£Ê½£º1-Ñ­»·²ÉÑù£¬0-µ¥´Î²É */
+	INT32 bits;					/*é‡‡æ ·åˆ†è¾¨ç‡*/
+	INT32 chnobits;				/*é€šé“ä½¿èƒ½é…ç½®ï¼Œbit0~bit15*/
+	INT32 baudrate;				/*é‡‡æ ·é¢‘ç‡*/
+	INT32 mode;					/*é‡‡æ ·æ¨¡å¼ï¼š1-å¾ªç¯é‡‡æ ·ï¼Œ0-å•æ¬¡é‡‡ */
 } DRV_AD_CFG_ST;
 
 typedef struct st_Drv_Ad_Cfg1
 {
-	INT16 m_chno1;					/*µÚÒ»¸ö²ÉÑùÍ¨µÀ,°´bitÎ»ÓĞĞ§*/
-	INT16 m_cnt1;					/*µÚÒ»¸öÍ¨µÀ²ÉÑù´ÎÊı*/
-	INT16 m_chno2;					/*µÚ¶ş¸ö²ÉÑùÍ¨µÀ,°´bitÎ»ÓĞĞ§*/
-	INT16 m_cnt2;					/*µÚ¶ş¸öÍ¨µÀ²ÉÑù´ÎÊı*/
-	INT16 m_chno3;					/*µÚÈı¸ö²ÉÑùÍ¨µÀ,°´bitÎ»ÓĞĞ§*/
-	INT16 m_cnt3;					/*µÚÈı¸öÍ¨µÀ²ÉÑù´ÎÊı*/
+	INT16 m_chno1;					/*ç¬¬ä¸€ä¸ªé‡‡æ ·é€šé“,æŒ‰bitä½æœ‰æ•ˆ*/
+	INT16 m_cnt1;					/*ç¬¬ä¸€ä¸ªé€šé“é‡‡æ ·æ¬¡æ•°*/
+	INT16 m_chno2;					/*ç¬¬äºŒä¸ªé‡‡æ ·é€šé“,æŒ‰bitä½æœ‰æ•ˆ*/
+	INT16 m_cnt2;					/*ç¬¬äºŒä¸ªé€šé“é‡‡æ ·æ¬¡æ•°*/
+	INT16 m_chno3;					/*ç¬¬ä¸‰ä¸ªé‡‡æ ·é€šé“,æŒ‰bitä½æœ‰æ•ˆ*/
+	INT16 m_cnt3;					/*ç¬¬ä¸‰ä¸ªé€šé“é‡‡æ ·æ¬¡æ•°*/
 } DRV_AD_BIGDATA_ST;
 
 
 typedef struct st_Drv_Ad_Info
 {
-	float m_tempture;			/*FPGA ÎÂ¶È*/
+	float m_tempture;			/*FPGA æ¸©åº¦*/
 	float m_vccint;				/*vccint*/
 	float m_vccaux;				/*vccaux*/
 	float m_vbram;				/*vccbram*/
@@ -73,7 +73,7 @@ typedef struct st_Drv_Ad_Info
 	float m_vcppaux;			/*vcppaux*/
 }DRV_AD_DEVINFO_ST;
 
-typedef void(*FUNCPAD)(UINT32, UINT32, UINT16*);   /*param£º²ÉÑù½á¹û¡¢²ÉÑùÊıÁ¿Öµ¡¢²ÉÑù½á¹ûÖµ*/
+typedef void(*FUNCPAD)(UINT32, UINT32, UINT16*);   /*paramï¼šé‡‡æ ·ç»“æœã€é‡‡æ ·æ•°é‡å€¼ã€é‡‡æ ·ç»“æœå€¼*/
 
 /************************** Function Prototypes ******************************/
 

@@ -7,7 +7,7 @@
 #include "drvIic.h"
 #include "drvErro.h"
 
-#define  D_IIC_EEPROM_DEV      0		/*IICÉè±¸±àºÅ*/
+#define  D_IIC_EEPROM_DEV      0		/*IICè®¾å¤‡ç¼–å·*/
 volatile UINT32 g_eepromAddr = 0;
 
 INT32 drvEepromInit(UINT32 devAddr, UINT32 bps)
@@ -48,11 +48,11 @@ INT32 drvEepromInit(UINT32 devAddr, UINT32 bps)
 
 
 /******************************************************
- * Func: EEPROMĞ´Êı¾İº¯Êı
- * param1: Ğ´Êı¾İÆğÊ¼µØÖ·
- * param2: ´ı·¢ËÍµÄÊı¾İÖ¸Õë
- * param3: ´ı·¢ËÍµÄÊı¾İ³¤¶È
- * return£º³É¹¦·µ»Ø·¢ËÍµÄÊı¾İ³¤¶È£¬Ê§°Ü·µ»Ø´íÎó´úÂë
+ * Func: EEPROMå†™æ•°æ®å‡½æ•°
+ * param1: å†™æ•°æ®èµ·å§‹åœ°å€
+ * param2: å¾…å‘é€çš„æ•°æ®æŒ‡é’ˆ
+ * param3: å¾…å‘é€çš„æ•°æ®é•¿åº¦
+ * returnï¼šæˆåŠŸè¿”å›å‘é€çš„æ•°æ®é•¿åº¦ï¼Œå¤±è´¥è¿”å›é”™è¯¯ä»£ç 
  * ****************************************************/
 INT32 drvEepromWriteData(UINT32 startAddr, UINT8 *pBuff, UINT32 ByteCount)
 {
@@ -75,8 +75,8 @@ INT32 drvEepromWriteData(UINT32 startAddr, UINT8 *pBuff, UINT32 ByteCount)
 		return ERRO;
 	}
 
-	curPage = startAddr / D_EEPROM_PAGE_SIZE + 1; 				/*ÅĞ¶ÏÆğÊ¼Ò³*/
-	endPage = (startAddr + ByteCount) / D_EEPROM_PAGE_SIZE; 	/*ÅĞ¶Ï½áÊøÒ³*/
+	curPage = startAddr / D_EEPROM_PAGE_SIZE + 1; 				/*åˆ¤æ–­èµ·å§‹é¡µ*/
+	endPage = (startAddr + ByteCount) / D_EEPROM_PAGE_SIZE; 	/*åˆ¤æ–­ç»“æŸé¡µ*/
 	if((startAddr + ByteCount) % D_EEPROM_PAGE_SIZE)
 	{
 		endPage += 1;
@@ -88,7 +88,7 @@ INT32 drvEepromWriteData(UINT32 startAddr, UINT8 *pBuff, UINT32 ByteCount)
 		sendBuff[0] = (startAddr + dataPoint) >> 8;
 		sendBuff[1] = (startAddr + dataPoint) & 0xff;
 		tempLen = i * D_EEPROM_PAGE_SIZE - (dataPoint + startAddr);
-		if((dataPoint + tempLen) > ByteCount)		/*Êı¾İÒç³ö*/
+		if((dataPoint + tempLen) > ByteCount)		/*æ•°æ®æº¢å‡º*/
 		{					
 			tempLen = ByteCount - dataPoint;
 		}
@@ -136,8 +136,8 @@ INT32 drvEepromReadData(UINT32 startAddr, UINT8 *pBuff, UINT32 ByteCount)
 		return ERRO;
 	}
 
-	curPage = startAddr / D_EEPROM_PAGE_SIZE + 1; 				/*ÅĞ¶ÏÆğÊ¼Ò³*/
-	endPage = (startAddr + ByteCount) / D_EEPROM_PAGE_SIZE; 	/*ÅĞ¶Ï½áÊøÒ³*/
+	curPage = startAddr / D_EEPROM_PAGE_SIZE + 1; 				/*åˆ¤æ–­èµ·å§‹é¡µ*/
+	endPage = (startAddr + ByteCount) / D_EEPROM_PAGE_SIZE; 	/*åˆ¤æ–­ç»“æŸé¡µ*/
 	if((startAddr + ByteCount) % D_EEPROM_PAGE_SIZE)
 	{
 		endPage += 1;
@@ -149,7 +149,7 @@ INT32 drvEepromReadData(UINT32 startAddr, UINT8 *pBuff, UINT32 ByteCount)
 		sendBuff[0] = (startAddr + dataPoint) >> 8;
 		sendBuff[1] = (startAddr + dataPoint) & 0xff;
 		tempLen = i * D_EEPROM_PAGE_SIZE - (dataPoint + startAddr);
-		if((dataPoint + tempLen) > ByteCount)					/*Êı¾İÒç³ö*/
+		if((dataPoint + tempLen) > ByteCount)					/*æ•°æ®æº¢å‡º*/
 		{					
 			tempLen = ByteCount - dataPoint;
 		}
