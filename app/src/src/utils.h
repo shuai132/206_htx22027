@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cstdint>
+#include <cstddef>
 
 namespace utils {
 
@@ -19,16 +20,9 @@ inline T raw(const void* p) {
     return t;
 }
 
-inline void printHex(void* data, size_t len) {
-#ifndef NDEBUG
-    for (size_t i=0; i<len; i++) {
-        printf("%02X ", ((uint8_t*)data)[i]);
-    }
-    printf("\n");
-#endif
-}
-inline void printHex(std::vector<uint8_t> data) {
-    printHex(data.data(), data.size());
-}
+void printHex(void* data, size_t len);
+void printHex(std::vector<uint8_t> data);
+
+bool hex2string(const uint8_t* in, size_t inlen, char *out, size_t *outlen);
 
 }

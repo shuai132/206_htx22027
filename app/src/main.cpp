@@ -1,10 +1,10 @@
 #include <cassert>
 
 #include "typedef.h"
-#include "mock_data.h"
 #include "FrameParser.h"
 #include "Hardware.h"
 #include "frame_process.h"
+#include "utils.h"
 
 extern "C" {
 #include "drvIo.h"
@@ -17,7 +17,7 @@ extern "C" {
 static std::shared_ptr<Hardware> hardWares[2] = {};
 static std::shared_ptr<FrameParser> frameParsers[2] = {};
 
-void configMac(int num, MacAddr local, MacAddr remote) {
+void configMac(int num, const MacAddr& local, const MacAddr& remote) {
     assert(0 <= num and num <= 1);
     auto hardware = std::make_shared<Hardware>(local, remote);
     auto frameParser = std::make_shared<FrameParser>(hardware);
@@ -25,13 +25,21 @@ void configMac(int num, MacAddr local, MacAddr remote) {
     frameParsers[num] = frameParser;
     initProcess(frameParser, hardware);
 
-    drvGnetOpen(0, local.data());//todo
+    auto macHex2Str = [](const MacAddr& mac) -> std::string {
+        if (mac.size() > 6) return "";
+        char macStr[13];
+        size_t len;
+        auto success = utils::hex2string(mac.data(), mac.size(), macStr, &len);
+        if (not success) return "";
+        return macStr;
+    };
+    drvGnetOpen(0, (UINT8*)macHex2Str(local).c_str());
 
     {
         /// 硬件相关配置
-        hardware->sendFrame = [=](uint8_t* data, size_t size) {
+        hardware->sendFrame = [num, mac = macHex2Str(remote)](uint8_t* data, size_t size) {
             LOGD("发送MAC帧");
-            drvGnetWrite(num, (uint8_t*)remote.data(), data, size);//todo
+            drvGnetWrite(num, (uint8_t*)mac.c_str(), data, size);
         };
         // 当接收到数据帧时 调用下面的函数
         // hardware->onRecvFrame(...);
@@ -44,10 +52,10 @@ void configMac(int num, MacAddr local, MacAddr remote) {
             return data == 0;
         };
         // 实现一个互斥锁
-        hardware->dataLock = [=]{
+        hardware->dataLock = [num]{
             intDisable(isrTab[E_PL_ISR_GNET0 + num]);
         };
-        hardware->dataUnLock = [=]{
+        hardware->dataUnLock = [num]{
             intEnable(isrTab[E_PL_ISR_GNET0 + num]);
         };
         // 延时实现
