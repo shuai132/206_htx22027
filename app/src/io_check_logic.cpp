@@ -1,10 +1,12 @@
 #include <cassert>
+#include <cstring>
 
 #include "io_check_logic.h"
 #include "config.h"
 
 extern "C" {
 #include "drvIo.h"
+#include "drvErro.h"
 #include "drvCommon.h"
 #include "drvCfg.h"
 #include "drvTimer.h"
@@ -22,60 +24,74 @@ struct State {
 static State state[HW_NUM];
 static SendFrameImpl SendFrame;
 
-/**
- * @param num 架位
- * @return
- */
-static bool PositionPower(int num)
-{
-    return true;
+static bool ioRead(int group, int pin) {
+    UINT32 data;
+    // todo
+    auto ret = drvIoRead(DRV_IO_INOUT_GROUP_0, DRV_IO_PIN_8, &data, 0);
+    assert(ret == DRV_OPERATE_SUCCESS);
+    return data == 0;
 }
 
-static bool MissilePower(int num)
-{
-    return true;
+using IOType = int;
+static IOType IO_DaoDanGongDian[] =
+        {5, 3,
+         5, 5};
+static IOType IO_JieChuBaoXianJianCe[] =
+        {0, 27,
+         1, 28};
+static IOType IO_ZhuDianChiJiHuo[] =
+        {5, 4,
+         1, 27};
+static IOType IO_DuoDianChiJiHuo[] =
+        {0, 4,
+         1, 4};
+static IOType IO_DianHuoDianChiJiHuo[] =
+        {0, 0,
+         1, 0};
+static IOType IO_TanSheZhuangZhiDianHuo[] =
+        {0, 1,
+         1, 1};
+static IOType IO_ZongCeKaiGuan[] =
+        {0, 10,
+         1, 10};
+
+
+#define DEFINE_FUNC(FUNCNAME)   \
+static bool FUNCNAME(int num) { \
+    return ioRead(IO_##FUNCNAME[num*2], IO_##FUNCNAME[num*2]); \
 }
-static bool JieChuBaoXianJiance(int num)
+
+DEFINE_FUNC(DaoDanGongDian)
+DEFINE_FUNC(JieChuBaoXianJianCe)
+DEFINE_FUNC(ZhuDianChiJiHuo)
+DEFINE_FUNC(DuoDianChiJiHuo)
+DEFINE_FUNC(DianHuoDianChiJiHuo)
+DEFINE_FUNC(TanSheZhuangZhiDianHuo)
+DEFINE_FUNC(ZongCeKaiGuan)
+
+static void H1LED(int num, bool on)
 {
-    return true;
+    // H9
 }
-static bool ZhuDianChiJiHuo(int num)
+static void H2LED(int num, bool on)
 {
-    return true;
+    // H10
 }
-static bool DuoDianChiJiHuo(int num)
+static void H3LED(int num, bool on)
 {
-    return true;
+    // H11
 }
-static bool DianHuoDianChiJiHuo(int num)
+static void H4LED(int num, bool on)
 {
-    return true;
+    // H12
 }
-static bool TanSheZhuangZhiDianHuo(int num)
+static void H5LED(int num, bool on)
 {
-    return true;
+    // H13
 }
-static bool ZongCeKaiGuan(int num)
+static void H6LED(int num, bool on)
 {
-    return true;
-}
-static void H1LED(bool on)
-{
-}
-static void H2LED(bool on)
-{
-}
-static void H3LED(bool on)
-{
-}
-static void H4LED(bool on)
-{
-}
-static void H5LED(bool on)
-{
-}
-static void H6LED(bool on)
-{
+    // H14
 }
 static void LiJiaKongZhi(bool on)
 {
@@ -95,14 +111,14 @@ static void ioCheck(int num) {
     auto& s = state[num];
 
     if (s.yigongdian) {
-        if (MissilePower(num)) {
-            H1LED(ON);
+        if (DaoDanGongDian(num)) {
+            H1LED(num, ON);
             s.yigongdian = false;
         }
     } else {
-        if (MissilePower(num)) {
+        if (DaoDanGongDian(num)) {
             drv_delay_ms(10);
-            H2LED(ON);
+            H2LED(num, ON);
             s.yigongdian = true;
             if (ResetSwOk()) {
                 // todo
@@ -112,23 +128,23 @@ static void ioCheck(int num) {
         }
     }
 
-    if (JieChuBaoXianJiance(num)) {
-        H2LED(ON);
+    if (JieChuBaoXianJianCe(num)) {
+        H2LED(num, ON);
         s.jiebao = true;
     }
 
     if (ZhuDianChiJiHuo(num)) {
-        H3LED(ON);
+        H3LED(num, ON);
         s.zhudianchijihuo = true;
     }
 
     if (DuoDianChiJiHuo(num)) {
-        H4LED(ON);
+        H4LED(num, ON);
         s.duodianchijihuo = true;
     }
 
     if (DianHuoDianChiJiHuo(num)) {
-        H5LED(ON);
+        H5LED(num, ON);
         s.dianhuodianchijihuo = true;
     }
 
@@ -136,7 +152,7 @@ static void ioCheck(int num) {
         if (ZongCeKaiGuan(num)) {
             drv_delay_ms(20);
             LiJiaKongZhi(true);
-            H6LED(ON);
+            H6LED(num, ON);
         }
     }
 }
