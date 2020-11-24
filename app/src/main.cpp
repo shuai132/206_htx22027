@@ -7,15 +7,17 @@
 #include "frame_process.h"
 
 extern "C" {
+#include "drvIo.h"
 #include "drvGnet.h"
 #include "drvCommon.h"
+#include "drvErro.h"
 #include "interrupt.h"
 }
 
 static std::shared_ptr<Hardware> hardWares[2] = {};
 static std::shared_ptr<FrameParser> frameParsers[2] = {};
 
-int configMac(int num, MacAddr local, MacAddr remote) {
+void configMac(int num, MacAddr local, MacAddr remote) {
     assert(0 <= num and num <= 1);
     auto hardware = std::make_shared<Hardware>(local, remote);
     auto frameParser = std::make_shared<FrameParser>(hardware);
@@ -36,7 +38,10 @@ int configMac(int num, MacAddr local, MacAddr remote) {
         // 参数开关检测
         hardware->paramNormal = []{
             // 通过GPIO检测
-            return true;
+            UINT32 data;
+            auto ret = drvIoRead(DRV_IO_INOUT_GROUP_0, DRV_IO_PIN_8, &data, 0);
+            assert(ret == DRV_OPERATE_SUCCESS);
+            return data == 0;
         };
         // 实现一个互斥锁
         hardware->dataLock = [=]{
@@ -52,20 +57,12 @@ int configMac(int num, MacAddr local, MacAddr remote) {
         // 主循环/任务里循环调用下面的函数
         // frameParser->parseOnce();
     }
-
-    {
-        /// 模拟使用场景
-        // 1. 硬件收到MAC帧
-        auto frame = getMockFrame();
-        // 2. 通知保存数据帧
-        hardware->onRecvFrame(frame.data(), frame.size());
-        // 3. 主循环/任务里循环调用
-        frameParser->parseOnce();
-    }
 }
 
 int main() {
     drvCommon_Init();
+    drvIoInit(0);
+    drvIoOpen();
 
     MacAddr MAC_LOCAL_0  = {0x06, 0x05, 0x04, 0x03, 0x02, 0xDA};
     MacAddr MAC_REMOTE_0 = {0x06, 0x05, 0x04, 0x03, 0x02, 0xCA};
