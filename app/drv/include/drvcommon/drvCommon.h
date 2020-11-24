@@ -2,7 +2,7 @@
 #define _DRVCOMMON_H_
 
 #ifdef D_OS_ALONE
-volatile signed int isrTab[16];
+extern volatile signed int isrTab[16];
 extern void isr_TabInit();
 #endif
 

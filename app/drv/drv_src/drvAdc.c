@@ -17,7 +17,7 @@
 #endif
 
 volatile UINT32 g_baudrate = DRV_AD_BRAD_20K;
-
+volatile signed int isrTab[16];
 enum DRV_AD_FIFO_STA_EN{
 	DRV_AD_BIGDATA_STA = 0x80000000,	/*大数据采样完成标志*/
 	DRV_AD_AVERAGE_STA = 0x40000000		/*求平均采样完成标志*/
