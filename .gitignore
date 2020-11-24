@@ -1,0 +1,19 @@
+/build/
+
+# clion
+/.idea/
+/cmake-build-*/
+
+# qt creator
+/CMakeLists.txt.user
+
+# vscode
+/.vscode/
+
+# eclipse
+/SDK.log
+/.metadata
+/RemoteSystemsTempFiles
+/webtalk
+/app/Debug
+/app/Release
