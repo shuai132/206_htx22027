@@ -17,7 +17,7 @@ extern "C" {
 static std::shared_ptr<Hardware> hardWares[2] = {};
 static std::shared_ptr<FrameParser> frameParsers[2] = {};
 
-void configMac(int num, const MacAddr& local, const MacAddr& remote) {
+static void configMac(int num, const MacAddr& local, const MacAddr& remote) {
     assert(0 <= num and num <= 1);
     auto hardware = std::make_shared<Hardware>(local, remote);
     auto frameParser = std::make_shared<FrameParser>(hardware);
@@ -68,6 +68,10 @@ void configMac(int num, const MacAddr& local, const MacAddr& remote) {
 }
 
 int main() {
+    std::set_new_handler([] {
+        FATAL("out of memory");
+    });
+
     drvCommon_Init();
     drvIoInit(0);
     drvIoOpen();
