@@ -82,7 +82,7 @@ INT32 drvIoInit(UINT32 reserve)
 		return DRV_ERRNO_IO_INIT_FAILED;
 	if(drvIoModeSet(DRV_IO_INOUT_GROUP_1, (UINT32)DRV_IO_PIN_ALL) < 0)
 		return DRV_ERRNO_IO_INIT_FAILED;
-	if(drvIoModeSet(DRV_IO_INOUT_GROUP_2, (UINT32)DRV_IO_PIN_ALL) < 0)
+	if(drvIoModeSet(DRV_IO_INOUT_GROUP_5, (UINT32)DRV_IO_PIN_ALL) < 0)
 		return DRV_ERRNO_IO_INIT_FAILED;
 	
 	for(i=0;i<E_PL_IO_GROUP_NUM;i++){
@@ -90,7 +90,7 @@ INT32 drvIoInit(UINT32 reserve)
 	}
 	IoConfig.ioMode[DRV_IO_INOUT_GROUP_0] = (UINT32)DRV_IO_PIN_ALL;
 	IoConfig.ioMode[DRV_IO_INOUT_GROUP_1] = (UINT32)DRV_IO_PIN_ALL;
-	IoConfig.ioMode[DRV_IO_INOUT_GROUP_2] = (UINT32)DRV_IO_PIN_ALL;
+	IoConfig.ioMode[DRV_IO_INOUT_GROUP_5] = (UINT32)DRV_IO_PIN_ALL;
 	
     drv_delay_ms(5);
 	pl_reg_write(PL_IO_TRIGGER_MODE0_ADDR, ISR_MODE_NONE);
@@ -179,18 +179,21 @@ INT32 drvIoModeSet(UINT32 chnoNum, UINT32 type)
 INT32 drvIoParamSet(UINT32 chnoNum, DRV_IO_CFG_ST *cfg)
 {
 	UINT32 i, ioctl, isr1, isr2;
-	if(cfg == NULL){
+	if(cfg == NULL)
+	{
 #ifdef D_DEBUG_LOG
 		printf("drvIoParamSet->param cfg is a NULL ptr\n");
 #endif
 		return DRV_ERRNO_IO_PARARM_INVALID;
 	}
 	
-    if(chnoNum >= E_PL_IO_GROUP_NUM){
+    if(chnoNum >= E_PL_IO_GROUP_NUM)
+	{
 		return DRV_ERRNO_IO_PARARM_INVALID;
     }
     
-    if(cfg->pin == 0){
+    if(cfg->pin == 0)
+	{
 		return DRV_ERRNO_IO_PARARM_INVALID;
     }
 	
@@ -200,7 +203,7 @@ INT32 drvIoParamSet(UINT32 chnoNum, DRV_IO_CFG_ST *cfg)
     
     
 	if(cfg->mode){			/*输入*/
-		if(cfg->group > DRV_IO_INOUT_GROUP_2){
+		if(cfg->group > DRV_IO_INOUT_GROUP_5){
 #ifdef D_DEBUG_LOG
 			printf("drvIoParamSet->input group must be at range: 0~2\n");
 #endif
@@ -305,8 +308,6 @@ INT32 drvIoWrite(UINT32 chnoNum, UINT32 pin, UINT32 outData)
     	ioValue |= pin;
     } 
 	// ioValue ^= 0xffffffff;				/*取反：控制输出有效时为低电平*/
-
-	// printf("----->group:%d, pin:%x, value:%x\n", chnoNum, pin, ioValue);
     pl_reg_write(PL_IO_REG_INOUT_OUT0_ADDR + chnoNum * 4, ioValue);
     if(pl_reg_read(PL_IO_REG_INOUT_OUT0_ADDR + chnoNum * 4) == outData)
 	{
@@ -326,7 +327,8 @@ INT32 drvIoRead(UINT32 chnoNum, UINT32 pin, UINT32 *inData, INT32  waitTime)
 {
 	static UINT32 input_bk = 0;
     UINT32 read_value, ioctl = 0;
-    if(chnoNum >= E_PL_IO_GROUP_NUM){
+    if(chnoNum >= E_PL_IO_GROUP_NUM)
+	{
 #ifdef D_DEBUG_LOG
     	printf("drvIoRead->param chnoNum[%d] is out of range\n", chnoNum);
 #endif
@@ -336,16 +338,21 @@ INT32 drvIoRead(UINT32 chnoNum, UINT32 pin, UINT32 *inData, INT32  waitTime)
     if(pin == 0)
     	return DRV_ERRNO_IO_PARARM_INVALID;
     
-    if(chnoNum <= DRV_IO_INOUT_GROUP_2){
-		if(IoConfig.ioMode[chnoNum]){
+    if(chnoNum <= DRV_IO_INOUT_GROUP_5)
+	{
+		if(IoConfig.ioMode[chnoNum])
+		{
 			ioctl = IoConfig.ioMode[chnoNum] & pin;
-			if(ioctl == pin){
+			if(ioctl == pin)
+			{
 				ioctl = pin;
 			}
-			else if(ioctl == 0){
+			else if(ioctl == 0)
+			{
 				ioctl = 0;
 			}
-			else{
+			else
+			{
 				return DRV_ERRNO_IO_PARARM_INVALID;
 			}	
 		}
@@ -355,18 +362,23 @@ INT32 drvIoRead(UINT32 chnoNum, UINT32 pin, UINT32 *inData, INT32  waitTime)
     else
     	ioctl = 0;
     
-    if(ioctl){   	/*读输入IO状态*/
+    if(ioctl)		/*读输入IO状态*/
+	{   	
 		read_value = pl_reg_read(PL_IO_REG_IN0_ADDR + chnoNum * 4);
 		input_bk = read_value & pin;
 		
-		if(waitTime == -1){
-			do{
+		if(waitTime == -1)
+		{
+			do
+			{
 				drv_delay_ms(1);
 				read_value = pl_reg_read(PL_IO_REG_IN0_ADDR + chnoNum * 4) & pin;
 			}while(input_bk == read_value);
 		}
-		else if(waitTime){
-			do{
+		else if(waitTime)
+		{
+			do
+			{
 				drv_delay_ms(1);
 				read_value = pl_reg_read(PL_IO_REG_IN0_ADDR + chnoNum * 4);
 				if(input_bk != read_value)
@@ -374,7 +386,8 @@ INT32 drvIoRead(UINT32 chnoNum, UINT32 pin, UINT32 *inData, INT32  waitTime)
 			}while(waitTime--);
 		}
     }
-    else{			/*读输出IO状态*/
+    else		/*读输出IO状态*/
+	{			
 		read_value = pl_reg_read(PL_IO_REG_INOUT_OUT0_ADDR + chnoNum * 4);
 		read_value ^= 0xffffffff;
     }

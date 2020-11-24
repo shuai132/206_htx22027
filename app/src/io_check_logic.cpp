@@ -53,6 +53,9 @@ static IOType IO_TanSheZhuangZhiDianHuo[] =
 static IOType IO_ZongCeKaiGuan[] =
         {DRV_IO_INOUT_GROUP_0, DRV_IO_PIN_10,
          DRV_IO_INOUT_GROUP_1, DRV_IO_PIN_10};
+static IOType IO_FuWeiKaiGuan[] =
+        {DRV_IO_INOUT_GROUP_0, DRV_IO_PIN_9,
+         DRV_IO_INOUT_GROUP_1, DRV_IO_PIN_9};
 
 
 #define DEFINE_FUNC(FUNCNAME)   \
@@ -67,6 +70,7 @@ DEFINE_FUNC(DuoDianChiJiHuo)
 DEFINE_FUNC(DianHuoDianChiJiHuo)
 DEFINE_FUNC(TanSheZhuangZhiDianHuo)
 DEFINE_FUNC(ZongCeKaiGuan)
+DEFINE_FUNC(FuWeiKaiGuan)
 
 static void H1LED(int num, bool on)
 {
@@ -95,10 +99,6 @@ static void H6LED(int num, bool on)
 static void LiJiaKongZhi(bool on)
 {
 }
-static bool ResetSwOk()
-{
-    return true;
-}
 
 enum {
     ON  = true,
@@ -111,7 +111,7 @@ static void ioCheck(int num) {
 
     if (s.yigongdian) {
         if (DaoDanGongDian(num)) {
-            H1LED(num, ON);
+            H1LED(num, OFF);
             s.yigongdian = false;
         }
     } else {
@@ -119,7 +119,7 @@ static void ioCheck(int num) {
             drv_delay_ms(10);
             H2LED(num, ON);
             s.yigongdian = true;
-            if (ResetSwOk()) {
+            if (FuWeiKaiGuan(num)) {
                 // todo
                 auto data = "XXXXXX Reset OK";
                 SendFrame(num, 0x00, Frame(data, data + strlen(data)));
