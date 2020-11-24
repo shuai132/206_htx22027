@@ -1,10 +1,13 @@
 #include <cassert>
+#include <utility>
 
 #include "typedef.h"
 #include "FrameParser.h"
 #include "Hardware.h"
 #include "frame_process.h"
 #include "utils.h"
+#include "io_check_logic.h"
+#include "config.h"
 
 extern "C" {
 #include "drvIo.h"
@@ -14,11 +17,11 @@ extern "C" {
 #include "interrupt.h"
 }
 
-static std::shared_ptr<Hardware> hardWares[2] = {};
-static std::shared_ptr<FrameParser> frameParsers[2] = {};
+static std::shared_ptr<Hardware> hardWares[HW_NUM] = {};
+static std::shared_ptr<FrameParser> frameParsers[HW_NUM] = {};
 
 static void configMac(int num, const MacAddr& local, const MacAddr& remote) {
-    assert(0 <= num and num <= 1);
+    assert(0 <= num and num < HW_NUM);
     auto hardware = std::make_shared<Hardware>(local, remote);
     auto frameParser = std::make_shared<FrameParser>(hardware);
     hardWares[num] = hardware;
@@ -76,17 +79,25 @@ int main() {
     drvIoInit(0);
     drvIoOpen();
 
+    ioCheckInit([](int num, uint8_t ST, Frame SP) {
+        assert(0 <= num and num < HW_NUM);
+        frameParsers[num]->sendFrame(ST, std::move(SP));
+    });
+
+    // todo
     MacAddr MAC_LOCAL_0  = {0x06, 0x05, 0x04, 0x03, 0x02, 0xDA};
     MacAddr MAC_REMOTE_0 = {0x06, 0x05, 0x04, 0x03, 0x02, 0xCA};
     MacAddr MAC_LOCAL_1  = {0x06, 0x05, 0x04, 0x03, 0x02, 0xDA};
     MacAddr MAC_REMOTE_1 = {0x06, 0x05, 0x04, 0x03, 0x02, 0xCA};
+
     drvGnetInit();
     configMac(0, MAC_LOCAL_0, MAC_REMOTE_0);
     configMac(1, MAC_LOCAL_1, MAC_REMOTE_1);
     drvGnetIntrConnect([](UINT32 num, UINT32, ST_DATA_BUFF* stDataBuff, UINT32 size){
-        assert(0 <= num and num <= 1);
+        assert(0 <= num and num < HW_NUM);
         hardWares[num]->onRecvFrame(stDataBuff->ubuf, size);
     });
+
 
     for(;;) {
         for(auto& parser : frameParsers) {
