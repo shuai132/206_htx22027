@@ -26,34 +26,33 @@ static SendFrameImpl SendFrame;
 
 static bool ioRead(int group, int pin) {
     UINT32 data;
-    // todo
-    auto ret = drvIoRead(DRV_IO_INOUT_GROUP_0, DRV_IO_PIN_8, &data, 0);
+    auto ret = drvIoRead(group, pin, &data, 0);
     assert(ret == DRV_OPERATE_SUCCESS);
     return data == 0;
 }
 
 using IOType = int;
 static IOType IO_DaoDanGongDian[] =
-        {5, 3,
-         5, 5};
+        {DRV_IO_INOUT_GROUP_5, DRV_IO_PIN_3,
+         DRV_IO_INOUT_GROUP_5, DRV_IO_PIN_5};
 static IOType IO_JieChuBaoXianJianCe[] =
-        {0, 27,
-         1, 28};
+        {DRV_IO_INOUT_GROUP_0, DRV_IO_PIN_27,
+         DRV_IO_INOUT_GROUP_1, DRV_IO_PIN_28};
 static IOType IO_ZhuDianChiJiHuo[] =
-        {5, 4,
-         1, 27};
+        {DRV_IO_INOUT_GROUP_5, DRV_IO_PIN_4,
+         DRV_IO_INOUT_GROUP_1, DRV_IO_PIN_27};
 static IOType IO_DuoDianChiJiHuo[] =
-        {0, 4,
-         1, 4};
+        {DRV_IO_INOUT_GROUP_0, DRV_IO_PIN_4,
+         DRV_IO_INOUT_GROUP_1, DRV_IO_PIN_4};
 static IOType IO_DianHuoDianChiJiHuo[] =
-        {0, 0,
-         1, 0};
+        {DRV_IO_INOUT_GROUP_0, DRV_IO_PIN_0,
+         DRV_IO_INOUT_GROUP_1, DRV_IO_PIN_0};
 static IOType IO_TanSheZhuangZhiDianHuo[] =
-        {0, 1,
-         1, 1};
+        {DRV_IO_INOUT_GROUP_0, DRV_IO_PIN_1,
+         DRV_IO_INOUT_GROUP_1, DRV_IO_PIN_1};
 static IOType IO_ZongCeKaiGuan[] =
-        {0, 10,
-         1, 10};
+        {DRV_IO_INOUT_GROUP_0, DRV_IO_PIN_10,
+         DRV_IO_INOUT_GROUP_1, DRV_IO_PIN_10};
 
 
 #define DEFINE_FUNC(FUNCNAME)   \
