@@ -12,8 +12,9 @@ FrameParser::FrameParser(std::shared_ptr<Hardware> hardware)
         : _hardware(std::move(hardware)) {
     _frameQueue = std::make_unique<FrameQueue>();
     _hardware->onRecvFrame = [this](uint8_t* data, size_t size){
+        auto frame = Frame(data, data + size);
         Hardware::DataLockGuard lockGuard(_hardware);
-        _frameQueue->push(Frame(data, data + size));
+        _frameQueue->push(std::move(frame));
     };
 }
 
@@ -134,12 +135,18 @@ void FrameParser::parseFrame(const Frame& frame) {
 }
 
 bool FrameParser::parseOnce() {
-    Hardware::DataLockGuard lockGuard(_hardware);
-    if (not _frameQueue->empty()) {
-        parseFrame(_frameQueue->front());
-        _frameQueue->pop();
-        return true;
-    } else {
-        return false;
+    bool empty;
+    Frame frame;
+    {
+        Hardware::DataLockGuard lockGuard(_hardware);
+        empty = _frameQueue->empty();
+        if (not empty) {
+            frame = std::move(_frameQueue->front());
+            _frameQueue->pop();
+        }
     }
+    if (not empty) {
+        parseFrame(frame);
+    }
+    return !empty;
 }
