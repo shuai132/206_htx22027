@@ -30,6 +30,7 @@ void initProcess(const std::shared_ptr<FrameParser>& frameParser,
         Frame sp;
         sp.resize(85, 0x00);
         printHex(sp);
+        hardware->delayMs(300);
         frameParser->sendFrame(frame.dataFrame.cmd, sp);
     });
     frameParser->subscribeCmd(0x4C, [=](MacFrame frame) {

@@ -173,9 +173,6 @@ static void ioCheck(int num) {
     }
 }
 
-/**
- * 使用定时器 循环检测IO
- */
 void ioCheckInit(SendFrameImpl sendFrame, bool hwInit) {
     SendFrame = std::move(sendFrame);
     if (hwInit) {
@@ -184,6 +181,7 @@ void ioCheckInit(SendFrameImpl sendFrame, bool hwInit) {
         drvIoOpen();
     }
 
+    /*
     drvClkInit(nullptr);
 
     const UINT32 ticksCount = IoPeriodCheckMs * 1000 / 10;
@@ -204,9 +202,15 @@ void ioCheckInit(SendFrameImpl sendFrame, bool hwInit) {
 
     drvClkOpen(E_PL_ISR_TIMER0);
     drvClkOpen(E_PL_ISR_TIMER1);
+    */
 }
 
 void ioCheckClose() {
     drvClkClose(E_PL_ISR_TIMER0);
     drvClkClose(E_PL_ISR_TIMER1);
+}
+
+void ioCheck() {
+    ioCheck(0);
+    ioCheck(1);
 }

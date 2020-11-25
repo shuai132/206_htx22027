@@ -124,6 +124,7 @@ int main() {
     };
 
     for(;;) {
+        ioCheck();
         for(auto& parser : frameParsers) {
             parser->parseOnce();
         }
