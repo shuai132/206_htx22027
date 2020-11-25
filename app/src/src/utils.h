@@ -26,3 +26,5 @@ void printHex(std::vector<uint8_t> data);
 bool hex2string(const uint8_t* in, size_t inlen, char *out, size_t *outlen);
 
 }
+
+#define FOR(i, n)   for(std::remove_reference<std::remove_const<typeof(n)>::type>::type i = 0; i < n; i++)

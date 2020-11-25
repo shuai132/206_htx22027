@@ -39,8 +39,12 @@ void initProcess(const std::shared_ptr<FrameParser>& frameParser,
         Frame sp = std::move(frame.dataFrame.xp);
         sp.resize(144); // 补零
         if (not hardware->paramNormal()) {
-            // 把收到的第一个字节取反
-            sp[0] = ~sp[0];
+            // 把收到的EngInvl(前4个字节)取反
+            FOR(i, 4) {
+                sp[i] = ~sp[i];
+            }
+//            auto *data = (uint32_t*)sp.data();
+//            *data = ~*data;
         }
         printHex(sp);
         frameParser->sendFrame(frame.dataFrame.cmd, sp);

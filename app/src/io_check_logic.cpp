@@ -134,9 +134,9 @@ static void ioCheck(int num) {
         }
     } else {
         if (DaoDanGongDian(num)) {
-            drv_delay_ms(10);
-            H2LED(num, ON);
+            H1LED(num, ON);
             s.yigongdian = true;
+            drv_delay_ms(1000);
             if (FuWeiKaiGuan(num)) {
                 // todo
                 auto data = "XXXXXX Reset OK";
