@@ -174,6 +174,8 @@ void ioCheckInit(SendFrameImpl sendFrame, bool hwInit) {
 
     drvClkPeriodSet(E_PL_ISR_TIMER0, ticksCount);
     drvClkPeriodSet(E_PL_ISR_TIMER1, ticksCount);
+    drvClkModeSet(E_PL_ISR_TIMER0, 2);
+    drvClkModeSet(E_PL_ISR_TIMER1, 2);
 
     auto ioCheck0 = [](void*){
         ioCheck(0);
@@ -183,4 +185,12 @@ void ioCheckInit(SendFrameImpl sendFrame, bool hwInit) {
     };
     drvClkIntConnect(E_PL_ISR_TIMER0, ioCheck0, nullptr);
     drvClkIntConnect(E_PL_ISR_TIMER1, ioCheck1, nullptr);
+
+    drvClkOpen(E_PL_ISR_TIMER0);
+    drvClkOpen(E_PL_ISR_TIMER1);
+}
+
+void ioCheckClose() {
+    drvClkClose(E_PL_ISR_TIMER0);
+    drvClkClose(E_PL_ISR_TIMER1);
 }

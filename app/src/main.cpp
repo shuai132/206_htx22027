@@ -12,6 +12,7 @@
 extern "C" {
 #include "drvIo.h"
 #include "drvGnet.h"
+#include "drvTimer.h"
 #include "drvCommon.h"
 #include "drvErro.h"
 #include "interrupt.h"
@@ -70,10 +71,29 @@ static void configMac(int num, const MacAddr& local, const MacAddr& remote) {
     }
 }
 
+bool deviceCheck() {
+    if (drvGnetCheck(0, 0) != 0) {
+        return false;
+    }
+    if (drvIoCheck(0) != 0) {
+        return false;
+    }
+    if (drvClkCheck() != 0) {
+        return false;
+    }
+
+    return true;
+}
+
 int main() {
     std::set_new_handler([] {
         FATAL("out of memory");
     });
+
+    // 设备自检
+    if (!deviceCheck()) {
+        cb::error("自检失败");
+    }
 
     drvCommon_Init();
     drvIoInit(0);
@@ -91,13 +111,15 @@ int main() {
     MacAddr MAC_REMOTE_1 = {0x06, 0x05, 0x04, 0x03, 0x02, 0xCA};
 
     drvGnetInit();
+    drvGnetIntrConnect([](UINT32 num, UINT32 state, ST_DATA_BUFF* stDataBuff, UINT32 size){
+        assert(0 <= num and num < HW_NUM);
+        if (state == 1) {
+            cb::warn("接收FIFO溢出");
+        }
+        hardWares[num]->onRecvFrame(stDataBuff->ubuf, size + 6*2);
+    });
     configMac(0, MAC_LOCAL_0, MAC_REMOTE_0);
     configMac(1, MAC_LOCAL_1, MAC_REMOTE_1);
-    drvGnetIntrConnect([](UINT32 num, UINT32, ST_DATA_BUFF* stDataBuff, UINT32 size){
-        assert(0 <= num and num < HW_NUM);
-        hardWares[num]->onRecvFrame(stDataBuff->ubuf, size);
-    });
-
 
     for(;;) {
         for(auto& parser : frameParsers) {

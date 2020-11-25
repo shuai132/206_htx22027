@@ -12,3 +12,4 @@
 using SendFrameImpl = std::function<void(int num, uint8_t ST, Frame SP)>;
 
 void ioCheckInit(SendFrameImpl SendFrame, bool hwInit = false);
+void ioCheckClose();
