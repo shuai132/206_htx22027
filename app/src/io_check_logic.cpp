@@ -57,53 +57,71 @@ static IOType IO_FuWeiKaiGuan[] =
         {DRV_IO_INOUT_GROUP_0, DRV_IO_PIN_9,
          DRV_IO_INOUT_GROUP_1, DRV_IO_PIN_9};
 
-
-#define DEFINE_FUNC(FUNCNAME)   \
-static bool FUNCNAME(int num) { \
-    return ioRead(IO_##FUNCNAME[num*2], IO_##FUNCNAME[num*2]); \
+#define DEFINE_IOR_FUNC(NAME)   \
+static bool NAME(int num) { \
+    return ioRead(IO_##NAME[num*2], IO_##NAME[num*2 + 1]); \
 }
 
-DEFINE_FUNC(DaoDanGongDian)
-DEFINE_FUNC(JieChuBaoXianJianCe)
-DEFINE_FUNC(ZhuDianChiJiHuo)
-DEFINE_FUNC(DuoDianChiJiHuo)
-DEFINE_FUNC(DianHuoDianChiJiHuo)
-DEFINE_FUNC(TanSheZhuangZhiDianHuo)
-DEFINE_FUNC(ZongCeKaiGuan)
-DEFINE_FUNC(FuWeiKaiGuan)
+DEFINE_IOR_FUNC(DaoDanGongDian)
+DEFINE_IOR_FUNC(JieChuBaoXianJianCe)
+DEFINE_IOR_FUNC(ZhuDianChiJiHuo)
+DEFINE_IOR_FUNC(DuoDianChiJiHuo)
+DEFINE_IOR_FUNC(DianHuoDianChiJiHuo)
+DEFINE_IOR_FUNC(TanSheZhuangZhiDianHuo)
+DEFINE_IOR_FUNC(ZongCeKaiGuan)
+DEFINE_IOR_FUNC(FuWeiKaiGuan)
 
-static void H1LED(int num, bool on)
-{
-    // H9
-}
-static void H2LED(int num, bool on)
-{
-    // H10
-}
-static void H3LED(int num, bool on)
-{
-    // H11
-}
-static void H4LED(int num, bool on)
-{
-    // H12
-}
-static void H5LED(int num, bool on)
-{
-    // H13
-}
-static void H6LED(int num, bool on)
-{
-    // H14
-}
-static void LiJiaKongZhi(bool on)
-{
-}
+static IOType IO_H1LED[] =
+        {DRV_IO_OUT_GROUP_2, DRV_IO_PIN_7,
+         DRV_IO_OUT_GROUP_3, DRV_IO_PIN_7};
+static IOType IO_H2LED[] =
+        {DRV_IO_OUT_GROUP_2, DRV_IO_PIN_15,
+         DRV_IO_OUT_GROUP_3, DRV_IO_PIN_15};
+static IOType IO_H3LED[] =
+        {DRV_IO_OUT_GROUP_2, DRV_IO_PIN_13,
+         DRV_IO_OUT_GROUP_3, DRV_IO_PIN_13};
+static IOType IO_H4LED[] =
+        {DRV_IO_OUT_GROUP_2, DRV_IO_PIN_14,
+         DRV_IO_OUT_GROUP_3, DRV_IO_PIN_14};
+static IOType IO_H5LED[] =
+        {DRV_IO_OUT_GROUP_2, DRV_IO_PIN_8,
+         DRV_IO_OUT_GROUP_3, DRV_IO_PIN_8};
+static IOType IO_H6LED[] =
+        {DRV_IO_OUT_GROUP_2, DRV_IO_PIN_9,
+         DRV_IO_OUT_GROUP_3, DRV_IO_PIN_9};
+static IOType IO_H7LED[] =
+        {DRV_IO_OUT_GROUP_2, DRV_IO_PIN_10,
+         DRV_IO_OUT_GROUP_3, DRV_IO_PIN_10};
+static IOType IO_H8LED[] =
+        {DRV_IO_OUT_GROUP_2, DRV_IO_PIN_12,
+         DRV_IO_OUT_GROUP_3, DRV_IO_PIN_12};
+static IOType IO_LiJiaKongZhi[] =
+        {DRV_IO_OUT_GROUP_2, DRV_IO_PIN_11,
+         DRV_IO_OUT_GROUP_3, DRV_IO_PIN_11};
 
 enum {
     ON  = true,
     OFF = false,
 };
+
+// LED亮灭对应的IO值
+#define LED_ON_VALUE  0
+#define LED_OFF_VALUE 1
+
+#define DEFINE_IOW_FUNC(NAME)        \
+static void NAME(int num, bool on) { \
+    drvIoWrite(IO_##NAME[num*2], IO_##NAME[num*2 + 1], on == ON ? LED_ON_VALUE : LED_OFF_VALUE); \
+}
+
+DEFINE_IOW_FUNC(H1LED)
+DEFINE_IOW_FUNC(H2LED)
+DEFINE_IOW_FUNC(H3LED)
+DEFINE_IOW_FUNC(H4LED)
+DEFINE_IOW_FUNC(H5LED)
+DEFINE_IOW_FUNC(H6LED)
+DEFINE_IOW_FUNC(H7LED)
+DEFINE_IOW_FUNC(H8LED)
+DEFINE_IOW_FUNC(LiJiaKongZhi)
 
 static void ioCheck(int num) {
     assert(0 <= num and num < HW_NUM);
@@ -150,7 +168,7 @@ static void ioCheck(int num) {
     if (TanSheZhuangZhiDianHuo(num)) {
         if (ZongCeKaiGuan(num)) {
             drv_delay_ms(20);
-            LiJiaKongZhi(true);
+            LiJiaKongZhi(num, true);
             H6LED(num, ON);
         }
     }
