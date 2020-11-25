@@ -108,12 +108,6 @@ int main() {
         ioCheckClose();
     };
 
-    // todo
-    MacAddr MAC_LOCAL_0  = {0x06, 0x05, 0x04, 0x03, 0x02, 0xDA};
-    MacAddr MAC_REMOTE_0 = {0x06, 0x05, 0x04, 0x03, 0x02, 0xCA};
-    MacAddr MAC_LOCAL_1  = {0x06, 0x05, 0x04, 0x03, 0x02, 0xDA};
-    MacAddr MAC_REMOTE_1 = {0x06, 0x05, 0x04, 0x03, 0x02, 0xCA};
-
     drvGnetInit();
     drvGnetIntrConnect([](UINT32 num, UINT32 state, ST_DATA_BUFF* stDataBuff, UINT32 size){
         assert(0 <= num and num < HW_NUM);

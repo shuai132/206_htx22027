@@ -138,8 +138,7 @@ static void ioCheck(int num) {
             s.yigongdian = true;
             drv_delay_ms(1000);
             if (FuWeiKaiGuan(num)) {
-                // todo
-                auto data = "XXXXXX Reset OK";
+                auto& data = RESET_OK_MSG;
                 SendFrame(num, 0x00, Frame(data, data + strlen(data)));
             }
         }
@@ -187,8 +186,7 @@ void ioCheckInit(SendFrameImpl sendFrame, bool hwInit) {
 
     drvClkInit(nullptr);
 
-    const UINT32 periodMs = 100;
-    const UINT32 ticksCount = periodMs * 1000 / 10;
+    const UINT32 ticksCount = IoPeriodCheckMs * 1000 / 10;
 
     drvClkPeriodSet(E_PL_ISR_TIMER0, ticksCount);
     drvClkPeriodSet(E_PL_ISR_TIMER1, ticksCount);
