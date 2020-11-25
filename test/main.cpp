@@ -3,8 +3,25 @@
 #include "FrameParser.h"
 #include "Hardware.h"
 #include "frame_process.h"
+#include "defer.h"
 
+void test_defer() {
+    LOG("defer test...");
+    defer []{
+        LOG("defer:1");
+    };
+    {
+        defer []{
+            LOG("defer:2");
+        };
+    }
+    defer []{
+        LOG("defer:3");
+    };
+}
 int main() {
+    test_defer();
+
     const MacAddr MAC_LOCAL  = {0x06, 0x05, 0x04, 0x03, 0x02, 0xDA};
     const MacAddr MAC_REMOTE = {0x06, 0x05, 0x04, 0x03, 0x02, 0xCA};
     auto hardware = std::make_shared<Hardware>(MAC_LOCAL, MAC_REMOTE);

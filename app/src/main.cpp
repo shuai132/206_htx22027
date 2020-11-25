@@ -7,6 +7,7 @@
 #include "frame_process.h"
 #include "utils.h"
 #include "io_check_logic.h"
+#include "defer.h"
 #include "config.h"
 
 extern "C" {
@@ -103,6 +104,9 @@ int main() {
         assert(0 <= num and num < HW_NUM);
         frameParsers[num]->sendFrame(ST, std::move(SP));
     });
+    defer []{
+        ioCheckClose();
+    };
 
     // todo
     MacAddr MAC_LOCAL_0  = {0x06, 0x05, 0x04, 0x03, 0x02, 0xDA};
@@ -120,6 +124,10 @@ int main() {
     });
     configMac(0, MAC_LOCAL_0, MAC_REMOTE_0);
     configMac(1, MAC_LOCAL_1, MAC_REMOTE_1);
+    defer []{
+        drvGnetClose(0);
+        drvGnetClose(1);
+    };
 
     for(;;) {
         for(auto& parser : frameParsers) {
