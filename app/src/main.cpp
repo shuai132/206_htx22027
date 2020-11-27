@@ -86,19 +86,32 @@ bool deviceCheck() {
     return true;
 }
 
+void initAll() {
+    isr_TabInit();
+    drvIntrCtrlInit();
+    //platform_enable_interrupts();
+
+    drvCommon_Init();
+    drvIoInit(0);
+    drvIoOpen();
+
+    drvGnetInit();
+}
+
 int main() {
     std::set_new_handler([] {
         FATAL("out of memory");
     });
 
+    LOG("init...");
+    initAll();
+
     // 设备自检
     if (!deviceCheck()) {
         cb::error("自检失败");
+    } else {
+    	LOGD("自检成功");
     }
-
-    drvCommon_Init();
-    drvIoInit(0);
-    drvIoOpen();
 
     ioCheckInit([](int num, uint8_t ST, Frame SP) {
         assert(0 <= num and num < HW_NUM);
@@ -108,7 +121,6 @@ int main() {
         ioCheckClose();
     };
 
-    drvGnetInit();
     drvGnetIntrConnect([](UINT32 num, UINT32 state, ST_DATA_BUFF* stDataBuff, UINT32 size){
         assert(0 <= num and num < HW_NUM);
         if (state == 1) {
@@ -123,6 +135,7 @@ int main() {
         drvGnetClose(1);
     };
 
+    LOGD("loop...");
     for(;;) {
         ioCheck();
         for(auto& parser : frameParsers) {
