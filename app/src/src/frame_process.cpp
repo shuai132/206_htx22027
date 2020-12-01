@@ -22,14 +22,6 @@ void initProcess(const std::shared_ptr<FrameParser>& frameParser,
         Frame sp;
         sp.resize(85, 0x00);
         printHex(sp);
-        frameParser->sendFrame(frame.dataFrame.cmd, sp);
-    });
-    frameParser->subscribeCmd(0x15, [=](const MacFrame& frame) {
-        LOGD("C2: 自检结果下传");
-        assert(frame.dataFrame.len - DataFrame::HEAD_LEN == 0);
-        Frame sp;
-        sp.resize(85, 0x00);
-        printHex(sp);
         hardware->delayMs(300);
         frameParser->sendFrame(frame.dataFrame.cmd, sp);
     });
